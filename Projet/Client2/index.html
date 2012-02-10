@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+<title>Navigation dans une collection d'images similairess</title>
+<link rel="stylesheet" type="text/css" href="assets/main.css" />
+<script type="text/javascript" src="lib/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript">
+	function draw() {
+		var canvas = document.getElementById("canvas");
+		var ctx = canvas.getContext("2d");
+		ctx.fillStyle = "rgb(200,0,0)";
+		ctx.fillRect(10, 10, 55, 50);
+		ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+		ctx.fillRect(30, 30, 55, 50);
+	}
+</script>
+
+
+</head>
+<body onload="javascript:draw()">
+
+	<header id="header"></header>
+
+	<section id="main">
+
+		<canvas id="canvas" width="300" height="200"></canvas>
+		
+		<section id="searchBox">
+			<form action="#" id="form">
+	
+				<input type="text" id="searchInput" />
+				<input type="image" id="searchButton" src="assets/btnSearch.jpg" />
+			
+			</form>
+		</section>
+		<section id="slideBox">
+		
+		</section>
+		<section id="wait"></section>
+
+	</section>
+	
+	<footer id="footer"></footer>
+	
+</body>
+</html>
