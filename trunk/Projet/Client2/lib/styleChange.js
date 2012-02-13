@@ -4,15 +4,11 @@ function ok(){
 		opacity: 0
 	},500, function(){
 		$('#searchDiv').animate({
-			top: "-="+($('#searchDiv').offset().top-20)+""
+			top: '-=280'
 		},500,function() {
-			$('#changeMode').animate({
-				opacity : 100
-			},500,function() {
 				$('#main').animate({
 					opacity : 100
 				},5000,function() {
-				});
 			});
 		});
 	});
