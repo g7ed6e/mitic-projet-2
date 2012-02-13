@@ -3,9 +3,9 @@ function zoomChange(value){
 }
 
 function request(id, nbNeighbours){
-	//http://localhost/projet/Server/index.php?controller=image&action=getSignifV1&id=1&nn=2
-	$.getJSON('ajax/test.json', function(data) {
-		//data = eval(data);
-		//data.positions...
+	$.getJSON('http://localhost/projet/Server/index.php?controller=image&action=getSignifV1&id='+id+'&nn='+nbNeighbours+'', function(data) {
+		//alert('reponse serveur = '+data);
+		//afficheGraph(data);//not yet implemented
 	});
+
 }
