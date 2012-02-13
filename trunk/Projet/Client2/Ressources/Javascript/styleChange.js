@@ -54,5 +54,5 @@ function ok(){
 
 function clickInputSearch(){
 	var currentVal = $('#searchInput').val();
-	if( currentVal == "Veuillez saisir votre recherche" ){ $("#searchInput").val(""); }
+	if( currentVal == "Identifiant de l'image" ){ $("#searchInput").val(""); }
 }
