@@ -1,45 +1,27 @@
-<!DOCTYPE html>
-<head>
-<title>Navigation dans une collection d'images similairess</title>
-<link rel="stylesheet" type="text/css" href="assets/main.css" />
-<script type="text/javascript" src="lib/jquery/jquery-1.7.1.min.js"></script>
-<script type="text/javascript">
-	function draw() {
-		var canvas = document.getElementById("canvas");
-		var ctx = canvas.getContext("2d");
-		ctx.fillStyle = "rgb(200,0,0)";
-		ctx.fillRect(10, 10, 55, 50);
-		ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
-		ctx.fillRect(30, 30, 55, 50);
-	}
-</script>
-
-
-</head>
-<body onload="javascript:draw()">
-
-	<header id="header"></header>
-
-	<section id="main">
-
-		<canvas id="canvas" width="300" height="200"></canvas>
-		
-		<section id="searchBox">
-			<form action="#" id="form">
-	
-				<input type="text" id="searchInput" />
-				<input type="image" id="searchButton" src="assets/btnSearch.jpg" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+	<head>
+		<title>
 			
-			</form>
-		</section>
-		<section id="slideBox">
-		
-		</section>
-		<section id="wait"></section>
-
-	</section>
-	
-	<footer id="footer"></footer>
-	
-</body>
+		</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script type="text/javascript" src="js/styleChange.js"></script>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<body>
+			<div class="index">
+				<h1> Irisa </h1>
+				<h2> TexMex </h2>
+			</div>
+			<div id="searchDiv" style="position:absolute;left:15%;top:40%;">
+				<input type="text" id="searchInput" size="70" value="veuillez saisir votre recherche"/>
+				<div class="OK" onClick=ok()>
+					OK
+				</div>
+			</div>
+			<div id="changeMode">
+				normal / expert
+			</div>
+		</body>
+	</head>
 </html>
