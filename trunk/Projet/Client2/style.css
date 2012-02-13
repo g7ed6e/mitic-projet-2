@@ -1,5 +1,5 @@
 body{
-	font-family : black;
+	font-family : verdana;
 }
 #searchDiv{
 	width : 70%;
@@ -42,11 +42,11 @@ body{
 	background : rgb(155,155,155);
 }
 #main{
-	width : 80%;
-	height : 70%;
+	width : 98%;
+	height : 90%;
+	left :1%;
 	position : absolute;
-	top : 15%;
-	left  : 10%;
+	top : 8%;
 	background : rgb(222,222,222);
 	border : 1px solid black;
 	opacity : 0;
