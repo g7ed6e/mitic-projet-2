@@ -46,8 +46,10 @@ function ok(){
 				},500,function() {});
 			});
 		});
+	
 	}
-	request($('#searchInput').val(),midValue);
+	request($('#searchInput').val(), $("#nbNeighboursInput").val());
+
 }
 
 function clickInputSearch(){
