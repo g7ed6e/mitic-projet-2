@@ -6,9 +6,12 @@
 			
 		</title>
 		<link rel="stylesheet" type="text/css" href="Ressources/Css/style.css" />
+		<link rel="stylesheet" type="text/css" href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css"/>
 		<script type="text/javascript" src="Ressources/Javascript/styleChange.js"></script>
-		<script type="text/javascript" src="lib/jquery.js"></script>
-		<body onload="init()">
+		<script type="text/javascript" src="Ressources/Javascript/motor.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>
+		<body onload=init() onresize=resized()>
 			<div id="main">
 			</div>
 			<div class="index">
@@ -16,10 +19,15 @@
 				<h2> TexMex </h2>
 			</div>
 			<div id="searchDiv"">
-				<input type="text" id="searchInput" size="70" value="veuillez saisir votre recherche"/>
+				<input type="text" id="searchInput" onclick=clickInputSearch() value="Veuillez saisir votre recherche"/>
 				<div class="OK" onClick=ok()>
 					OK
 				</div>
+			</div>
+			<div id="zoomSlider">
+				<div id="topLabelSlider"></div>
+				<div id="slider"></div>
+				<div id="bottomLabelSlider"></div>
 			</div>
 		</body>
 	</head>

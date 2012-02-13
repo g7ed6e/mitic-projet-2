@@ -10,6 +10,7 @@ body{
 	height : 30px;
 	background : rgb(155,155,155);
 	border : 1px solid black;
+	padding-top : 1px;
 }
 #searchInput{
 	margin : 3px;
@@ -49,4 +50,20 @@ body{
 	left  : 0%;
 	background : rgb(222,222,222);
 	opacity : 0;
+}
+#zoomSlider{
+	height : 70%;
+	position : absolute;
+	top : 15%;
+	right : 3%;
+	opacity : 0;
+	padding : 5px;
+	text-align : center;
+	
+}
+#slider{
+	height : 80%;
+	padding: 1px !important;
+	margin-bottom: 5px;
+	margin-top : 5px;
 }
