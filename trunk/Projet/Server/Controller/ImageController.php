@@ -30,9 +30,9 @@ class ImageController implements Controller{
 	 * @param unknown_type $nb_neighboors
 	 * @param unknown_type $sorted
 	 */
-	public function getSignificativesNodesV1($id, $nb_neighboors, $sorted = false){
+	public function getSignificativesNodesV1($id, $nb_neighboors){
 		require_once 'View/JsonView.php';
-		$distances = $this->model->getSignificativesDistancesV1($id,$nb_neighboors, (bool)$sorted);
+		$distances = $this->model->getSignificativesDistancesV1($id,$nb_neighboors);
 		$view = new JsonView($distances);
 		$view->Render();
 	}
