@@ -1,0 +1,43 @@
+body{
+	font-family : black;
+}
+#searchDiv{
+	width : 70%;
+	position : absolute;
+	right : 15%;
+	left : 15%;
+	top : 40%;
+	height : 30px;
+	background : rgb(155,155,155);
+	border : 1px solid black;
+}
+#searchInput{
+	margin : 3px;
+}
+.OK{
+	float : right;
+	border : 1px solid black;
+	padding : 2px;
+	margin : 2px;
+	font-weight : bold;
+	cursor : pointer;
+	background : rgb(222,222,222);
+}
+.index{
+	margin-top : 7%;
+	text-align : center;
+	font-weight : bold;
+	font-family : Impact;
+}
+#changeMode{
+	position : absolute;
+	top : 20px;
+	right : 20px;
+	opacity : 0;
+	border : 1px solid black;
+	padding-right : 5px;
+	padding-left : 5px;
+	padding-bottom : 2px;
+	cursor : pointer;
+	background : rgb(155,155,155);
+}
