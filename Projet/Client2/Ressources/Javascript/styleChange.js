@@ -1,11 +1,14 @@
+var min = 1;
+var max = 20;
+var midValue = Math.round((max-min)/2);
+
 function init(){
 	resized();
-	var min = 1;
-	var max = 20;
+	$("#nbNeighboursInput").val(midValue);
 	$("#slider").slider({
 		max : max,
 		min : min,
-		value : (max-min)/2,
+		value : midValue,
 		step : 1,
 		orientation : 'vertical',
 		slide : function(event, ui){
@@ -44,6 +47,7 @@ function ok(){
 			});
 		});
 	}
+	request($('#searchInput').val(),midValue);
 }
 
 function clickInputSearch(){
