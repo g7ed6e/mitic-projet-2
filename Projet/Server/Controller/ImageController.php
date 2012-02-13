@@ -11,9 +11,15 @@ class ImageController implements Controller{
 	}
 	
 	public function allDistance(){
-		header("Content-type: application/json; charset=utf-8");
 		require_once 'View/JsonView.php';
 		$ditances = $this->model->getAllDistance();
+		$view = new JsonView($ditances);
+		$view->Render();
+	}
+	
+	public function getSignificativesNodes($id,$neighboors){
+		require_once 'View/JsonView.php';
+		$ditances = $this->model->getSignificativesDistances($id,$neighboors,2);
 		$view = new JsonView($ditances);
 		$view->Render();
 	}

@@ -13,6 +13,16 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 			break;	
 	}
 	
-	$controller->$_GET['action']();
+	switch($_GET['action']){
+		case 'allDistance' :
+			$controller->allDistance();
+			break;
+		case 'getSignif' :
+			if(!empty($_GET['id'])&&!empty($_GET['nn']))
+				$controller->getSignificativesNodes($_GET['id'], $_GET['nn']);
+			break;
+		default :
+			break;
+	}
 	 
 }
