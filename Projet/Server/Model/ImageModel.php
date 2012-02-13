@@ -61,20 +61,14 @@ class ImageModel implements Model{
 	}
 
 
-	public function getSignificativesDistancesV1($id,$nn,$sorted){
+	public function getSignificativesDistancesV1($id,$nn){
 
 		$array = $this->getAllDistance();
 		$voisins_n = $this->recupererMin($id, $nn, $array);
 		$res = $voisins_n;
 		// dans $ res on un tableau: id | id | dist
 
-		var_dump($res);
 		
-		if($sorted)
-		{
-			array_multisort($res[2], SORT_ASC, SORT_NUMERIC);
-			var_dump($res);
-		}
 
 
 		// on construit un tableau id | x | y
