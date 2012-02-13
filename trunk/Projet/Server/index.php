@@ -21,6 +21,9 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 			if(!empty($_GET['id'])&&!empty($_GET['nn']))
 				$controller->getSignificativesNodes($_GET['id'], $_GET['nn']);
 			break;
+		case 'getSignifV1':
+			$controller->getSignificativesNodesV1($_GET['id'], $_GET['nn'], !empty($_GET['s']) ? $_GET['s'] : false);
+			break;
 		default :
 			break;
 	}
