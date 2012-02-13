@@ -8,6 +8,7 @@ class JsonView implements View{
 	}
 	
 	public function Render(){
+		header("Content-type: application/json; charset=utf-8");
 		echo json_encode($this->data);
 	}
 	
