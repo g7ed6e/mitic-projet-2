@@ -9,6 +9,7 @@ function init(){
 		step : 1,
 		orientation : 'vertical',
 		slide : function(event, ui){
+			$("#nbNeighboursInput").val(ui.value);
 			zoomChange(ui.value);
 		}
 	});
@@ -28,14 +29,18 @@ function ok(){
 			$('#searchDiv').animate({
 				top: '-=280'
 			},500,function() {
-					$('#zoomSlider').animate({
-						opacity : 100
-					},500,function() {
-						$('#main').animate({
-							opacity : 100
-						},5000,function() {
-					});
-				});
+				
+				$('#main').animate({
+					opacity : 100
+				},5000,function() {});
+				
+				$('#nbNeighbours').animate({
+					opacity : 100
+				},500,function() {});
+				
+				$('#zoomSlider').animate({
+					opacity : 100
+				},500,function() {});
 			});
 		});
 	}
