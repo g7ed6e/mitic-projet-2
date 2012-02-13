@@ -41,3 +41,13 @@ body{
 	cursor : pointer;
 	background : rgb(155,155,155);
 }
+#main{
+	width : 80%;
+	height : 70%;
+	position : absolute;
+	top : 15%;
+	left  : 10%;
+	background : rgb(222,222,222);
+	border : 1px solid black;
+	opacity : 0;
+}
