@@ -1,6 +1,13 @@
 <?php
 class ImageView implements View{
-	public function View(){
-		echo "vue";
+	private $data;
+	
+	public function __construct($data){
+		$this->data = $data;
+	}
+	
+	public function Render(){
+		header("Content-Type: image/jpeg");
+		imagejpeg($this->data);
 	}
 }
