@@ -13,6 +13,57 @@ class ImageModel implements Model{
 		return $res;
 	}
 
+	public function getImage($id,$w,$l){
+
+		$file = ROOT_DATA_REPOSITORY."/img/".$id.".jpg";
+		$file2= ROOT_DATA_REPOSITORY."/img/".$id."new.jpg";
+		$size = getimagesize($file);
+
+		if ( $size) {
+
+			if ($size['mime']=='image/jpeg' ) {
+				$img_big = imagecreatefromjpeg($file); # On ouvre l'image d'origine
+				$img_new = imagecreate($w, $l);
+				# crÃ©ation de la miniature
+				$img_mini = imagecreatetruecolor($w, $l)
+				or   $img_mini = imagecreate($w, $l);
+
+				// copie de l'image, avec le redimensionnement.
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
+				//var_dump($img_mini);
+
+				return $img_mini;
+			}
+			elseif ($size['mime']=='image/png' ) {
+				$img_big = imagecreatefrompng($file); # On ouvre l'image d'origine
+				$img_new = imagecreate($w, $l);
+				# crÃ©ation de la miniature
+				$img_mini = imagecreatetruecolor($w, $l)
+				or   $img_mini = imagecreate($w, $l);
+
+				// copie de l'image, avec le redimensionnement.
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
+
+				imagepng($img_mini,$file );
+
+			}
+			elseif ($size['mime']=='image/gif' ) {
+				$img_big = imagecreatefromgif($file); # On ouvre l'image d'origine
+				$img_new = imagecreate($w, $l);
+				# crÃ©ation de la miniature
+				$img_mini = imagecreatetruecolor($w, $l)
+				or   $img_mini = imagecreate($w, $l);
+
+				// copie de l'image, avec le redimensionnement.
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
+
+				imagegif($img_mini,$file );
+
+			}
+		}
+
+	}
+
 	// 	public function getSignificativesDistances($id,$nn){
 	// 		$array = $this->getAllDistance();
 	// 		$voisins_n = $this->recupererMin($id, $nn, $array);
@@ -68,26 +119,26 @@ class ImageModel implements Model{
 		$res = $voisins_n;
 		// dans $ res on un tableau: id | id | dist
 
-		
+
 
 
 		// on construit un tableau id | x | y
 		// on place le premier point au centre (en 0, 0)
 		$positions = array();
 		$positions[0] = array($id, 0, 0);
-		// l'angle entre chaque segment reliant un "plus proche voisin" à l'image de référence
+		// l'angle entre chaque segment reliant un "plus proche voisin" ï¿½ l'image de rï¿½fï¿½rence
 		$angle = 2 * pi() / $nn;
 
 
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
 		$liens = array();
-		// on itère sur les plus proches voisins filtrés
+		// on itï¿½re sur les plus proches voisins filtrï¿½s
 		for ($i = 0; $i < $nn ; $i++)
 		{
-			// on calcule les coordonnées pour un id donné
+			// on calcule les coordonnï¿½es pour un id donnï¿½
 			$coords = $this->coordonnesXY($i * $angle, $res[$i][2]);
-			// on ajout l'id avec les coordonnées au tableau $positions
+			// on ajout l'id avec les coordonnï¿½es au tableau $positions
 			$positions[$i+1] = array($res[$i][1], $coords['x'], $coords['y']);
 			$liens[$i] = array($id, $res[$i][1]);
 		}
@@ -96,7 +147,7 @@ class ImageModel implements Model{
 	}
 
 
-	//Calcul l'emplacement des points pour la version v1 (étoile)
+	//Calcul l'emplacement des points pour la version v1 (ï¿½toile)
 	function coordonnesXY($angle , $distance){
 		$coordonnees = array();
 		$coordonnees ['x'] = round($distance * cos($angle), 4);
@@ -133,19 +184,19 @@ class ImageModel implements Model{
 		// right from $tmp are with bigger ones
 
 		do {
-				
-			while( $list[$i] < $tmp )
-				
-			$i++;
-				
 
-				
+			while( $list[$i] < $tmp )
+
+			$i++;
+
+
+
 			while( $tmp < $list[$j] )
-				
+
 			$j--;
 
 			// swap elements from the two sides
-				
+
 			if( $i <= $j ) {
 
 				$w = $list[$i];

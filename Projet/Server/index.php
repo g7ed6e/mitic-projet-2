@@ -24,6 +24,10 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 		case 'getSignifV1':
 			$controller->getSignificativesNodesV1($_GET['id'], $_GET['nn'], !empty($_GET['s']) ? $_GET['s'] : false);
 			break;
+		case 'getImg':
+			if(!empty($_GET['id']))
+				$controller->getImage($_GET['id'],$_GET['w'],$_GET['l']);
+			break;
 		default :
 			break;
 	}
