@@ -1,3 +1,7 @@
+function init(){
+	$("#searchInput").width($("#searchDiv").width() - 50);
+}
+
 function ok(){
 	//moveTo("searchDiv",15,5,20);
 	$('.index').animate({
