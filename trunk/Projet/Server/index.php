@@ -10,26 +10,32 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 			$controller = new ImageController();
 			break;
 		default:
-			break;	
+			break;
 	}
-	
+
 	switch($_GET['action']){
 		case 'allDistance' :
 			$controller->allDistance();
 			break;
 		case 'getSignif' :
 			if(!empty($_GET['id'])&&!empty($_GET['nn']))
-				$controller->getSignificativesNodes($_GET['id'], $_GET['nn']);
+			$controller->getSignificativesNodes($_GET['id'], $_GET['nn']);
 			break;
 		case 'getSignifV1':
-			$controller->getSignificativesNodesV1($_GET['id'], $_GET['nn'], !empty($_GET['s']) ? $_GET['s'] : false);
+			$controller->getSignificativesNodesV1($_GET['id'], $_GET['nn']);
+			break;
+		case 'getSignifV2':
+			$controller->getSignificativesNodesV2($_GET['id'], $_GET['nn']);
 			break;
 		case 'getImg':
 			if(!empty($_GET['id']))
 				$controller->getImage($_GET['id'],$_GET['w'],$_GET['l']);
 			break;
+		case 'voisins_n':
+			$controller->voisins_n($_GET['id'], $_GET['nn']);
+			break;
 		default :
 			break;
 	}
-	 
+
 }
