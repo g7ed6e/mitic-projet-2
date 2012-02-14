@@ -49,7 +49,7 @@ body{
 	top : 0%;
 	left  : 0%;
 	background : rgb(222,222,222);
-	opacity : 0;
+	/*opacity : 0;*/
 }
 #zoomSlider{
 	height : 70%;
@@ -87,4 +87,8 @@ body{
 #nbNeighboursInput{
 	float : right;
 	text-align : center;
+}
+
+canvas#canvas{
+	
 }
