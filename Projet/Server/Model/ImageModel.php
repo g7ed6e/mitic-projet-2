@@ -15,12 +15,13 @@ class ImageModel implements Model{
 
 	public function getImage($id,$w,$l,$c){
 
-		$file = ROOT_DATA_REPOSITORY."/img/".$id.".jpg";
-		$file2= ROOT_DATA_REPOSITORY."/img/".$id."new.jpg";
+		$file = ROOT_DATA_REPOSITORY."/img/".$id;
 		$size = getimagesize($file);
+		$res = array();
 
 		//chargement de l'image en fonction du format
 		if ($size){
+			$res[0]=$size['mime'];
 			if ($size['mime']=='image/jpeg' ) {
 				$img_big = imagecreatefromjpeg($file); # On ouvre l'image d'origine
 			}
@@ -40,8 +41,8 @@ class ImageModel implements Model{
 
 				// copie de l'image, avec le redimensionnement.
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$size[0]*$c, $size[1]*$c,$size[0],$size[1]);
-
-				return $img_mini;
+				$res[1]=$img_mini;
+				//return $img_mini;
 			}elseif($w!=0||$l!=0){
 				//cas de la taille fixée
 				$img_new = imagecreate($w, $l);
@@ -51,13 +52,15 @@ class ImageModel implements Model{
 
 				// copie de l'image, avec le redimensionnement.
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-
-				return $img_mini;
+				$res[1]=$img_mini;
+				//return $img_mini;
 
 			}else{
 				//cas sans paramètres
-				return $img_big;
+				$res[1]=$img_big;
+				//return $img_big;
 			}
+			return $res;
 		}
 
 	}
