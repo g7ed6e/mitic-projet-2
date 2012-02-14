@@ -58,4 +58,12 @@ class ImageController implements Controller{
 		$view = new JsonView($result);
 		$view->Render();
 	}
+	
+	public function voisins_n_plus_1($id, $nn, $nn_plus_1)
+	{
+		require_once 'View/JsonView.php';
+		$result = $this->model->voisins_n_plus_1($id, $nn, $nn_plus_1);
+		$view = new JsonView($result);
+		$view->Render();
+	}
 }

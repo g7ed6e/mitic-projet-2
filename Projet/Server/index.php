@@ -32,7 +32,8 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 				$controller->getImage($_GET['id'],$_GET['w'],$_GET['l']);
 			break;
 		case 'voisins_n':
-			$controller->voisins_n($_GET['id'], $_GET['nn']);
+			if(!empty($_GET['nn_plus_1'])) $controller->voisins_n_plus_1($_GET['id'], $_GET['nn'], $_GET['nn_plus_1']); 
+			else $controller->voisins_n($_GET['id'], $_GET['nn']);
 			break;
 		default :
 			break;
