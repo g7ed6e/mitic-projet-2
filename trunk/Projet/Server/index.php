@@ -45,7 +45,7 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 			$controller->getVoisinsN($_GET['id'], $_GET['nn']);
 			break;
 		case 'getVoisinsNPlusUn':
-			$controller->getVoisinsNPlusUn($_GET['id'], $_GET['nn'], $_GET['nPlusUn']);
+			$controller->getVoisinsNPlusUn($_GET['id'], $_GET['nn'], $_GET['nnPlusUn']);
 			break;
 		default :
 			break;
