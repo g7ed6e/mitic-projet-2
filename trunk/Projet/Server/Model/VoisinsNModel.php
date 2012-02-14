@@ -42,7 +42,7 @@ class VoisinsNModel implements Model{
 	public function getVoisinsN($id,$nn){
 		// lecture du fichier
 		$array = $this->getAllDistances();
-		
+		//var_dump($array);
 		// extraction des nn proches voisins
 		$voisins_n = $this->voisinsN($id, $nn, $array); //recupererMin($id, $nn, $array);
 		
@@ -65,9 +65,9 @@ class VoisinsNModel implements Model{
 			$liens[$i] = array(intval($id), $key);
 			$i++;
 		}
-				
+
 		// on remet de l'aléatoire afin de ne pas afficher une spirale
-		uksort($positions, function($a, $b)
+		usort($positions, function($a, $b)
 		{
 			return .01 * rand(0, 100) >= .5;
 		});
