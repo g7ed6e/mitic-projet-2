@@ -1,6 +1,6 @@
 <?php
 class VoisinsNPlusUnModel implements Model{
-	
+
 	private function getAllDistances(){
 		$res = array();
 		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50.txt");
@@ -42,9 +42,11 @@ class VoisinsNPlusUnModel implements Model{
 	public function getVoisinsNPlusUn($id,$nn,$nPlusUn){
 		// lecture du fichier
 		$array = $this->getAllDistances();
-		
+
 		// extraction des nn proches voisins de $id
-		$voisins_id = $this->voisinsN($id, $nn, $array); //recupererMin($id, $nn, $array);
+		$voisins_id = $this->voisinsN($id, $nn, $array);
+
+		
 		
 		// on place le premier point au centre (en 0, 0)
 		$positions = array();
@@ -65,13 +67,43 @@ class VoisinsNPlusUnModel implements Model{
 			$liens[$i] = array(intval($id), $key);
 			$i++;
 		}
-				
-		// on remet de l'aléatoire afin de ne pas afficher une spirale
-		uksort($positions, function($a, $b)
-		{
-			return .01 * rand(0, 100) >= .5;
-		});
+
+
 		
+//		var_dump($positions);
+		
+		// maintenant, on va extraire toutes les positions des points par rapport
+		// a un deuxieme point de référence pour utiliser le theoreme de Al-Kachi
+ 		$deuxieme_point_de_ref = $positions[1][0];
+ 		
+ 		
+ 		$voisins_deuxieme_point_de_ref = array();
+		$i = 0;
+		foreach($positions as $p)
+		{
+			if(($p[0] != $id)&&($p[0] != $deuxieme_point_de_ref))
+			{
+				foreach($array as $a)
+				{
+					if( (($a[0] == $deuxieme_point_de_ref)&&($a[1] == $p[0]))
+					 || (($a[1] == $deuxieme_point_de_ref)&&($a[0] == $p[0])))
+					{
+						$voisins_deuxieme_point_de_ref[$p[0]] = $a[2];
+						$i++;				
+						break;
+					}					
+				}
+			}
+		}
+		
+		var_dump($voisins_id);
+		var_dump($voisins_deuxieme_point_de_ref);
+		// on remet de l'aléatoire afin de ne pas afficher une spirale
+// 		usort($positions, function($a, $b)
+// 		{
+// 			return .01 * rand(0, 100) >= .5;
+// 		});
+
 		return array('positions' => $positions, 'liens' => $liens);
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-require_once 'Model/VoisinsNModel.php';
+require_once 'Model/VoisinsNPlusUnModel.php';
 
 class VoisinsNPlusUnController implements Controller{
 
