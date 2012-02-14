@@ -1,5 +1,5 @@
 <?php
-class VoisinsNModel implements Model{
+class VoisinsNPlusUnModel implements Model{
 	
 	private function getAllDistances(){
 		$res = array();
@@ -39,12 +39,12 @@ class VoisinsNModel implements Model{
 		return $coordonnees;
 	}
 
-	public function getVoisinsN($id,$nn){
+	public function getVoisinsNPlusUn($id,$nn,$nPlusUn){
 		// lecture du fichier
 		$array = $this->getAllDistances();
 		
-		// extraction des nn proches voisins
-		$voisins_n = $this->voisinsN($id, $nn, $array); //recupererMin($id, $nn, $array);
+		// extraction des nn proches voisins de $id
+		$voisins_id = $this->voisinsN($id, $nn, $array); //recupererMin($id, $nn, $array);
 		
 		// on place le premier point au centre (en 0, 0)
 		$positions = array();
@@ -56,7 +56,7 @@ class VoisinsNModel implements Model{
 		$liens = array();
 		// on itère sur les plus proches voisins filtrés
 		$i = 0;
-		foreach($voisins_n as $key => $value)
+		foreach($voisins_id as $key => $value)
 		{
 			// on calcule les coordonnï¿½es pour un id donnï¿½
 			$coords = $this->coordonnesXY($i * $angle, $value);

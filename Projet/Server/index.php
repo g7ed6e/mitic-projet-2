@@ -3,6 +3,7 @@ require_once 'config/constants.php';
 require_once 'Interface.php';
 require_once 'controller/ImageController.php';
 require_once 'controller/VoisinsNController.php';
+require_once 'controller/VoisinsNPlusUnController.php';
 
 if(!empty($_GET['controller']) && !empty($_GET['action'])){
 
@@ -12,6 +13,10 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 			break;
 		case 'voisinsN':
 			$controller = new VoisinsNController();
+			break;
+		case 'voisinsNPlusUn':
+			$controller = new VoisinsNPlusUnController();
+			break;
 		default:
 			break;
 	}
@@ -38,6 +43,9 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 // 			if(!empty($_GET['nn_plus_1'])) $controller->voisins_n_plus_1($_GET['id'], $_GET['nn'], $_GET['nn_plus_1']); 
 // 			else 
 			$controller->getVoisinsN($_GET['id'], $_GET['nn']);
+			break;
+		case 'getVoisinsNPlusUn':
+			$controller->getVoisinsNPlusUn($_GET['id'], $_GET['nn'], $_GET['nPlusUn']);
 			break;
 		default :
 			break;
