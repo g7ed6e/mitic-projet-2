@@ -204,9 +204,31 @@ class ImageModel implements Model{
 
 	public function voisins_n($id, $nn)
 	{
+		// lecture du fichier
 		$array = $this->getAllDistance();
 		
 		// extraction des voisins de $id 
+		$voisins_n = array();
+		foreach($array as $value)
+		{
+			if ($value[0] == $id){
+				$voisins_n[$value[1]] = $value[2];
+			} else if ($value[1] == $id){
+				$voisins_n[$value[0]] = $value[2];
+			}
+		}
+		//tri croissant des longueurs
+		asort($voisins_n);
+		// extraction des $nn plus proches
+		return array_slice($voisins_n, 0, $nn, true);
+	}
+	
+	public function voisins_n_plus_1($id, $nn, $nn_plus_1)
+	{
+		// lecture du fichier
+		$array = $this->getAllDistance();
+		
+		// extraction des voisins de $id
 		$voisins_n = array();
 		foreach($array as $value)
 		{
