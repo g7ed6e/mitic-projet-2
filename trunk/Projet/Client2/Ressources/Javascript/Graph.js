@@ -122,7 +122,7 @@ function Graph(options) {
 	}
 
 	function request(id, nbNeighbours){
-		$.getJSON('../Server/index.php?controller=image&action=getSignifV1&id='+id+'&nn='+nbNeighbours+'', function(data) {
+		$.getJSON('../Server/index.php?controller=voisinsN&action=getVoisinsN&id='+id+'&nn='+nbNeighbours+'', function(data) {
 			var liens = data.liens;
 			var positions = data.positions;
 			for(var i in positions){
