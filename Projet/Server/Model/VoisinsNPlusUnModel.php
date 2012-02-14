@@ -37,9 +37,8 @@ class VoisinsNPlusUnModel implements Model{
 
 		// extraction des $nn proches voisins de $id ainsi que leurs distance par rapoort à $id
 		$voisins_id = $this->voisinsN($id, $nn, $array);
-
 		var_dump($voisins_id);
-		
+
 		// extraction des $nPlusUn plus proches voisins des $nn plus proches voisins de $id
 		$tmp = array();
 		foreach(array_keys($voisins_id) as $key)
@@ -48,14 +47,16 @@ class VoisinsNPlusUnModel implements Model{
 			// maintenant on va chercher la distance de ces points par rapport à $id
 			foreach($voisinsNPlusUnKeys as $vNPlusUnKey)
 			{
-				if($vNPlusUnKey == $id)continue;// on a deja cette info.. 
-				foreach ($array as $a)
+				if($vNPlusUnKey != $id)
 				{
-					if( (($a[0] == $id)&&($a[1] == $vNPlusUnKey))
-					|| (($a[1] == $vNPlusUnKey)&&($a[0] == $id)))
+					foreach ($array as $a)
 					{
-						$tmp[$vNPlusUnKey] = $a[2];
-						break;
+						if( (($a[0] == $id)&&($a[1] == $vNPlusUnKey))
+						|| (($a[0] == $vNPlusUnKey)&&($a[1] == $id)))
+						{
+							$tmp[$vNPlusUnKey] = $a[2];
+							break;
+						}
 					}
 				}
 			}
@@ -70,10 +71,8 @@ class VoisinsNPlusUnModel implements Model{
 		// ainsi que leurs distances par rapport a l'image de référence
 		var_dump($voisins_id);
 
-
-		// Calcul des positions grace a theoreme d'Al-Kachi
 		// maintenant, on va extraire les distances des points par rapport
-		// a un deuxieme point de référence pour utiliser le theoreme d'Al-Kachi
+		// a un deuxieme point de référence pour pouvoir ensuite utiliser le theoreme d'Al-Kachi
 		// ici, le deuxieme point de référence est le plus proche voisin de $id (perte en precision a vérifier..)
 		$deuxieme_point_de_ref = array_shift(array_keys($voisins_id));// extract the first key from $voisins_id
 		var_dump($deuxieme_point_de_ref);
@@ -81,7 +80,7 @@ class VoisinsNPlusUnModel implements Model{
 		$voisins_deuxieme_point_de_ref = array();
 		foreach(array_keys($voisins_id) as $key)
 		{
-			if(($key != $id)&&($key != $deuxieme_point_de_ref))
+			if($key != $deuxieme_point_de_ref)
 			{
 				foreach($array as $a)
 				{
@@ -97,18 +96,19 @@ class VoisinsNPlusUnModel implements Model{
 
 		var_dump($voisins_deuxieme_point_de_ref);
 
-		return null;
-
-		// création des positions
+		// Calcul des positions grace a theoreme d'Al-Kachi
 		$positions = array();
-		// on place le premier point au centre (en 0, 0)
-		$positions[0] = array(intval($id), 0, 0);
-
-
-
-
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
 		$liens = array();
+
+		// on place le premier point au centre (en 0, 0)
+		$positions[0] = array(intval($id), 0, 0);
+		// on place le deuxieme point sur l'axe des abcisses
+		$positions[1] = array($deuxieme_point_de_ref, array_shift(array_values($voisins_id)), 0);
+
+
+		return null;
+
 		// on itère sur les plus proches voisins filtrés
 		$i = 0;
 		foreach($voisins_id as $key => $value)
