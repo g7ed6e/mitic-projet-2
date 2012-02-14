@@ -1,17 +1,7 @@
 <?php
 class ImageModel implements Model{
 
-	public function getAllDistance(){
-		$res = array();
-		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50.txt");
-		$distances = explode("\n", $file);
-
-		foreach ($distances as $distance){
-			$distance = trim($distance);
-			if(!empty($distance)) $res[] = explode(" ", $distance);
-		}
-		return $res;
-	}
+	
 
 	public function getImage($id,$w,$l,$c){
 
@@ -113,34 +103,7 @@ class ImageModel implements Model{
 	}
 
 
-	public function getSignificativesDistancesV1($id,$nn){
-		// dans $ res on un tableau: id | id | dist
-		$array = $this->getAllDistance();
-		$voisins_n = $this->recupererMin($id, $nn, $array);
-		$res = $voisins_n;
-
-		// on construit un tableau id | x | y
-		// on place le premier point au centre (en 0, 0)
-		$positions = array();
-		$positions[0] = array($id, 0, 0);
-		// l'angle entre chaque segment reliant un "plus proche voisin" � l'image de r�f�rence
-		$angle = 2 * pi() / $nn;
-
-		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
-		$liens = array();
-		// on it�re sur les plus proches voisins filtr�s
-		for ($i = 0; $i < $nn ; $i++)
-		{
-			// on calcule les coordonn�es pour un id donn�
-			$coords = $this->coordonnesXY($i * $angle, $res[$i][2]);
-			// on ajout l'id avec les coordonn�es au tableau $positions
-			$positions[$i+1] = array($res[$i][1], $coords['x'], $coords['y']);
-			$liens[$i] = array($id, $res[$i][1]);
-		}
-
-		return array('positions' => $positions, 'liens' => $liens);
-	}
-
+/*
 	public function getSignificativesDistancesV2($id,$n,$n_plus_1){
 		// on lit tout le contenu du fichier (1225 lignes pour 50 points)
 		$array = $this->getAllDistance();
@@ -185,45 +148,19 @@ class ImageModel implements Model{
 		return null;
 
 	}
-
-
+*/
+/*
 	// calcul l'angle
 	//	// alpha = acos ((b� - a� - c�)/-2ac)
 	private function calculeAngle($a, $b, $c)
 	{
 		return acos( (pow($b,2) - pow($a, 2) - pow($c, 2)) / -2 * a*c  );
-	}
-
-	//Calcul l'emplacement des points pour la version v1 (�toile)
-	private function coordonnesXY($angle , $distance){
-		$coordonnees = array();
-		$coordonnees ['x'] = round($distance * cos($angle), 4);
-		$coordonnees ['y'] = round($distance * sin($angle), 4);
-		return $coordonnees;
-	}
+	}*/
 
 
-	public function voisins_n($id, $nn)
-	{
-		// lecture du fichier
-		$array = $this->getAllDistance();
 
-		// extraction des voisins de $id
-		$voisins_n = array();
-		foreach($array as $value)
-		{
-			if ($value[0] == $id){
-				$voisins_n[$value[1]] = $value[2];
-			} else if ($value[1] == $id){
-				$voisins_n[$value[0]] = $value[2];
-			}
-		}
-		//tri croissant des longueurs
-		asort($voisins_n);
-		// extraction des $nn plus proches
-		return array_slice($voisins_n, 0, $nn, true);
-	}
 
+/*
 	public function voisins_n_plus_1($id, $nn, $nn_plus_1)
 	{
 		// lecture du fichier
@@ -244,4 +181,6 @@ class ImageModel implements Model{
 		// extraction des $nn plus proches
 		return array_slice($voisins_n, 0, $nn, true);
 	}
+	
+	*/
 }
