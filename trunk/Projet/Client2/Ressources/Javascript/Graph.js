@@ -4,12 +4,13 @@ var ctx;
 var graphCenter;
 var ratio = 360;
 $(document).ready(function(){
-	graphCenter = {"x": $(document).width() / 2, "y": $(document).height() / 2};
-	//graphCenter = {"x": 0, "y": 0};
 	canvas = $("#canvas").get(0);
 	ctx = canvas.getContext('2d'); 
-	ctx.canvas.width  = $(document).width();
-	ctx.canvas.height = $(document).height();
+	ctx.canvas.width  = $("#main").innerWidth();
+	ctx.canvas.height = $("#main").innerHeight();
+	$("#canvas").width($("#main").innerWidth());
+	console.log($("#canvas"));
+	graphCenter = {"x": $("#main").width() / 2, "y": $("#main").height() / 2};
 
 	graph = new Graph();
 
