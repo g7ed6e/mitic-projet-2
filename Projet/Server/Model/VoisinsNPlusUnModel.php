@@ -31,28 +31,81 @@ class VoisinsNPlusUnModel implements Model{
 		return array_slice($voisins_n, 0, $nn, true);
 	}
 
-	//Calcul l'emplacement des points pour la version v1 (ï¿½toile)
-	private function coordonnesXY($angle , $distance){
-		$coordonnees = array();
-		$coordonnees ['x'] = round($distance * cos($angle), 4);
-		$coordonnees ['y'] = round($distance * sin($angle), 4);
-		return $coordonnees;
-	}
-
 	public function getVoisinsNPlusUn($id,$nn,$nPlusUn){
 		// lecture du fichier
 		$array = $this->getAllDistances();
 
-		// extraction des nn proches voisins de $id
+		// extraction des $nn proches voisins de $id ainsi que leurs distance par rapoort à $id
 		$voisins_id = $this->voisinsN($id, $nn, $array);
 
+		var_dump($voisins_id);
 		
-		
-		// on place le premier point au centre (en 0, 0)
+		// extraction des $nPlusUn plus proches voisins des $nn plus proches voisins de $id
+		$tmp = array();
+		foreach(array_keys($voisins_id) as $key)
+		{
+			$voisinsNPlusUnKeys = array_keys($this->voisinsN($key, $nPlusUn, $array));
+			// maintenant on va chercher la distance de ces points par rapport à $id
+			foreach($voisinsNPlusUnKeys as $vNPlusUnKey)
+			{
+				if($vNPlusUnKey == $id)continue;// on a deja cette info.. 
+				foreach ($array as $a)
+				{
+					if( (($a[0] == $id)&&($a[1] == $vNPlusUnKey))
+					|| (($a[1] == $vNPlusUnKey)&&($a[0] == $id)))
+					{
+						$tmp[$vNPlusUnKey] = $a[2];
+						break;
+					}
+				}
+			}
+		}
+
+		// fusion avec le tableau des voisins de premier niveau
+		foreach ($tmp as $key => $value)
+		{
+			$voisins_id[$key] = $value;
+		}
+		// on a maintenant dans $voisins_id toutes les images a afficher
+		// ainsi que leurs distances par rapport a l'image de référence
+		var_dump($voisins_id);
+
+
+		// Calcul des positions grace a theoreme d'Al-Kachi
+		// maintenant, on va extraire les distances des points par rapport
+		// a un deuxieme point de référence pour utiliser le theoreme d'Al-Kachi
+		// ici, le deuxieme point de référence est le plus proche voisin de $id (perte en precision a vérifier..)
+		$deuxieme_point_de_ref = array_shift(array_keys($voisins_id));// extract the first key from $voisins_id
+		var_dump($deuxieme_point_de_ref);
+			
+		$voisins_deuxieme_point_de_ref = array();
+		foreach(array_keys($voisins_id) as $key)
+		{
+			if(($key != $id)&&($key != $deuxieme_point_de_ref))
+			{
+				foreach($array as $a)
+				{
+					if( (($a[0] == $deuxieme_point_de_ref)&&($a[1] == $key))
+					|| (($a[1] == $deuxieme_point_de_ref)&&($a[0] == $key)))
+					{
+						$voisins_deuxieme_point_de_ref[$key] = $a[2];
+						break;
+					}
+				}
+			}
+		}
+
+		var_dump($voisins_deuxieme_point_de_ref);
+
+		return null;
+
+		// création des positions
 		$positions = array();
+		// on place le premier point au centre (en 0, 0)
 		$positions[0] = array(intval($id), 0, 0);
-		// l'angle entre chaque segment reliant un "plus proche voisin" ï¿½ l'image de rï¿½fï¿½rence
-		$angle = 2 * pi() / $nn;
+
+
+
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
 		$liens = array();
@@ -69,40 +122,19 @@ class VoisinsNPlusUnModel implements Model{
 		}
 
 
-		
-//		var_dump($positions);
-		
-		// maintenant, on va extraire toutes les positions des points par rapport
-		// a un deuxieme point de référence pour utiliser le theoreme de Al-Kachi
- 		$deuxieme_point_de_ref = $positions[1][0];
- 		
- 		
- 		$voisins_deuxieme_point_de_ref = array();
-		$i = 0;
-		foreach($positions as $p)
-		{
-			if(($p[0] != $id)&&($p[0] != $deuxieme_point_de_ref))
-			{
-				foreach($array as $a)
-				{
-					if( (($a[0] == $deuxieme_point_de_ref)&&($a[1] == $p[0]))
-					 || (($a[1] == $deuxieme_point_de_ref)&&($a[0] == $p[0])))
-					{
-						$voisins_deuxieme_point_de_ref[$p[0]] = $a[2];
-						$i++;				
-						break;
-					}					
-				}
-			}
-		}
-		
+
+		//		var_dump($positions);
+
+
+
 		var_dump($voisins_id);
+		var_dump($deuxieme_point_de_ref);
 		var_dump($voisins_deuxieme_point_de_ref);
 		// on remet de l'aléatoire afin de ne pas afficher une spirale
-// 		usort($positions, function($a, $b)
-// 		{
-// 			return .01 * rand(0, 100) >= .5;
-// 		});
+		// 		usort($positions, function($a, $b)
+		// 		{
+		// 			return .01 * rand(0, 100) >= .5;
+		// 		});
 
 		return array('positions' => $positions, 'liens' => $liens);
 	}
