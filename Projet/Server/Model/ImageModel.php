@@ -19,119 +19,44 @@ class ImageModel implements Model{
 		$file2= ROOT_DATA_REPOSITORY."/img/".$id."new.jpg";
 		$size = getimagesize($file);
 
-		if ( $size) {
-			if($w==0||$l==0){
-				if($c!=0){
-					if ($size['mime']=='image/jpeg' ) {
-						$img_big = imagecreatefromjpeg($file); # On ouvre l'image d'origine
-						$img_new = imagecreate($size[0]*$c, $size[1]*$c);
-						# création de la miniature
-						$img_mini = imagecreatetruecolor($size[0]*$c, $size[1]*$c)
-						or   $img_mini = imagecreate($size[0]*$c, $size[1]*$c);
+		//chargement de l'image en fonction du format
+		if ($size){
+			if ($size['mime']=='image/jpeg' ) {
+				$img_big = imagecreatefromjpeg($file); # On ouvre l'image d'origine
+			}
+			elseif ($size['mime']=='image/png' ) {
+				$img_big = imagecreatefrompng($file); # On ouvre l'image d'origine
+			}
+			elseif ($size['mime']=='image/gif' ) {
+				$img_big = imagecreatefromgif($file); # On ouvre l'image d'origine
+			}
+				
+			if($c!=0){
+				//cas du scale	
+				$img_new = imagecreate($size[0]*$c, $size[1]*$c);
+				// création de la miniature
+				$img_mini = imagecreatetruecolor($size[0]*$c, $size[1]*$c)
+				or   $img_mini = imagecreate($size[0]*$c, $size[1]*$c);
 
-						// copie de l'image, avec le redimensionnement.
-						imagecopyresized($img_mini,$img_big,0,0,0,0,$size[0]*$c, $size[1]*$c,$size[0],$size[1]);
-						//var_dump($img_mini);
+				// copie de l'image, avec le redimensionnement.
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$size[0]*$c, $size[1]*$c,$size[0],$size[1]);
 
-						return $img_mini;
-					}
-					elseif ($size['mime']=='image/png' ) {
-						$img_big = imagecreatefrompng($file); # On ouvre l'image d'origine
-						$img_new = imagecreate($w, $l);
-						# création de la miniature
-						$img_mini = imagecreatetruecolor($w, $l)
-						or   $img_mini = imagecreate($w, $l);
+				return $img_mini;
+			}elseif($w!=0||$l!=0){
+				//cas de la taille fixée
+				$img_new = imagecreate($w, $l);
+				// création de la miniature
+				$img_mini = imagecreatetruecolor($w, $l)
+				or   $img_mini = imagecreate($w, $l);
 
-						// copie de l'image, avec le redimensionnement.
-						imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
+				// copie de l'image, avec le redimensionnement.
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
 
-						imagepng($img_mini,$file );
+				return $img_mini;
 
-					}
-					elseif ($size['mime']=='image/gif' ) {
-						$img_big = imagecreatefromgif($file); # On ouvre l'image d'origine
-						$img_new = imagecreate($w, $l);
-						# création de la miniature
-						$img_mini = imagecreatetruecolor($w, $l)
-						or   $img_mini = imagecreate($w, $l);
-
-						// copie de l'image, avec le redimensionnement.
-						imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-
-						imagegif($img_mini,$file );
-					}
-				}else{
-
-					if ($size['mime']=='image/jpeg' ) {
-						$img_big = imagecreatefromjpeg($file); # On ouvre l'image d'origine
-
-						return $img_big;
-					}
-					elseif ($size['mime']=='image/png' ) {
-						$img_big = imagecreatefrompng($file); # On ouvre l'image d'origine
-						$img_new = imagecreate($w, $l);
-						# création de la miniature
-						$img_mini = imagecreatetruecolor($w, $l)
-						or   $img_mini = imagecreate($w, $l);
-
-						// copie de l'image, avec le redimensionnement.
-						imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-
-						imagepng($img_mini,$file );
-
-					}
-					elseif ($size['mime']=='image/gif' ) {
-						$img_big = imagecreatefromgif($file); # On ouvre l'image d'origine
-						$img_new = imagecreate($w, $l);
-						# création de la miniature
-						$img_mini = imagecreatetruecolor($w, $l)
-						or   $img_mini = imagecreate($w, $l);
-
-						// copie de l'image, avec le redimensionnement.
-						imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-
-						imagegif($img_mini,$file );
-					}
-				}
 			}else{
-				if ($size['mime']=='image/jpeg' ) {
-					$img_big = imagecreatefromjpeg($file); # On ouvre l'image d'origine
-					$img_new = imagecreate($w, $l);
-					# création de la miniature
-					$img_mini = imagecreatetruecolor($w, $l)
-					or   $img_mini = imagecreate($w, $l);
-
-					// copie de l'image, avec le redimensionnement.
-					imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-					//var_dump($img_mini);
-
-					return $img_mini;
-				}
-				elseif ($size['mime']=='image/png' ) {
-					$img_big = imagecreatefrompng($file); # On ouvre l'image d'origine
-					$img_new = imagecreate($w, $l);
-					# création de la miniature
-					$img_mini = imagecreatetruecolor($w, $l)
-					or   $img_mini = imagecreate($w, $l);
-
-					// copie de l'image, avec le redimensionnement.
-					imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-
-					imagepng($img_mini,$file );
-
-				}
-				elseif ($size['mime']=='image/gif' ) {
-					$img_big = imagecreatefromgif($file); # On ouvre l'image d'origine
-					$img_new = imagecreate($w, $l);
-					# création de la miniature
-					$img_mini = imagecreatetruecolor($w, $l)
-					or   $img_mini = imagecreate($w, $l);
-
-					// copie de l'image, avec le redimensionnement.
-					imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-
-					imagegif($img_mini,$file );
-				}
+				//cas sans paramètres
+				return $img_big;
 			}
 		}
 
