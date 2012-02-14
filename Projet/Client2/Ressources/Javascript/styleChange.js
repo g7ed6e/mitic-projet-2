@@ -1,5 +1,5 @@
 var min = 1;
-var max = 20;
+var max = 49;
 var midValue = Math.round((max-min)/2);
 
 function init(){
