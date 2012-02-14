@@ -113,14 +113,10 @@ class ImageModel implements Model{
 
 
 	public function getSignificativesDistancesV1($id,$nn){
-
+		// dans $ res on un tableau: id | id | dist
 		$array = $this->getAllDistance();
 		$voisins_n = $this->recupererMin($id, $nn, $array);
 		$res = $voisins_n;
-		// dans $ res on un tableau: id | id | dist
-
-
-
 
 		// on construit un tableau id | x | y
 		// on place le premier point au centre (en 0, 0)
@@ -128,8 +124,6 @@ class ImageModel implements Model{
 		$positions[0] = array($id, 0, 0);
 		// l'angle entre chaque segment reliant un "plus proche voisin" ï¿½ l'image de rï¿½fï¿½rence
 		$angle = 2 * pi() / $nn;
-
-
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
 		$liens = array();
@@ -146,97 +140,85 @@ class ImageModel implements Model{
 		return array('positions' => $positions, 'liens' => $liens);
 	}
 
+	public function getSignificativesDistancesV2($id,$n,$n_plus_1){
+		// on lit tout le contenu du fichier (1225 lignes pour 50 points)
+		$array = $this->getAllDistance();
+		
+		// on prend les $n plus proches voisins de $id
+		$voisins_n = $this->voisins_n($id, $n, $array);
+		
+		$voisins_n = $this->recupererMin($id, $nn, $array);
+		
+		$res = $voisins_n;
+		foreach ($voisins_n as $v)
+		{
+			$res = array_merge($res, $this->recupererMin($v[0] != $id ?$v[0]:$v[1], $nn, $array));
+		}
 
-	//Calcul l'emplacement des points pour la version v1 (ï¿½toile)
-	function coordonnesXY($angle , $distance){
+
+		// distances par rapport à B
+		// en fonction de la taille de array on déduit le nb d'images différentes
+		// ici 1225 lignes -> 50 images
+		$dist_b = array();
+		$j = 0;
+		$nb_images = (1 + sqrt(8 * sizeof($array) + 1) ) / 2;
+		//var_dump($nb_images);
+
+		for($i = $nb_images - 1; $i < (2*$nb_images - 2);  $i++)
+		{
+			// cas de la premiere ligne
+			if($i == $nb_images - 1) $dist_b[$j] = array($id, $array[$j][2]);
+			// cas des lignes d'index n à 2n-1
+	var_dump($array[$i][1]);
+			//else $dist_b[$j] = array($array[$i][1], $array[$i][2]);
+			
+			$j++;
+		}
+		var_dump($dist_b);
+		//var_dump($dist_b);
+
+		// on construit un tableau id | x | y
+		// on place le premier point au centre (en 0, 0)
+		$positions = array();
+		$positions[0] = array($id, 0, 0);
+		return null;
+
+	}
+
+
+	// calcul l'angle
+	//	// alpha = acos ((b² - a² - c²)/-2ac)
+	private function calculeAngle($a, $b, $c)
+	{
+		return acos( (pow($b,2) - pow($a, 2) - pow($c, 2)) / -2 * a*c  );
+	}
+
+	//Calcul l'emplacement des points pour la version v1 (étoile)
+	private function coordonnesXY($angle , $distance){
 		$coordonnees = array();
 		$coordonnees ['x'] = round($distance * cos($angle), 4);
 		$coordonnees ['y'] = round($distance * sin($angle), 4);
 		return $coordonnees;
 	}
+	
 
-	function quicksort( $arr, $l = 0 , $r = NULL ) {
-
-		// when the call is recursive we need to change
-
-		//the array passed to the function yearlier
-
-		static $list = array();
-
-		if( $r == NULL )
-
-		$list = $arr;
-
-		if( $r == NULL )
-
-		$r = count($list)-1;//last element of the array
-
-		$i = $l;
-
-		$j = $r;
-
-		$tmp = $list[(int)( ($l+$r)/2 )];
-
-		// partion the array in two parts.
-
-		// left from $tmp are with smaller values,
-
-		// right from $tmp are with bigger ones
-
-		do {
-
-			while( $list[$i] < $tmp )
-
-			$i++;
-
-
-
-			while( $tmp < $list[$j] )
-
-			$j--;
-
-			// swap elements from the two sides
-
-			if( $i <= $j ) {
-
-				$w = $list[$i];
-
-				$list[$i] = $list[$j];
-
-				$list[$j] = $w;
-
-
-
-				$i++;
-
-				$j--;
-
+	public function voisins_n($id, $nn)
+	{
+		$array = $this->getAllDistance();
+		
+		// extraction des voisins de $id 
+		$voisins_n = array();
+		foreach($array as $value)
+		{
+			if ($value[0] == $id){
+				$voisins_n[$value[1]] = $value[2];
+			} else if ($value[1] == $id){
+				$voisins_n[$value[0]] = $value[2];
 			}
-
-		}while( $i <= $j );
-
-
-
-		// devide left side if it is longer the 1 element
-
-		if( $l < $j )
-
-		quicksort(NULL, $l, $j);
-
-		// the same with the right side
-
-		if( $i < $r )
-
-		quicksort(NULL, $i, $r);
-
-		// when all partitions have one element
-
-		// the array is sorted
-
-
-
-		return $list;
-
+		}
+		//tri croissant des longueurs
+		asort($voisins_n);
+		// extraction des $nn plus proches
+		return array_slice($voisins_n, 0, $nn, true);
 	}
-
 }
