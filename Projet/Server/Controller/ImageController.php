@@ -10,8 +10,8 @@ class ImageController implements Controller{
 		$this->model = new ImageModel();
 	}
 
-	public function getImage($id, $w=0,$l=0,$c=0){
-		$image = $this->model->getImage($id,$w,$l,$c);
+	public function getImage($id, $w=0,$l=0,$c=0,$t=0){
+		$image = $this->model->getImage($id,$w,$l,$c,$t);
 		require_once 'View/ImageView.php';
 		$view = new ImageView($image);
 		$view->Render();
