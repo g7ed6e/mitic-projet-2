@@ -134,7 +134,6 @@ function Graph(options) {
 		    ctx.lineWidth = 0.2;
 			ctx.stroke();	
 		}
-
 	}
 
 	function request(id, nbNeighbours){

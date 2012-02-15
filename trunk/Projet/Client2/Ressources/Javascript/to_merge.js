@@ -62,12 +62,11 @@ function testImageHover(mousePos)
 			if(node.id != hoveredImageId)
 			{
 				if(hoveredImageId == -1) { $(".popupImageDetails").remove(); }
-				
-				$("#main").append("<div class='popupImageDetails'><p>test</p></div>");	
-				
+		        var popupContent = "<div class='popupImageDetails'><img src='../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=150'/></div>";
+		        $("#main").append(popupContent);	
 			}
-			$(".popupImageDetails").css('left', mousePos.x);
-			$(".popupImageDetails").css('top', mousePos.y);
+			$(".popupImageDetails").css('left', mousePos.x + 20);
+			$(".popupImageDetails").css('top', mousePos.y + 20);
 			found = true;
 			break;
 		}
