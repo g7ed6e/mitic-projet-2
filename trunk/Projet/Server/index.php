@@ -1,9 +1,9 @@
 <?php
-require_once 'config/constants.php';
+require_once 'Config/constants.php';
 require_once 'Interface.php';
-require_once 'controller/ImageController.php';
-require_once 'controller/VoisinsNController.php';
-require_once 'controller/VoisinsNPlusUnController.php';
+require_once 'Controller/ImageController.php';
+require_once 'Controller/VoisinsNController.php';
+require_once 'Controller/VoisinsNPlusUnController.php';
 
 if(!empty($_GET['controller']) && !empty($_GET['action'])){
 
@@ -59,3 +59,4 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 	}
 
 }
+?>
