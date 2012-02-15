@@ -81,11 +81,11 @@ class VoisinsNModel implements Model{
 			$max = $value[1] > $max ? $value[1] : $max;
 			$max = $value[2] > $max ? $value[2] : $max;
 		}
-		var_dump($max);
+		//var_dump($max);
 		$max_screen = max($w, $h) / 4;
-		var_dump($max_screen);
+		//var_dump($max_screen);
 		$ratio = ($max_screen ) / $max;
-		var_dump($ratio);
+		//var_dump($ratio);
 		foreach($positions as $key => &$value)
 		{
 			$value[1] *= $ratio;
