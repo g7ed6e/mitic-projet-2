@@ -17,3 +17,4 @@ class ImageController implements Controller{
 		$view->Render();
 	}
 }
+?>

@@ -26,3 +26,4 @@ class VoisinsNController implements Controller{
 // 	}
 	
 }
+?>

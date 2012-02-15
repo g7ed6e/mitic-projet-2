@@ -60,10 +60,8 @@ class VoisinsNModel implements Model{
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
 		$liens = array();
-		
-		
-		
 		// on it�re sur les plus proches voisins filtr�s
+
 		$i = 0;
 		foreach($voisins_n as $key => $value)
 		{
@@ -74,9 +72,8 @@ class VoisinsNModel implements Model{
 			$liens[$i] = array(intval($id), $key);
 			$i++;
 		}
-
-		
 		
 		return array('positions' => $positions, 'liens' => $liens);
 	}
 }
+?>

@@ -90,7 +90,7 @@ class ImageModel implements Model{
 
 	// 		return $res;
 	// 	}
-
+/*
 	private function recupererMin($id,$nn, &$dist){
 		$keys = array();
 		$res = array();
@@ -127,7 +127,7 @@ class ImageModel implements Model{
 			
 		return $tid;
 	}
-
+*/
 
 	/*
 	 public function getSignificativesDistancesV2($id,$n,$n_plus_1){
@@ -210,3 +210,4 @@ class ImageModel implements Model{
 
 		*/
 }
+?>

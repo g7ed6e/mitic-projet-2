@@ -18,3 +18,4 @@ class JsonView implements View{
 	
 	
 }
+?>

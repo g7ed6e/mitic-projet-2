@@ -27,3 +27,4 @@ class ImageView implements View{
 	}
 
 }
+?>
