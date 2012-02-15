@@ -92,3 +92,15 @@ body{
 canvas#canvas{
 	
 }
+#footer
+{
+	position: absolute;
+	bottom: 0px;
+	height: 35px;
+}
+#footer li
+{
+	font-size: 12px;
+	list-style-type: none;
+	float: left;
+}
