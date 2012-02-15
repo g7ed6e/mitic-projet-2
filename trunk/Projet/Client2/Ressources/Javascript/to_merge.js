@@ -58,15 +58,22 @@ function testImageHover(mousePos)
 		var node = graph.nodes[i];
 		if((mousePos.x > node.position.x)&&(mousePos.x < node.position2.x)
 				&&(mousePos.y > node.position.y)&&(mousePos.y < node.position2.y)) {
-			message = (node.id + ' hover\n');
+			message = (node.id);
 			if(node.id != hoveredImageId)
 			{
 				if(hoveredImageId == -1) { $(".popupImageDetails").remove(); }
-		        var popupContent = "<div class='popupImageDetails'><img src='../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=150'/></div>";
-		        $("#main").append(popupContent);	
+				var img = new Image();
+				img.src = '../Server/index.php?controller=image&action=getImg&id='+node.id+'&t=150';
+				jQuery(img).load(function() {
+					$(".popupImageDetails").css('width', img.width)
+						.css('height', img.height)
+						.animate({ opacity: 1 },1000, null);
+				});
+				$("#main").append("<div class='popupImageDetails'></div>");
+		        $(".popupImageDetails").append(img);	
 			}
-			$(".popupImageDetails").css('left', mousePos.x + 20);
-			$(".popupImageDetails").css('top', mousePos.y + 20);
+			$(".popupImageDetails").css('left', mousePos.x + 20)
+				.css('top', mousePos.y + 20);
 			found = true;
 			break;
 		}
