@@ -5,7 +5,7 @@ class ImageModel implements Model{
 
 	public function getImage($id,$w,$l,$c){
 
-		$file = ROOT_DATA_REPOSITORY."/img/".$id;
+		$file = ROOT_DATA_REPOSITORY."/img/".$id.".jpg";
 		$size = getimagesize($file);
 		$res = array();
 
