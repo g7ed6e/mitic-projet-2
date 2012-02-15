@@ -35,15 +35,15 @@ class VoisinsNPlusUnModel implements Model{
 		// lecture du fichier
 		$array = $this->getAllDistances();
 
-		// extraction des $nn proches voisins de $id ainsi que leurs distance par rapoort à $id
+		// extraction des $nn proches voisins de $id ainsi que leurs distance par rapoort ï¿½ $id
 		$voisins_id = $this->voisinsN($id, $nn, $array);
 		var_dump('voisins_id');
 		var_dump($voisins_id);
 
-		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens qui seront affichés)
+		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens qui seront affichï¿½s)
 		$liens = array();
 		$nb_liens = 0;
-		// création des liens de rang n
+		// crï¿½ation des liens de rang n
 		foreach($voisins_id as $k => $v)
 		{
 			$liens[$nb_liens] = array(intval($id), $k);
@@ -55,7 +55,7 @@ class VoisinsNPlusUnModel implements Model{
 		foreach(array_keys($voisins_id) as $key)
 		{
 			$voisinsNPlusUnKeys = array_keys($this->voisinsN($key, $nPlusUn, $array));
-			// maintenant on va chercher la distance de ces points par rapport à $id
+			// maintenant on va chercher la distance de ces points par rapport ï¿½ $id
 			foreach($voisinsNPlusUnKeys as $vNPlusUnKey)
 			{
 				if($vNPlusUnKey != $id)
@@ -83,13 +83,13 @@ class VoisinsNPlusUnModel implements Model{
 			$voisins_id[$key] = $value;
 		}
 		// on a maintenant dans $voisins_id toutes les images a afficher
-		// ainsi que leurs distances par rapport a l'image de référence
+		// ainsi que leurs distances par rapport a l'image de rï¿½fï¿½rence
 		var_dump('voisins_id');
 		var_dump($voisins_id);
 
 		// maintenant, on va extraire les distances des points par rapport
-		// a un deuxieme point de référence pour pouvoir ensuite utiliser le theoreme d'Al-Kachi
-		// ici, le deuxieme point de référence est le plus proche voisin de $id (perte en precision a vérifier..)
+		// a un deuxieme point de rï¿½fï¿½rence pour pouvoir ensuite utiliser le theoreme d'Al-Kachi
+		// ici, le deuxieme point de rï¿½fï¿½rence est le plus proche voisin de $id (perte en precision a vï¿½rifier..)
 		$deuxieme_point_de_ref = array_shift(array_keys($voisins_id));// extract the first key from $voisins_id
 		var_dump('deuxieme_point_de_ref');
 		var_dump($deuxieme_point_de_ref);
@@ -136,7 +136,7 @@ class VoisinsNPlusUnModel implements Model{
 						
 			$a = $voisins_id[$deuxieme_point_de_ref];// distance par rapport au point A (0, 0)
 			$b = $voisins_deuxieme_point_de_ref[$key];// distance par rapport au deuxieme point de ref B (x, 0)
-			$c = $value; // distance du point a ajouter par rapport à A
+			$c = $value; // distance du point a ajouter par rapport Ã  A
 			$angle = $this->calculeAngle($a, $b, $c);
 			//$coords = $this->coordonnesXY($angle, $c);
 			//var_dump($coords);
@@ -148,8 +148,8 @@ class VoisinsNPlusUnModel implements Model{
 		return array('positions' => $positions, 'liens' => $liens);
 	}
 
-	// calcul l'angle d'un nouveau point en fonction de sa distance par rapport a $id et $deuxieme_point_de_ref (noté A et B)
-	//	// alpha = acos ((bï¿½ - aï¿½ - cï¿½)/-2ac)
+	// calcul l'angle d'un nouveau point en fonction de sa distance par rapport a $id et $deuxieme_point_de_ref (notï¿½ A et B)
+	//	// alpha = acos ((bÂ² - aÂ² - cÂ²)/-2ac)
 	private function calculeAngle($a, $b, $c)
 	{
 		$t = (pow($b,2) - pow($a, 2) - pow($c, 2)) / -2*$a*$c ;
@@ -166,3 +166,4 @@ class VoisinsNPlusUnModel implements Model{
 	}
 
 }
+?>
