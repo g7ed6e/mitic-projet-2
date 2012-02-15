@@ -87,6 +87,6 @@ function testImageHover(mousePos)
 			break;
 		}
 	}
-	if(!found){ $(".popupImageDetails").remove(); }
+	if(!found){ $(".popupImageDetails").remove(); hoveredImageId = -1;  }
 	writeMessageHover(canvas, message);
 }
