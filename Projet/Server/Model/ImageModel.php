@@ -33,16 +33,29 @@ class ImageModel implements Model{
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$size[0]*$c, $size[1]*$c,$size[0],$size[1]);
 				$res[1]=$img_mini;
 				//return $img_mini;
-			}elseif($w!=0||$l!=0){
+			}elseif($w!=0&&$l!=0){
 				//cas de la taille fixée
-				$img_new = imagecreate($w, $l);
-				// création de la miniature
-				$img_mini = imagecreatetruecolor($w, $l)
-				or   $img_mini = imagecreate($w, $l);
-
+				
+				//réccupération du plus grand coté pour conserver le ratio de l'image.
+				if($size[0]>$size[1]){
+					$ratio = $size[1]/$size[0];
+					$img_new = imagecreate($w, $w*$ratio);
+					// création de la miniature
+					$img_mini = imagecreatetruecolor($w, $w*$ratio)
+					or   $img_mini = imagecreate($w, $w*$ratio);
 				// copie de l'image, avec le redimensionnement.
-				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$w*$ratio,$size[0],$size[1]);
 				$res[1]=$img_mini;
+				}else{
+					$ratio = $size[0]/$size[1];
+					$img_new = imagecreate($l*$ratio, $l);
+					// création de la miniature
+					$img_mini = imagecreatetruecolor($l*$ratio, $l)
+					or   $img_mini = imagecreate($l*$ratio, $l);
+				// copie de l'image, avec le redimensionnement.
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$l*$ratio, $l,$size[0],$size[1]);
+				$res[1]=$img_mini;
+				}
 				//return $img_mini;
 
 			}else{
