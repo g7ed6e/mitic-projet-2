@@ -1,45 +1,55 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
-	<head>
-		<title>
-			
-		</title>
-		<link rel="stylesheet" type="text/css" href="Ressources/Css/style.css" />
-		<link rel="stylesheet" type="text/css" href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css"/>
-		<script type="text/javascript" src="Ressources/Javascript/styleChange.js"></script>
-		<script type="text/javascript" src="Ressources/Javascript/motor.js"></script>
-		
-		<script type="text/javascript" src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
-		<script type="text/javascript" src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>
-		<script type="text/javascript" src="Ressources/Javascript/Graph.js"></script>
+<!DOCTYPE html>
+<html>
 
-		<body onload="init()" onresize="resized()">
-			<div id="main">
-				<canvas id="canvas">
-				   Non implémenté.
-				</canvas>
-			</div>
-			<div class="index">
-				<h1> Irisa </h1>
-				<h2> TexMex </h2>
-			</div>
-			<div id="searchDiv">
-				<input type="text" id="searchInput" onclick="clickInputSearch()" value="2" />
-				<!-- <input type="text" id="searchInput" onclick="clickInputSearch()" value="2" value="Veuillez saisir votre recherche" />-->
-				<div class="OK" onClick="ok()">
-					OK
-				</div>
-			</div>
-			<div id="zoomSlider">
-				<div id="topLabelSlider"></div>
-				<div id="slider"></div>
-				<div id="bottomLabelSlider"></div>
-			</div>
-			<div id="nbNeighbours">
-				<div id="labelNeighbours" >Nombre de voisins :</div>
-				<input type="text" readonly="true" id="nbNeighboursInput" size="1"></input>
-			</div>
-		</body>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="Ressources/Css/style.css" />
+		
+		<link rel="stylesheet" type="text/css"
+			href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
+			
+		<script type="text/javascript"
+			src="Ressources/Javascript/styleChange.js"></script>
+			
+		<script type="text/javascript" src="Ressources/Javascript/motor.js"></script>
+
+		<script type="text/javascript"
+			src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
+			
+		<script type="text/javascript"
+			src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>
+			
+		<script type="text/javascript" src="Ressources/Javascript/Graph.js"></script>
 	</head>
+	
+	
+	<body onload="init()" onresize="resized()">
+	
+		<div id="main">
+			<canvas id="canvas"> Non implémenté. 
+			</canvas>
+		</div>
+		
+		<div class="index">
+			<h1>Irisa</h1>
+			<h2>TexMex</h2>
+		</div>
+		
+		<div id="searchDiv"><input type="text" id="searchInput"
+			onclick="clickInputSearch()" value="2" /> <!-- <input type="text" id="searchInput" onclick="clickInputSearch()" value="2" value="Veuillez saisir votre recherche" />-->
+		<div class="OK" onClick="ok()">OK</div>
+		</div>
+			<div id="zoomSlider">
+			<div id="topLabelSlider"></div>
+			<div id="slider"></div>
+			<div id="bottomLabelSlider"></div>
+		</div>
+		
+		<div id="nbNeighbours">
+			<div id="labelNeighbours">Nombre de voisins :</div>
+			<input type="text" readonly="readonly" id="nbNeighboursInput" size="1" />
+		</div>
+	</body>
 </html>
