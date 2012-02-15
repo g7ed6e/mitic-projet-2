@@ -36,7 +36,7 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 		// 			$controller->getSignificativesNodesV2($_GET['id'], $_GET['nn']);
 		// 			break;
 		case 'getImg':
-			if(!empty($_GET['id']))
+			if(isset($_GET['id']))
 
 				/*
 				 * id : id de l'image, paramètre obligatoire

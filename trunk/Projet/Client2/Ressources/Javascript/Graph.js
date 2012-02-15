@@ -2,7 +2,6 @@ var graph;
 var canvas;
 var ctx;
 var graphCenter;
-var ratio = 360;
 $(document).ready(function(){
 	canvas = $("#canvas").get(0);
 	ctx = canvas.getContext('2d'); 
@@ -123,7 +122,7 @@ function Graph(options) {
 		if (canvas.getContext) {
 			ctx.moveTo(edge.source.center.x, edge.source.center.y);			
 			ctx.lineTo(edge.target.center.x, edge.target.center.y);
-		    ctx.lineWidth = 0.1;
+		    ctx.lineWidth = 0.2;
 			ctx.stroke();	
 		}
 
@@ -137,13 +136,13 @@ function Graph(options) {
 			  url: '../Server/index.php',
 			  dataType: 'json',
 			  cache: false,
-			  data: {"controller" : "voisinsN", "id" : id, "nn" : nbNeighbours, "action" : "getVoisinsN"},
+			  data: {"controller" : "voisinsN", "id" : id, "nn" : nbNeighbours, "action" : "getVoisinsN", "w": canvas.width, "h": canvas.height},
 			  success: function(data) {
 					graph.clearNodes();
 					var liens = data.liens;
 					var positions = data.positions;
 					for(var i in positions){
-						var node = new Node(positions[i][0], positions[i][1] * ratio, positions[i][2] * ratio);
+						var node = new Node(positions[i][0], positions[i][1], positions[i][2]);
 						graph.addNode(node);
 					}	
 					for(var i in liens){				
