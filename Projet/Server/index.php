@@ -48,12 +48,11 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 				$controller->getImage($_GET['id'],!empty($_GET['w'])?$_GET['w']:null,!empty($_GET['h'])?$_GET['h']:null,!empty($_GET['s'])?$_GET['s']:null,!empty($_GET['t'])?$_GET['t']:null);
 			break;
 		case 'getVoisinsN':
-			$controller->getVoisinsN( $_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
-// 			if(  (!empty($_GET['id'])) && (!empty($_GET['nn'])) && (!empty($_GET['w'])) && (!empty($_GET['h'])) )
-// 			{
+			if(  (!empty($_GET['id'])) && (!empty($_GET['nn'])) && (!empty($_GET['w'])) && (!empty($_GET['h'])) )
+			{
 				
-// 				$controller->getVoisinsN( $_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
-// 			}
+				$controller->getVoisinsN( $_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
+			}
 			break;
 		case 'getVoisinsNPlusUn':
 			$controller->getVoisinsNPlusUn($_GET['id'], $_GET['nn'], $_GET['nnPlusUn']);
