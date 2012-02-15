@@ -37,7 +37,14 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 // 			break;
 		case 'getImg':
 			if(!empty($_GET['id']))
-				$controller->getImage($_GET['id'],$_GET['w'],$_GET['l'],$_GET['c']);
+				/*
+				 * id : id de l'image, paramètre obligatoire
+				 * w et h : entier pour choisir une taille définie de l'image sans ration (ne marche pas l'un sans l'autre), paramètre optionnel
+				 * s : scale de redimessionnement de l'image, paramètre optionnel
+				 * t : paramètre de redimensionnement fixe en respectant le ratio, paramètre optionnel
+				 * sans paramètre optionnel -> retour de l'image sans redimensionnement
+				 */
+				$controller->getImage($_GET['id'],$_GET['w'],$_GET['h'],$_GET['s'],$_GET['t']);
 			break;
 		case 'getVoisinsN':
 // 			if(!empty($_GET['nn_plus_1'])) $controller->voisins_n_plus_1($_GET['id'], $_GET['nn'], $_GET['nn_plus_1']); 

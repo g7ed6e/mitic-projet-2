@@ -1,9 +1,9 @@
 <?php
 class ImageModel implements Model{
 
-	
 
-	public function getImage($id,$w,$l,$c){
+
+	public function getImage($id,$w,$l,$c,$t){
 
 		$file = ROOT_DATA_REPOSITORY."/img/".$id.".jpg";
 		$size = getimagesize($file);
@@ -21,9 +21,9 @@ class ImageModel implements Model{
 			elseif ($size['mime']=='image/gif' ) {
 				$img_big = imagecreatefromgif($file); # On ouvre l'image d'origine
 			}
-				
+
 			if($c!=0){
-				//cas du scale	
+				//cas du scale
 				$img_new = imagecreate($size[0]*$c, $size[1]*$c);
 				// création de la miniature
 				$img_mini = imagecreatetruecolor($size[0]*$c, $size[1]*$c)
@@ -33,29 +33,42 @@ class ImageModel implements Model{
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$size[0]*$c, $size[1]*$c,$size[0],$size[1]);
 				$res[1]=$img_mini;
 				//return $img_mini;
-			}elseif($w!=0&&$l!=0){
-				//cas de la taille fixée
-				
-				//réccupération du plus grand coté pour conserver le ratio de l'image.
+			}elseif($t!=0){
 				if($size[0]>$size[1]){
 					$ratio = $size[1]/$size[0];
-					$img_new = imagecreate($w, $w*$ratio);
+					//cas de la taille fixée
+					$img_new = imagecreate($t, $t*$ratio);
 					// création de la miniature
-					$img_mini = imagecreatetruecolor($w, $w*$ratio)
-					or   $img_mini = imagecreate($w, $w*$ratio);
-				// copie de l'image, avec le redimensionnement.
-				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$w*$ratio,$size[0],$size[1]);
-				$res[1]=$img_mini;
+					$img_mini = imagecreatetruecolor($t, $t*$ratio)
+					or   $img_mini = imagecreate($t, $t*$ratio);
+
+					// copie de l'image, avec le redimensionnement.
+					imagecopyresized($img_mini,$img_big,0,0,0,0,$t, $t*$ratio,$size[0],$size[1]);
+					$res[1]=$img_mini;
+					//return $img_mini;
 				}else{
 					$ratio = $size[0]/$size[1];
-					$img_new = imagecreate($l*$ratio, $l);
+					//cas de la taille fixée
+					$img_new = imagecreate($t*$ratio, $t);
 					// création de la miniature
-					$img_mini = imagecreatetruecolor($l*$ratio, $l)
-					or   $img_mini = imagecreate($l*$ratio, $l);
-				// copie de l'image, avec le redimensionnement.
-				imagecopyresized($img_mini,$img_big,0,0,0,0,$l*$ratio, $l,$size[0],$size[1]);
-				$res[1]=$img_mini;
+					$img_mini = imagecreatetruecolor($t*$ratio, $t)
+					or   $img_mini = imagecreate($t*$ratio, $t);
+
+					// copie de l'image, avec le redimensionnement.
+					imagecopyresized($img_mini,$img_big,0,0,0,0,$t*$ratio, $t,$size[0],$size[1]);
+					$res[1]=$img_mini;
+					//return $img_mini;
 				}
+			}elseif($w!=0&&$l!=0){
+				//cas de la taille fixée
+				$img_new = imagecreate($w, $l);
+				// création de la miniature
+				$img_mini = imagecreatetruecolor($w, $l)
+				or   $img_mini = imagecreate($w, $l);
+
+				// copie de l'image, avec le redimensionnement.
+				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
+				$res[1]=$img_mini;
 				//return $img_mini;
 
 			}else{
@@ -116,8 +129,8 @@ class ImageModel implements Model{
 	}
 
 
-/*
-	public function getSignificativesDistancesV2($id,$n,$n_plus_1){
+	/*
+	 public function getSignificativesDistancesV2($id,$n,$n_plus_1){
 		// on lit tout le contenu du fichier (1225 lignes pour 50 points)
 		$array = $this->getAllDistance();
 
@@ -129,7 +142,7 @@ class ImageModel implements Model{
 		$res = $voisins_n;
 		foreach ($voisins_n as $v)
 		{
-			$res = array_merge($res, $this->recupererMin($v[0] != $id ?$v[0]:$v[1], $nn, $array));
+		$res = array_merge($res, $this->recupererMin($v[0] != $id ?$v[0]:$v[1], $nn, $array));
 		}
 
 
@@ -143,13 +156,13 @@ class ImageModel implements Model{
 
 		for($i = $nb_images - 1; $i < (2*$nb_images - 2);  $i++)
 		{
-			// cas de la premiere ligne
-			if($i == $nb_images - 1) $dist_b[$j] = array($id, $array[$j][2]);
-			// cas des lignes d'index n � 2n-1
-			var_dump($array[$i][1]);
-			//else $dist_b[$j] = array($array[$i][1], $array[$i][2]);
+		// cas de la premiere ligne
+		if($i == $nb_images - 1) $dist_b[$j] = array($id, $array[$j][2]);
+		// cas des lignes d'index n � 2n-1
+		var_dump($array[$i][1]);
+		//else $dist_b[$j] = array($array[$i][1], $array[$i][2]);
 
-			$j++;
+		$j++;
 		}
 		var_dump($dist_b);
 		//var_dump($dist_b);
@@ -160,22 +173,22 @@ class ImageModel implements Model{
 		$positions[0] = array($id, 0, 0);
 		return null;
 
-	}
-*/
-/*
-	// calcul l'angle
-	//	// alpha = acos ((b� - a� - c�)/-2ac)
-	private function calculeAngle($a, $b, $c)
-	{
+		}
+		*/
+	/*
+	 // calcul l'angle
+	 //	// alpha = acos ((b� - a� - c�)/-2ac)
+	 private function calculeAngle($a, $b, $c)
+	 {
 		return acos( (pow($b,2) - pow($a, 2) - pow($c, 2)) / -2 * a*c  );
-	}*/
+		}*/
 
 
 
 
-/*
-	public function voisins_n_plus_1($id, $nn, $nn_plus_1)
-	{
+	/*
+	 public function voisins_n_plus_1($id, $nn, $nn_plus_1)
+	 {
 		// lecture du fichier
 		$array = $this->getAllDistance();
 
@@ -183,17 +196,17 @@ class ImageModel implements Model{
 		$voisins_n = array();
 		foreach($array as $value)
 		{
-			if ($value[0] == $id){
-				$voisins_n[$value[1]] = $value[2];
-			} else if ($value[1] == $id){
-				$voisins_n[$value[0]] = $value[2];
-			}
+		if ($value[0] == $id){
+		$voisins_n[$value[1]] = $value[2];
+		} else if ($value[1] == $id){
+		$voisins_n[$value[0]] = $value[2];
+		}
 		}
 		//tri croissant des longueurs
 		asort($voisins_n);
 		// extraction des $nn plus proches
 		return array_slice($voisins_n, 0, $nn, true);
-	}
-	
-	*/
+		}
+
+		*/
 }
