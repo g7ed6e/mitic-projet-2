@@ -102,12 +102,15 @@ function Graph(options) {
 		
 	    if (canvas.getContext)
 	    {    
-	        ctx.fillRect(node.position.x, node.position.y, node.width, node.height);       // afficher un rectangle plein
 	        
 	        var img=new Image();
-	        img.id ='test';
-	        img.src="../Server/data/img/"+node.id+".jpg";
-	        ctx.drawImage(img,node.position.x, node.position.y, node.width, node.height);
+	        img.src="../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50";
+	        // on attend le chargement complet de l'image pour l'insérer dans le canvas
+	        jQuery(img).load(function() {
+		 	    ctx.fillRect(node.position.x, node.position.y, img.width, img.height);       // afficher un rectangle plein
+		        ctx.drawImage(img,node.position.x, node.position.y, img.width, img.height);
+	        });
+
 			
 	    } 
 		
