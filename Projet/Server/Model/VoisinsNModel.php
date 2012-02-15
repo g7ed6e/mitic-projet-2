@@ -63,8 +63,10 @@ class VoisinsNModel implements Model{
 		// on it�re sur les plus proches voisins filtr�s
 
 		$i = 0;
+		$max = 0;// va servir a calculer le ratio à appliquer en fonction de la resolution
 		foreach($voisins_n as $key => $value)
 		{
+			$max = $value > $max ? $value : $max;
 			// on calcule les coordonn�es pour un id donn�
 			$coords = $this->coordonnesXY($i * $angle, $value);
 			// on ajout l'id avec les coordonn�es au tableau $positions
@@ -73,23 +75,14 @@ class VoisinsNModel implements Model{
 			$i++;
 		}
 
-		// ici en fonction de la resolution envoyéee on multiplie
-		// d'abord on recherche la plus grosse valeur dans les positions (i.e dans les x y)
-		$max = 0;
-		foreach ($positions as $key => $value)
-		{
-			$max = $value[1] > $max ? $value[1] : $max;
-			$max = $value[2] > $max ? $value[2] : $max;
-		}
-		//var_dump($max);
-		$max_screen = max($w, $h) / 4;
-		//var_dump($max_screen);
+		// une fois le max trouvé on applique le ratio
+		// en fonction de la resolution envoyée 
+		$max_screen = (min($w, $h) / 2) - 20;
 		$ratio = ($max_screen ) / $max;
-		//var_dump($ratio);
 		foreach($positions as $key => &$value)
-		{
-			$value[1] *= $ratio;
-			$value[2] *= $ratio;
+		{		
+			$value[1] *= ($ratio);
+			$value[2] *= ($ratio);
 		}
 
 		return array('positions' => $positions, 'liens' => $liens);

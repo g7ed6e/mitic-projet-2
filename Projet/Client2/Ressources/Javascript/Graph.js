@@ -37,6 +37,10 @@ function Graph(options) {
 	Graph.prototype.getNode = function(node_id) {
 	  return this.nodeSet[node_id];
 	};
+	
+	Graph.prototype.getNodes = function(){
+		return this.nodeSet;
+	}
 
 	Graph.prototype.clearNodes = function() {
 		this.nodeSet = {};
@@ -63,15 +67,16 @@ function Graph(options) {
 
 	function Node(node_id, x, y, width, height) {
 	  this.id = node_id;
-	  this.width = width || 50;
-	  this.height = height || 37.5;
+	  this.width = width || 0;
+	  this.height = height || 0;
 	  this.center = {"x" : x + graphCenter.x, "y" : y + graphCenter.y};
 	  this.position = {"x" : this.center.x - (this.width/2), "y" : this.center.y - (this.height/2)};
+	  this.position2 = {"x" : this.center.x + (this.width/2), "y" : this.center.y + (this.height/2)};
 	  this.nodesTo = [];
 	  this.nodesFrom = [];
 	  this.data = {};
 	}
-
+	
 	Node.prototype.addConnectedTo = function(node) {
 	  if(this.connectedTo(node) === false) {
 	    this.nodesTo.push(node);
@@ -106,7 +111,11 @@ function Graph(options) {
 	        img.src="../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50";
 	        // on attend le chargement complet de l'image pour l'insérer dans le canvas
 	        jQuery(img).load(function() {
-		 	    ctx.fillRect(node.position.x, node.position.y, img.width, img.height);       // afficher un rectangle plein
+		        node.width = img.width;
+		        node.height = img.height;
+		        node.position = {"x" : node.center.x - (node.width/2), "y" : node.center.y - (node.height/2)};
+		  	  	node.position2 = {"x" : node.center.x + (node.width/2), "y" : node.center.y + (node.height/2)};
+		  	    ctx.fillRect(node.position.x, node.position.y, img.width, img.height);       // afficher un rectangle plein
 		        ctx.drawImage(img,node.position.x, node.position.y, img.width, img.height);
 	        });
 
