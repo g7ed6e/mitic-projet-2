@@ -1,3 +1,5 @@
+var hoveredImageId = -1;
+
 $(document).ready(function(){
 	canvas.addEventListener('mousemove', function(evt){
         var mousePos = getMousePos(canvas, evt);
@@ -50,13 +52,26 @@ function writeMessageHover(canvas, message){
 function testImageHover(mousePos)
 {
 	var message = '';
+	var found = false;
 	for (var i = 0;i < graph.nodes.length;i++)
 	{
 		var node = graph.nodes[i];
 		if((mousePos.x > node.position.x)&&(mousePos.x < node.position2.x)
 				&&(mousePos.y > node.position.y)&&(mousePos.y < node.position2.y)) {
-			message += ('-' + node.id + ' hover\n');
+			message = (node.id + ' hover\n');
+			if(node.id != hoveredImageId)
+			{
+				if(hoveredImageId == -1) { $(".popupImageDetails").remove(); }
+				
+				$("#main").append("<div class='popupImageDetails'><p>test</p></div>");	
+				
+			}
+			$(".popupImageDetails").css('left', mousePos.x);
+			$(".popupImageDetails").css('top', mousePos.y);
+			found = true;
+			break;
 		}
 	}
+	if(!found){ $(".popupImageDetails").remove(); }
 	writeMessageHover(canvas, message);
 }
