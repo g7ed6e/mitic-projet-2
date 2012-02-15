@@ -1,10 +1,13 @@
 var hoveredImageId = -1;
+var debugMousePos = true;
 
 $(document).ready(function(){
 	canvas.addEventListener('mousemove', function(evt){
         var mousePos = getMousePos(canvas, evt);
-        var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
-        writeMessage(canvas, message);
+        if(debugMousePos){
+        	var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
+        	writeMessage(canvas, message);
+        }
         testImageHover(mousePos);
     }, false);
 	
@@ -61,11 +64,11 @@ function testImageHover(mousePos)
 			message = (node.id);
 			if(node.id != hoveredImageId)
 			{
-				if(hoveredImageId == -1) {
-					/*$(".popupImageDetails").animate({ opacity: 0}, 1000, function() {*/ 
+				/*if(hoveredImageId == -1) {
+					$(".popupImageDetails").animate({ opacity: 0}, 1000, function() {*/ 
 						$(".popupImageDetails").remove(); 
-					/*});*/ 
-				}
+					/*}); 
+				}*/
 				hoveredImageId = node.id;
 				var img = new Image();
 				img.src = '../Server/index.php?controller=image&action=getImg&id='+node.id+'&t=150';
