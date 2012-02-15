@@ -11,7 +11,7 @@ function init(){
 		value : midValue,
 		step : 1,
 		orientation : 'vertical',
-		slide : function(event, ui){
+		stop : function(event, ui){
 			$("#nbNeighboursInput").val(ui.value);
 			zoomChange(ui.value);
 		}

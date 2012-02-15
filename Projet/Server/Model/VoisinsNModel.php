@@ -46,6 +46,12 @@ class VoisinsNModel implements Model{
 		// extraction des nn proches voisins
 		$voisins_n = $this->voisinsN($id, $nn, $array); //recupererMin($id, $nn, $array);
 		
+		// on remet de l'alï¿½atoire afin de ne pas afficher une spirale
+		usort($voisins_n, function($a, $b)
+		{
+			return .01 * rand(0, 100) >= .5;
+		});
+		
 		// on place le premier point au centre (en 0, 0)
 		$positions = array();
 		$positions[0] = array(intval($id), 0, 0);
@@ -54,7 +60,10 @@ class VoisinsNModel implements Model{
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
 		$liens = array();
-		// on itère sur les plus proches voisins filtrés
+		
+		
+		
+		// on itï¿½re sur les plus proches voisins filtrï¿½s
 		$i = 0;
 		foreach($voisins_n as $key => $value)
 		{
@@ -66,11 +75,7 @@ class VoisinsNModel implements Model{
 			$i++;
 		}
 
-		// on remet de l'aléatoire afin de ne pas afficher une spirale
-		usort($positions, function($a, $b)
-		{
-			return .01 * rand(0, 100) >= .5;
-		});
+		
 		
 		return array('positions' => $positions, 'liens' => $liens);
 	}

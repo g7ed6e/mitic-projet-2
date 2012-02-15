@@ -9,12 +9,11 @@ $(document).ready(function(){
 	ctx.canvas.width  = $("#main").innerWidth();
 	ctx.canvas.height = $("#main").innerHeight();
 	$("#canvas").width($("#main").innerWidth());
-	console.log($("#canvas"));
 	graphCenter = {"x": $("#main").width() / 2, "y": $("#main").height() / 2};
 
 	graph = new Graph();
 
-	request(1, 49);
+	//request(1, 24);
 	
 });
 
@@ -40,6 +39,12 @@ function Graph(options) {
 	  return this.nodeSet[node_id];
 	};
 
+	Graph.prototype.clearNodes = function() {
+		this.nodeSet = {};
+		this.nodes = [];
+		this.edges = [];
+	};	
+	
 	Graph.prototype.addEdge = function(source, target) {
 	  if(source.addConnectedTo(target) === true) {
 	    var edge = new Edge(source, target);
@@ -122,7 +127,37 @@ function Graph(options) {
 	}
 
 	function request(id, nbNeighbours){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		canvas.width = canvas.width;
+
+		$.ajax({
+			  url: '../Server/index.php',
+			  dataType: 'json',
+			  cache: false,
+			  data: {"controller" : "voisinsN", "id" : id, "nn" : nbNeighbours, "action" : "getVoisinsN"},
+			  success: function(data) {
+					graph.clearNodes();
+					var liens = data.liens;
+					var positions = data.positions;
+					for(var i in positions){
+						var node = new Node(positions[i][0], positions[i][1] * ratio, positions[i][2] * ratio);
+						graph.addNode(node);
+					}	
+					for(var i in liens){				
+						graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
+						drawEdge(graph.edges[i]);				
+					}
+					for(var i=0; i<graph.nodes.length; i++)
+						drawNode(graph.nodes[i]);
+
+
+			  }
+		});
+			 
+		
+		/*
 		$.getJSON('../Server/index.php?controller=voisinsN&action=getVoisinsN&id='+id+'&nn='+nbNeighbours, function(data) {
+			graph.clearNodes();
 			var liens = data.liens;
 			var positions = data.positions;
 			for(var i in positions){
@@ -137,5 +172,5 @@ function Graph(options) {
 				drawNode(graph.nodes[i]);
 
 
-		});
+		});*/
 	}
