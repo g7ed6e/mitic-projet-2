@@ -9,9 +9,9 @@ class VoisinsNController implements Controller{
 		$this->model = new VoisinsNModel();
 	}
 
-	public function getVoisinsN($id, $nb_voisins){
+	public function getVoisinsN($id, $nb_voisins,$w,$h){
 		require_once 'View/JsonView.php';
-		$voisins = $this->model->getVoisinsN($id,$nb_voisins);
+		$voisins = $this->model->getVoisinsN($id,$nb_voisins, $w, $h);
 		$view = new JsonView($voisins);
 		$view->Render();
 	}

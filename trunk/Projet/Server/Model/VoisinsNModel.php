@@ -1,6 +1,6 @@
 <?php
 class VoisinsNModel implements Model{
-	
+
 	private function getAllDistances(){
 		$res = array();
 		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50.txt");
@@ -39,19 +39,19 @@ class VoisinsNModel implements Model{
 		return $coordonnees;
 	}
 
-	public function getVoisinsN($id,$nn){
+	public function getVoisinsN($id,$nn,$w, $h){
 		// lecture du fichier
 		$array = $this->getAllDistances();
 		//var_dump($array);
 		// extraction des nn proches voisins
 		$voisins_n = $this->voisinsN($id, $nn, $array); //recupererMin($id, $nn, $array);
-		
+
 		// on remet de l'al�atoire afin de ne pas afficher une spirale
-		usort($voisins_n, function($a, $b)
+		uksort($voisins_n, function($a, $b)
 		{
 			return .01 * rand(0, 100) >= .5;
 		});
-		
+
 		// on place le premier point au centre (en 0, 0)
 		$positions = array();
 		$positions[0] = array(intval($id), 0, 0);
@@ -72,7 +72,26 @@ class VoisinsNModel implements Model{
 			$liens[$i] = array(intval($id), $key);
 			$i++;
 		}
-		
+
+		// ici en fonction de la resolution envoyéee on multiplie
+		// d'abord on recherche la plus grosse valeur dans les positions (i.e dans les x y)
+		$max = 0;
+		foreach ($positions as $key => $value)
+		{
+			$max = $value[1] > $max ? $value[1] : $max;
+			$max = $value[2] > $max ? $value[2] : $max;
+		}
+		var_dump($max);
+		$max_screen = max($w, $h) / 4;
+		var_dump($max_screen);
+		$ratio = ($max_screen ) / $max;
+		var_dump($ratio);
+		foreach($positions as $key => &$value)
+		{
+			$value[1] *= $ratio;
+			$value[2] *= $ratio;
+		}
+
 		return array('positions' => $positions, 'liens' => $liens);
 	}
 }
