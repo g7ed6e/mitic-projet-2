@@ -164,6 +164,8 @@ class VoisinsNPlusUnModel implements Model{
 		$coordonnees ['y'] = round($distance * sin($angle), 4);
 		return $coordonnees;
 	}
+	
+	// Calcul du
 
 }
 ?>

@@ -9,7 +9,6 @@ class ImageView implements View{
 	}
 
 	public function Render(){
-
 		if ($this->format=='image/jpeg' ) {
 			header("Content-Type: image/jpeg");
 			imagejpeg($this->data);
@@ -22,8 +21,6 @@ class ImageView implements View{
 			header("Content-Type: image/gif");
 			imagegif($this->data);
 		}
-
-
 	}
 
 }
