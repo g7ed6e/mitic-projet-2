@@ -39,6 +39,16 @@ class VoisinsNPlusUnModel implements Model{
 		$voisins_id = $this->voisinsN($id, $nn, $array);
 		var_dump($voisins_id);
 
+		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens qui seront affichés)
+		$liens = array();
+		$nb_liens = 0;
+		// création des liens de rang n
+		foreach($voisins_id as $k => $v)
+		{
+			$liens[$nb_liens] = array(intval($id), $k);
+			$nb_liens++;
+		}
+
 		// extraction des $nPlusUn plus proches voisins des $nn plus proches voisins de $id
 		$tmp = array();
 		foreach(array_keys($voisins_id) as $key)
@@ -55,6 +65,8 @@ class VoisinsNPlusUnModel implements Model{
 						|| (($a[0] == $vNPlusUnKey)&&($a[1] == $id)))
 						{
 							$tmp[$vNPlusUnKey] = $a[2];
+							$liens[$nb_liens] = array(intval($key), $vNPlusUnKey);
+							$nb_liens++;
 							break;
 						}
 					}
@@ -62,6 +74,8 @@ class VoisinsNPlusUnModel implements Model{
 			}
 		}
 
+		var_dump($liens);
+		
 		// fusion avec le tableau des voisins de premier niveau
 		foreach ($tmp as $key => $value)
 		{
@@ -98,8 +112,7 @@ class VoisinsNPlusUnModel implements Model{
 
 		// Calcul des positions grace a theoreme d'Al-Kachi
 		$positions = array();
-		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
-		$liens = array();
+
 
 		// on place le premier point au centre (en 0, 0)
 		$positions[0] = array(intval($id), 0, 0);
@@ -138,4 +151,13 @@ class VoisinsNPlusUnModel implements Model{
 
 		return array('positions' => $positions, 'liens' => $liens);
 	}
+
+	// calcul l'angle d'un nouveau point en fonction de sa distance par rapport a $id et $deuxieme_point_de_ref (noté A et B)
+	//	// alpha = acos ((bï¿½ - aï¿½ - cï¿½)/-2ac)
+	private function calculeAngle($a, $b, $c)
+	{
+		return acos( (pow($b,2) - pow($a, 2) - pow($c, 2)) / -2 * a*c  );
+	}
+
+
 }
