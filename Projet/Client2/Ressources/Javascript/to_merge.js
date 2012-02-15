@@ -61,16 +61,22 @@ function testImageHover(mousePos)
 			message = (node.id);
 			if(node.id != hoveredImageId)
 			{
-				if(hoveredImageId == -1) { $(".popupImageDetails").remove(); }
+				if(hoveredImageId == -1) {
+					/*$(".popupImageDetails").animate({ opacity: 0}, 1000, function() {*/ 
+						$(".popupImageDetails").remove(); 
+					/*});*/ 
+				}
+				hoveredImageId = node.id;
 				var img = new Image();
 				img.src = '../Server/index.php?controller=image&action=getImg&id='+node.id+'&t=150';
 				jQuery(img).load(function() {
 					$(".popupImageDetails").css('width', img.width)
-						.css('height', img.height)
-						.animate({ opacity: 1 },1000, null);
+						.css('height', img.height);
+						/*.animate({ opacity: 1 },1000, null);*/
 				});
 				$("#main").append("<div class='popupImageDetails'></div>");
 		        $(".popupImageDetails").append(img);	
+		        
 			}
 			$(".popupImageDetails").css('left', mousePos.x + 20)
 				.css('top', mousePos.y + 20);
