@@ -31,14 +31,14 @@ class VoisinsNPlusUnModel implements Model{
 		return array_slice($voisins_n, 0, $nn, true);
 	}
 
-	public function getVoisinsNPlusUn($id,$nn,$nPlusUn){
+	public function getVoisinsNPlusUn($id,$nn,$nPlusUn,$w, $h){
 		// lecture du fichier
 		$array = $this->getAllDistances();
 
 		// extraction des $nn proches voisins de $id ainsi que leurs distance par rapoort � $id
 		$voisins_id = $this->voisinsN($id, $nn, $array);
-		var_dump('voisins_id');
-		var_dump($voisins_id);
+//		var_dump('voisins_id');
+//		var_dump($voisins_id);
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens qui seront affich�s)
 		$liens = array();
@@ -74,9 +74,6 @@ class VoisinsNPlusUnModel implements Model{
 				}
 			}
 		}
-		var_dump('liens');
-		var_dump($liens);
-		
 		// fusion avec le tableau des voisins de premier niveau
 		foreach ($tmp as $key => $value)
 		{
@@ -84,15 +81,11 @@ class VoisinsNPlusUnModel implements Model{
 		}
 		// on a maintenant dans $voisins_id toutes les images a afficher
 		// ainsi que leurs distances par rapport a l'image de r�f�rence
-		var_dump('voisins_id');
-		var_dump($voisins_id);
 
 		// maintenant, on va extraire les distances des points par rapport
 		// a un deuxieme point de r�f�rence pour pouvoir ensuite utiliser le theoreme d'Al-Kachi
 		// ici, le deuxieme point de r�f�rence est le plus proche voisin de $id (perte en precision a v�rifier..)
 		$deuxieme_point_de_ref = array_shift(array_keys($voisins_id));// extract the first key from $voisins_id
-		var_dump('deuxieme_point_de_ref');
-		var_dump($deuxieme_point_de_ref);
 			
 		$voisins_deuxieme_point_de_ref = array();
 		foreach(array_keys($voisins_id) as $key)
@@ -111,9 +104,6 @@ class VoisinsNPlusUnModel implements Model{
 			}
 		}
 
-		var_dump('voisins_deuxieme_point_de_ref');
-		var_dump($voisins_deuxieme_point_de_ref);
-
 		// Calcul des positions grace a theoreme d'Al-Kachi
 		$positions = array();
 
@@ -123,14 +113,14 @@ class VoisinsNPlusUnModel implements Model{
 			0, 
 			0);
 		// on place le deuxieme point sur l'axe des abcisses
-		$positions[1] = array($deuxieme_point_de_ref, 
-			round(array_shift(array_values($voisins_id)), 4),
-		 	0);
+		$positions[1] = array($deuxieme_point_de_ref, array_shift(array_values($voisins_id)), 0);
 		// ensuite grace a trigo et AlKashi on recupere angle et position du point delativement aux deux autres.
 		$i = 0;
+		$max = 0;
 		foreach($voisins_id as $key => $value)      // voisins_id = distance des points par rapport a $id (ici le point a)
 													// $key id du point $value la distance
 		{
+			$max = $value > $max ? $value : $max; 
 			// on a deja les 2 premiers points
 			if(($i == 0)||($i == 1)) { $i++;continue; }
 						
@@ -138,13 +128,23 @@ class VoisinsNPlusUnModel implements Model{
 			$b = $voisins_deuxieme_point_de_ref[$key];// distance par rapport au deuxieme point de ref B (x, 0)
 			$c = $value; // distance du point a ajouter par rapport à A
 			$angle = $this->calculeAngle($a, $b, $c);
-			//$coords = $this->coordonnesXY($angle, $c);
-			//var_dump($coords);
-			//$positions[$i] = array($key,$coords['x'], $coords['y']);
-			$positions[$i] = array($key, $c*cos($angle), $c * sin ($angle));
+			$coords = $this->coordonnesXY($angle, $c);
+			
+			$positions[$i] = array($key,$coords['x'], $coords['y']);
 			$i++;
 		}
 		
+		// une fois le max trouvé on applique le ratio
+		// en fonction de la resolution envoyée
+		$max_screen = (min($w, $h) / 2) - 20;
+		$ratio = ($max_screen ) / $max;
+		foreach($positions as $key => &$value)
+		{
+			$value[1] *= ($ratio);
+			$value[2] *= ($ratio);
+		}
+		
+		var_dump("prout");
 		return array('positions' => $positions, 'liens' => $liens);
 	}
 
@@ -152,20 +152,16 @@ class VoisinsNPlusUnModel implements Model{
 	//	// alpha = acos ((b² - a² - c²)/-2ac)
 	private function calculeAngle($a, $b, $c)
 	{
-		$t = (pow($b,2) - pow($a, 2) - pow($c, 2)) / -2*$a*$c ;
-		var_dump($t);
+		$t = round( ($b*$b - $a*$a - $c*$c) / (-2*$a*$c), 4) ;
 		return acos($t);
 	}
 
-	//Calcul l'emplacement des points pour la version v1 (�toile)
+	//Calcul l'emplacement des points pour la version v1 (étoile)
 	private function coordonnesXY($angle , $distance){
 		$coordonnees = array();
 		$coordonnees ['x'] = $distance * cos($angle);
 		$coordonnees ['y'] = $distance * sin($angle);
 		return $coordonnees;
 	}
-	
-	// Calcul du
-
 }
 ?>

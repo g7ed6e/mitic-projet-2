@@ -60,7 +60,7 @@ class VoisinsNModel implements Model{
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens)
 		$liens = array();
-		// on it�re sur les plus proches voisins filtr�s
+		// on itère sur les plus proches voisins filtrés
 
 		$i = 0;
 		$max = 0;// va servir a calculer le ratio à appliquer en fonction de la resolution

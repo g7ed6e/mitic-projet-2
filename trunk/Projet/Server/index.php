@@ -38,24 +38,26 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 		case 'getImg':
 			if(isset($_GET['id']))
 
-				/*
-				 * id : id de l'image, paramètre obligatoire
-				 * w et h : entier pour choisir une taille définie de l'image sans ration (ne marche pas l'un sans l'autre), paramètre optionnel
-				 * s : scale de redimessionnement de l'image, paramètre optionnel
-				 * t : paramètre de redimensionnement fixe en respectant le ratio, paramètre optionnel
-				 * sans paramètre optionnel -> retour de l'image sans redimensionnement
-				 */
-				$controller->getImage($_GET['id'],!empty($_GET['w'])?$_GET['w']:null,!empty($_GET['h'])?$_GET['h']:null,!empty($_GET['s'])?$_GET['s']:null,!empty($_GET['t'])?$_GET['t']:null);
+			/*
+			 * id : id de l'image, paramètre obligatoire
+			 * w et h : entier pour choisir une taille définie de l'image sans ration (ne marche pas l'un sans l'autre), paramètre optionnel
+			 * s : scale de redimessionnement de l'image, paramètre optionnel
+			 * t : paramètre de redimensionnement fixe en respectant le ratio, paramètre optionnel
+			 * sans paramètre optionnel -> retour de l'image sans redimensionnement
+			 */
+			$controller->getImage($_GET['id'],!empty($_GET['w'])?$_GET['w']:null,!empty($_GET['h'])?$_GET['h']:null,!empty($_GET['s'])?$_GET['s']:null,!empty($_GET['t'])?$_GET['t']:null);
 			break;
 		case 'getVoisinsN':
-			if(  (!empty($_GET['id'])) && (!empty($_GET['nn'])) && (!empty($_GET['w'])) && (!empty($_GET['h'])) )
+			if(  (isset($_GET['id'])) && (isset($_GET['nn'])) && (isset($_GET['w'])) && (isset($_GET['h'])) )
 			{
-				
 				$controller->getVoisinsN( $_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
 			}
 			break;
 		case 'getVoisinsNPlusUn':
-			$controller->getVoisinsNPlusUn($_GET['id'], $_GET['nn'], $_GET['nnPlusUn']);
+			if(  (isset($_GET['id'])) && (isset($_GET['nn'])) && (isset($_GET['nnPlusUn'])) && (isset($_GET['w'])) && (isset($_GET['h'])) )
+			{
+				$controller->getVoisinsNPlusUn( $_GET['id'], $_GET['nn'], $_GET['nnPlusUn'], $_GET['w'], $_GET['h'] );
+			}
 			break;
 		default :
 			break;
