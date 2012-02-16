@@ -2,7 +2,7 @@ var min = 1;
 var max = 49;
 var midValue = Math.round((max-min)/2);
 var hoveredImageId = -1;
-var debugMousePos = true;
+var debugMousePos = false;
 var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
 
 $(document).ready(function(){
@@ -24,7 +24,11 @@ $(document).ready(function(){
 	});
 	$("#topLabelSlider").html(max);
 	$("#bottomLabelSlider").html(min);
+	
 	$("#btnOk").click(ok);
+	$("#searchInput").keypress(okKeypressedEnter);
+			
+			
 	
 	$("#searchInput").focus(function(){
 		if($(this).val() == searchInputDefaultText)
@@ -43,11 +47,22 @@ $(document).ready(function(){
         var mousePos = getMousePos(canvas, evt);
         if(debugMousePos){
         	var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
-        	writeMessage(canvas, message);
+        	if(debugMousePos) writeMessage(canvas, message);
         }
         testImageHover(mousePos);
+    }).mousedown(function(evt){
+    	var mousePos = getMousePos(canvas, evt);
+    }).mouseup(function(evt){
+    	var mousePos = getMousePos(canvas, evt);
+    	var nodeId = getImageId(mousePos); 
+    	if (nodeId != -1)
+    	{
+    		request(nodeId, $("#nbNeighboursInput").val());
+    		$("#searchInput").val(nodeId);
+    	}
     });
 	
+	$('body').bind("onresize", resized);
 	$("#graphSaver").click(function() { 
 		// save canvas image as data url (png format by default)
 	    $("#graphSaver").attr("href", canvas.toDataURL());
@@ -56,14 +71,15 @@ $(document).ready(function(){
 	
 });
 
-
-
 function resized(){
 	$("#searchInput").width($("#searchDiv").width() - 70);
-
 }
-
-
+function okKeypressedEnter(event){
+	if ( event.which == 13 ) { ok(); }
+}
+function searchKeypressedEnter(event){
+	if ( event.which == 13 ) { search(); }
+}
 function ok(){	
 		$('.index').animate({
 			opacity: 0
@@ -95,10 +111,8 @@ function ok(){
 			},100,function() {});
 			search();
 		});
-		$("#btnOk").unbind("click", ok);
-		$("#btnOk").click(search);
-		/*width : 0
-				height : 0*/
+		$("#btnOk").unbind("click", ok).click(search);
+		$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
 }
 
 function search(){
@@ -155,22 +169,13 @@ function testImageHover(mousePos)
 			message = (node.id);
 			if(node.id != hoveredImageId)
 			{
-				/*if(hoveredImageId == -1) {
-					$(".popupImageDetails").animate({ opacity: 0}, 1000, function() {*/ 
-						$(".popupImageDetails").remove(); 
-					/*}); 
-				}*/
+				$(".popupImageDetails").remove(); 
 				hoveredImageId = node.id;
 				var img = new Image();
 				img.src = '../Server/index.php?controller=image&action=getImg&id='+node.id+'&t=150';
-				jQuery(img).load(function() {
-					$(".popupImageDetails").css('width', img.width)
-						.css('height', img.height);
-						/*.animate({ opacity: 1 },1000, null);*/
-				});
+				jQuery(img).load(function() { $(".popupImageDetails").css('width', img.width).css('height', img.height); });
 				$("#main").append("<div class='popupImageDetails'></div>");
-		        $(".popupImageDetails").append(img);	
-		        
+		        $(".popupImageDetails").append(img);			        
 			}
 			$(".popupImageDetails").css('left', mousePos.x + 20)
 				.css('top', mousePos.y + 20);
@@ -179,5 +184,22 @@ function testImageHover(mousePos)
 		}
 	}
 	if(!found){ $(".popupImageDetails").remove(); hoveredImageId = -1;  }
-	writeMessageHover(canvas, message);
+	if(debugMousePos)writeMessageHover(canvas, message);
+}
+
+
+function getImageId(mousePos)
+{
+	var found = false;
+	for (var i = 0;i < graph.nodes.length;i++)
+	{
+		var node = graph.nodes[i];
+		if((mousePos.x > node.position.x)&&(mousePos.x < node.position2.x)
+				&&(mousePos.y > node.position.y)&&(mousePos.y < node.position2.y)) {
+			return node.id;
+			found = true;
+			break;
+		}
+	}
+	if(!found){ return -1; }
 }
