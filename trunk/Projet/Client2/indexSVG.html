@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="Ressources/Css/style.css" />
+		
+		<link rel="stylesheet" type="text/css"
+			href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
+			
+		<script type="text/javascript"
+			src="Ressources/Javascript/styleChange.js"></script>
+			
+		<script type="text/javascript" src="Ressources/Javascript/motor.js"></script>
+
+		<script type="text/javascript"
+			src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
+			
+		<script type="text/javascript"
+			src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>
+			
+		<script type="text/javascript" src="Ressources/Javascript/Graph.js"></script>
+		<script type="text/javascript" src="Ressources/Javascript/to_merge.js"></script>
+	</head>
+	
+	
+	<body onload="init()" onresize="resized()">
+	
+		<div id="main">
+			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgDiv">
+			</svg>
+		</div>
+		
+		<div class="index">
+			<img src="logos/irisa.png" alt="IRISA" desc="logo IRISA"/>
+			<img src="logos/icone_TEXMEX_F.png" alt="TEXMEX" desc="logo équipe texmex"/>
+		</div>
+		
+		<div id="searchDiv"><input type="text" id="searchInput"
+			onclick="clickInputSearch()" value="2" /> <!-- <input type="text" id="searchInput" onclick="clickInputSearch()" value="2" value="Veuillez saisir votre recherche" />-->
+		<div class="OK" onClick="ok()">OK</div>
+		</div>
+			<div id="zoomSlider">
+			<div id="topLabelSlider"></div>
+			<div id="slider"></div>
+			<div id="bottomLabelSlider"></div>
+		</div>
+		
+		<div id="nbNeighbours">
+			<div id="labelNeighbours">Nombre de voisins :</div>
+			<input type="text" readonly="readonly" id="nbNeighboursInput" size="1" />
+		</div>
+		<div id="renderMode">
+			<!-- ici radio button style jquery avec logo html5 et svg pour les deux modes de rendu --> 
+		</div>
+		<div id="footer">
+			<ul>
+				<li><a href="http://code.google.com/p/mitic-projet-2/source/checkout" target="_blank">Sources</a></li>
+				<li>|</li>
+				<li><a href="http://code.google.com/p/mitic-projet-2/w/list" target="_blank">Wiki</a></li>
+				<li>|</li>
+				<li><a id="graphSaver" href="#" target="_blank">Save Graph to PNG (Client-Side HTML5 canvas conversion)</a></li>
+			</ul>			
+		</div>
+	</body>
+</html>
