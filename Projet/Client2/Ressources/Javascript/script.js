@@ -80,12 +80,20 @@ function ok(){
 				},500,function() {});
 			});
 			$('#chooser').animate({
-				top:'+=1000'
+				opacity : 0
 			},1000,function() {});
+			$('#chooser').animate({
+				width : 0
+			},100,function() {});
+			$('#chooser').animate({
+				height : 0
+			},100,function() {});
 			search();
 		});
 		$("#btnOk").unbind("click", ok);
 		$("#btnOk").click(search);
+		/*width : 0
+				height : 0*/
 }
 
 function search(){

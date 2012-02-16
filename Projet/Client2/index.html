@@ -36,11 +36,25 @@
 		
 		<div id="header">
 			<div id="searchDiv"><input type="text" id="searchInput" value="Veuillez saisir un identifiant d'image" />
-			<a href="#" id="btnOk">Ok</a>
+				<a href="#" id="btnOk">Ok</a>
+			</div>
+			<div id="radio">
+					<form>
+						<div class="ui-buttonset" id="choixNiveau">
+							<input class="ui-helper-hidden-accessible" id="niv1" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="niv1"><span class="ui-button-text">Niveau 1</span></label>
+							<input class="ui-helper-hidden-accessible" id="niv2" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="niv2"><span class="ui-button-text">Niveau 2</span></label>
+						</div>
+					</form>
+					<form>
+						<div class="ui-buttonset" id="choixRendu">
+							<input class="ui-helper-hidden-accessible" id="htm" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="htm"><span class="ui-button-text">HTML5</span></label>
+							<input class="ui-helper-hidden-accessible" id="svg" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="svg"><span class="ui-button-text"> SVG </span></label>
+						</div>
+					</form>
 			</div>
 		</div>
 		
-		<div id="chooser">
+		<div id="chooser" >
 			
 		</div>
 		
