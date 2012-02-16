@@ -4,7 +4,7 @@ body{
 }
 
 #chooser{
-	background :#808080;
+	/*background :#808080;*/
 	border : 1px solid black;
 	width : auto;
 	top : 335px;
@@ -12,6 +12,21 @@ body{
 	right:1px;
 	bottom : 0%;
 	position : absolute;
+	
+	background-image: linear-gradient(bottom, #F0AC35 1%, #81B535 99%);
+	background-image: -o-linear-gradient(bottom, #F0AC35 1%, #81B535 99%);
+	background-image: -moz-linear-gradient(bottom, #F0AC35 1%, #81B535 99%);
+	background-image: -webkit-linear-gradient(bottom, #F0AC35 1%, #81B535 99%);
+	background-image: -ms-linear-gradient(bottom, #F0AC35 1%, #81B535 99%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.17, #F0AC35),
+		color-stop(0.99, #81B535)
+	);
+	
 	}
 #header{
 	background :#808080;
