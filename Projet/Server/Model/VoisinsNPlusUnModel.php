@@ -160,8 +160,8 @@ class VoisinsNPlusUnModel implements Model{
 	//Calcul l'emplacement des points pour la version v1 (�toile)
 	private function coordonnesXY($angle , $distance){
 		$coordonnees = array();
-		$coordonnees ['x'] = round($distance * cos($angle), 4);
-		$coordonnees ['y'] = round($distance * sin($angle), 4);
+		$coordonnees ['x'] = $distance * cos($angle);
+		$coordonnees ['y'] = $distance * sin($angle);
 		return $coordonnees;
 	}
 	
