@@ -9,39 +9,35 @@
 		
 		<link rel="stylesheet" type="text/css"
 			href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
-			
-		<script type="text/javascript"
-			src="Ressources/Javascript/styleChange.js"></script>
-			
-		<script type="text/javascript" src="Ressources/Javascript/motor.js"></script>
-
 		<script type="text/javascript"
 			src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
 			
 		<script type="text/javascript"
 			src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>
-			
+						
 		<script type="text/javascript" src="Ressources/Javascript/Graph.js"></script>
-		<script type="text/javascript" src="Ressources/Javascript/to_merge.js"></script>
+
+		<script type="text/javascript" src="Ressources/Javascript/script.js"></script>
+
 	</head>
 	
 	
-	<body onload="init()" onresize="resized()">
+	<body onresize="resized()">
 	
 		<div id="main">
+			<div class="index">
+				<img src="ressources/images/irisa.png" alt="IRISA" title="logo IRISA"/>
+				<br/>
+				<img src="ressources/images/icone_TEXMEX_F.png" alt="TEXMEX" title="logo équipe texmex"/>
+			</div>
 			<canvas id="canvas">
 				Votre navigateur ne supporte pas la balise canvas. 
 			</canvas>
-		</div>
 		
-		<div class="index">
-			<img src="logos/irisa.png" alt="IRISA" desc="logo IRISA"/>
-			<img src="logos/icone_TEXMEX_F.png" alt="TEXMEX" desc="logo équipe texmex"/>
-		</div>
+
 		
-		<div id="searchDiv"><input type="text" id="searchInput"
-			onclick="clickInputSearch()" value="2" /> <!-- <input type="text" id="searchInput" onclick="clickInputSearch()" value="2" value="Veuillez saisir votre recherche" />-->
-		<div class="OK" onClick="ok()">OK</div>
+		<div id="searchDiv"><input type="text" id="searchInput" value="Veuillez saisir un identifiant d'image" />
+			<a href="#" id="btnOk">Ok</a>
 		</div>
 			<div id="zoomSlider">
 			<div id="topLabelSlider"></div>
@@ -56,6 +52,8 @@
 		<div id="renderMode">
 			<!-- ici radio button style jquery avec logo html5 et svg pour les deux modes de rendu --> 
 		</div>
+		</div>
+		
 		<div id="footer">
 			<ul>
 				<li><a href="http://code.google.com/p/mitic-projet-2/source/checkout" target="_blank">Sources</a></li>

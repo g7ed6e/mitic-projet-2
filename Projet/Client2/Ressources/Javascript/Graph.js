@@ -12,8 +12,6 @@ $(document).ready(function(){
 
 	graph = new Graph();
 
-	//request(1, 24);
-	
 });
 
 function Graph(options) {
@@ -153,34 +151,22 @@ function Graph(options) {
 						var node = new Node(positions[i][0], positions[i][1], positions[i][2]);
 						graph.addNode(node);
 					}	
-					for(var i in liens){				
+					for(var i in liens)			
 						graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
-						drawEdge(graph.edges[i]);				
-					}
-					for(var i=0; i<graph.nodes.length; i++)
-						drawNode(graph.nodes[i]);
-
+				
+					draw();
 
 			  }
 		});
 			 
+	}
+	
+	function draw(){
 		
-		/*
-		$.getJSON('../Server/index.php?controller=voisinsN&action=getVoisinsN&id='+id+'&nn='+nbNeighbours, function(data) {
-			graph.clearNodes();
-			var liens = data.liens;
-			var positions = data.positions;
-			for(var i in positions){
-				var node = new Node(positions[i][0], positions[i][1] * ratio, positions[i][2] * ratio);
-				graph.addNode(node);
-			}	
-			for(var i in liens){				
-				graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
-				drawEdge(graph.edges[i]);				
-			}
-			for(var i=0; i<graph.nodes.length; i++)
-				drawNode(graph.nodes[i]);
+		for(var i in graph.edges)				
+			drawEdge(graph.edges[i]);				
 
-
-		});*/
+		for(var i in graph.nodes)
+			drawNode(graph.nodes[i]);
+		
 	}

@@ -1,5 +1,6 @@
 body{
 	font-family : verdana;
+	font-size: 12px;
 }
 #searchDiv{
 	width : 50%;
@@ -13,6 +14,8 @@ body{
 	padding-top : 1px;
 }
 #searchInput{
+	font-style: italic;
+	color: #aaa;
 	margin : 3px;
 }
 .OK{
@@ -20,9 +23,8 @@ body{
 	border : 1px solid black;
 	padding : 2px;
 	margin : 2px;
-	font-weight : bold;
 	cursor : pointer;
-	background : rgb(222,222,222);
+	background : white;
 }
 .index{
 	margin-top : 7%;
@@ -30,6 +32,9 @@ body{
 	font-weight : bold;
 	font-family : Impact;
 }
+
+
+
 #changeMode{
 	position : absolute;
 	top : 20px;
@@ -48,7 +53,7 @@ body{
 	position : absolute;
 	top : 0%;
 	left  : 0%;
-	background : rgb(222,222,222);
+	background : white;
 	/*opacity : 0;*/
 }
 #zoomSlider{
@@ -90,7 +95,9 @@ body{
 }
 
 canvas#canvas{
-	
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 #footer
 {
