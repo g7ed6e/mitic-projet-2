@@ -1,22 +1,99 @@
+var min = 1;
+var max = 49;
+var midValue = Math.round((max-min)/2);
+var currentSearch = '';
 var hoveredImageId = -1;
 var debugMousePos = true;
 
 $(document).ready(function(){
-	canvas.addEventListener('mousemove', function(evt){
+	resized();
+	$("#nbNeighboursInput").val(midValue);
+	$("#slider").slider({
+		max : max,
+		min : min,
+		value : midValue,
+		step : 1,
+		orientation : 'vertical',
+		stop : function(event, ui){
+			zoomChange(ui.value);
+
+		},
+		slide : function(event, ui){
+			$("#nbNeighboursInput").val(ui.value);
+		}
+	});
+	$("#topLabelSlider").html(max);
+	$("#bottomLabelSlider").html(min);
+	$("#btnOk").click(ok);
+	
+	$("#searchInput").focus(function(){
+		currentSearch = $(this).val();
+		$(this).val('');
+	}).blur(function(){
+	//	$(this).val(currentSearch);
+	});
+	
+	
+	$(canvas).mousemove(function(evt){
         var mousePos = getMousePos(canvas, evt);
         if(debugMousePos){
         	var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
         	writeMessage(canvas, message);
         }
         testImageHover(mousePos);
-    }, false);
+    });
 	
-	$("#graphSaver").bind("click", function() { 
+	$("#graphSaver").click(function() { 
 		// save canvas image as data url (png format by default)
 	    $("#graphSaver").attr("href", canvas.toDataURL());
 	});
 	
+	
 });
+
+
+
+function resized(){
+	$("#searchInput").width($("#searchDiv").width() - 70);
+
+}
+
+
+function ok(){	
+		$('.index').animate({
+			opacity: 0
+		},500, function(){
+			$('#searchDiv').animate({
+				top: '-=280'
+			},500,function() {
+				
+				$('#main').animate({
+					opacity : 100
+				},5000,function() {});
+				
+				$('#nbNeighbours').animate({
+					opacity : 100
+				},500,function() {});
+				
+				$('#zoomSlider').animate({
+					opacity : 100
+				},500,function() {});
+				search();
+
+			});
+
+		});
+		$("#btnOk").unbind("click", ok);
+		$("#btnOk").click(search);
+}
+
+function search(){
+	request($('#searchInput').val(), $("#nbNeighboursInput").val());
+}
+
+function zoomChange(value){
+	request($('#searchInput').val(),value);
+}
 
 function getMousePos(canvas, evt){
     // get canvas position
