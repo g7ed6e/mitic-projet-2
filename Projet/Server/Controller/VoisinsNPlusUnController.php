@@ -9,9 +9,9 @@ class VoisinsNPlusUnController implements Controller{
 		$this->model = new VoisinsNPlusUnModel();
 	}
 
-	public function getVoisinsNPlusUn($id, $nn, $nPlusUn){
+	public function getVoisinsNPlusUn($id, $nn, $nPlusUn, $w, $h){
 		require_once 'View/JsonView.php';
-		$voisins = $this->model->getVoisinsNPlusUn($id,$nn, $nPlusUn);
+		$voisins = $this->model->getVoisinsNPlusUn($id,$nn, $nPlusUn, $w, $h);
 		$view = new JsonView($voisins);
 		$view->Render();
 	}
