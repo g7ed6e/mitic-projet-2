@@ -18,42 +18,48 @@
 		<script type="text/javascript" src="Ressources/Javascript/Graph.js"></script>
 
 		<script type="text/javascript" src="Ressources/Javascript/script.js"></script>
-
 	</head>
 	
 	
 	<body onresize="resized()">
 	
 		<div id="main">
+		
 			<div class="index">
 				<img src="ressources/images/irisa.png" alt="IRISA" title="logo IRISA"/>
 				<br/>
-				<img src="ressources/images/icone_TEXMEX_F.png" alt="TEXMEX" title="logo Ã©quipe texmex"/>
+				<img src="ressources/images/icone_TEXMEX_F.png" alt="TEXMEX" title="logo équipe texmex"/>
 			</div>
 			<canvas id="canvas">
 				Votre navigateur ne supporte pas la balise canvas. 
 			</canvas>
 		
-
-		
-		<div id="searchDiv"><input type="text" id="searchInput" value="Veuillez saisir un identifiant d'image" />
+		<div id="header">
+			<div id="searchDiv"><input type="text" id="searchInput" value="Veuillez saisir un identifiant d'image" />
 			<a href="#" id="btnOk">Ok</a>
+			</div>
 		</div>
-			<div id="zoomSlider">
+		
+		<div id="chooser">
+			
+		</div>
+		
+		<div id="nbNeighbours">
+			<div id="labelNeighbours">Nombre de voisins</div>
+			<input type="text" readonly="readonly" id="nbNeighboursInput" size="1" />
+		</div>
+		
+		<div id="zoomSlider">
 			<div id="topLabelSlider"></div>
 			<div id="slider"></div>
 			<div id="bottomLabelSlider"></div>
 		</div>
 		
-		<div id="nbNeighbours">
-			<div id="labelNeighbours">Nombre de voisins :</div>
-			<input type="text" readonly="readonly" id="nbNeighboursInput" size="1" />
-		</div>
+
 		<div id="renderMode">
 			<!-- ici radio button style jquery avec logo html5 et svg pour les deux modes de rendu --> 
 		</div>
 		</div>
-		
 		<div id="footer">
 			<ul>
 				<li><a href="http://code.google.com/p/mitic-projet-2/source/checkout" target="_blank">Sources</a></li>

@@ -63,8 +63,8 @@ function ok(){
 		$('.index').animate({
 			opacity: 0
 		},500, function(){
-			$('#searchDiv').animate({
-				top: '-=280'
+			$('#header').animate({
+				top: '-=300'
 			},500,function() {
 				
 				$('#main').animate({
@@ -78,10 +78,11 @@ function ok(){
 				$('#zoomSlider').animate({
 					opacity : 100
 				},500,function() {});
-				search();
-
 			});
-
+			$('#chooser').animate({
+				top:'+=1000'
+			},1000,function() {});
+			search();
 		});
 		$("#btnOk").unbind("click", ok);
 		$("#btnOk").click(search);
