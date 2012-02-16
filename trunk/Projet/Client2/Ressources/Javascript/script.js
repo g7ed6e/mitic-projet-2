@@ -1,9 +1,9 @@
 var min = 1;
 var max = 49;
 var midValue = Math.round((max-min)/2);
-var currentSearch = '';
 var hoveredImageId = -1;
 var debugMousePos = true;
+var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
 
 $(document).ready(function(){
 	resized();
@@ -27,11 +27,16 @@ $(document).ready(function(){
 	$("#btnOk").click(ok);
 	
 	$("#searchInput").focus(function(){
-		currentSearch = $(this).val();
-		$(this).val('');
+		if($(this).val() == searchInputDefaultText)
+		{
+			$(this).val('').css('color', '#000000').css('font-style', 'normal');
+		}
 	}).blur(function(){
-	//	$(this).val(currentSearch);
-	});
+		if ($(this).val() == "")
+		{
+			$(this).attr('value', searchInputDefaultText).css('font-style', 'italic').css('color', '#aaa');
+		}
+	}).attr('value', searchInputDefaultText);
 	
 	
 	$(canvas).mousemove(function(evt){
