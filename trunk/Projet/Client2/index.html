@@ -7,16 +7,10 @@
 		
 		<link rel="stylesheet" type="text/css" href="Ressources/Css/style.css" />
 		
-		<link rel="stylesheet" type="text/css"
-			href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
-		<script type="text/javascript"
-			src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
-			
-		<script type="text/javascript"
-			src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>
-						
+		<link rel="stylesheet" type="text/css" href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
+		<script type="text/javascript" src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>	
+		<script type="text/javascript" src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>			
 		<script type="text/javascript" src="Ressources/Javascript/Graph.js"></script>
-
 		<script type="text/javascript" src="Ressources/Javascript/script.js"></script>
 	</head>
 	
@@ -63,15 +57,15 @@
 			</div>
 			<div id="radio">
 					<form>
-						<div class="ui-buttonset" id="choixNiveau">
-							<input class="ui-helper-hidden-accessible" id="niv1" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="niv1"><span class="ui-button-text">Niveau 1</span></label>
-							<input class="ui-helper-hidden-accessible" id="niv2" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="niv2"><span class="ui-button-text">Niveau 2</span></label>
+						<div class="ui-buttonset" id="choixRendu">
+							<input class="ui-helper-hidden-accessible" id="htm" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="htm">HTML5</label>
+							<input class="ui-helper-hidden-accessible" id="svg" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="svg">SVG</label>
 						</div>
 					</form>
 					<form>
-						<div class="ui-buttonset" id="choixRendu">
-							<input class="ui-helper-hidden-accessible" id="htm" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="htm"><span class="ui-button-text">HTML5</span></label>
-							<input class="ui-helper-hidden-accessible" id="svg" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="svg"><span class="ui-button-text"> SVG </span></label>
+						<div class="ui-buttonset" id="choixNiveau">
+							<input class="ui-helper-hidden-accessible" id="niv1" name="radio" type="radio"><label id="niv1Label" aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="niv1">Niveau 1</label>
+							<input class="ui-helper-hidden-accessible" id="niv2" name="radio" type="radio"><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="niv2">Niveau 2</label>
 						</div>
 					</form>
 			</div>
