@@ -185,6 +185,9 @@ function ok(){
 			$('#bloc').animate({
 				opacity : 100
 			},500,function() {});
+			$('#logo').animate({
+				opacity : 100
+			},500,function() {});
 		});
 		$('#chooser').animate({
 			opacity : 0
