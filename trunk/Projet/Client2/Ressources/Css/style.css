@@ -85,7 +85,7 @@ body{
 	width: 85px;
 	height: 28px;
 	text-align: center;
-}​
+}
 
 #choixNiveau{
 	position : absolute;
@@ -207,6 +207,7 @@ canvas#canvas{
 
 /*Menu*/
 #bloc {
+margin-top : 5px;
 width: 950px;
 opacity : 0;
 }
@@ -214,6 +215,7 @@ opacity : 0;
 #menu_gauche {
 float: left;
 width: 200px;
+
 }
 
 #menu_droite {
@@ -223,36 +225,31 @@ width: 200px;
 .liste {
 margin: 0;
 list-style-type: none;
-padding: 0.3em 0.5em;
 width: 100%;
+
 }
 
 .liste li {
+padding : 6px;
 list-style-type: none;
-margin: 0.5em 0;
 }
 
 #smenu1{
+	width: 198px;
+	margin : -5px;
 	display : none;
 }
 #smenu2{
+	width: 210px;
+	margin : -5px;
 	display : none;
 }
 .liste li a {
-text-align: center;
 display: block;
-border-width: 1px;
-border-color: #FFDAB9 #A0522D #A0522D #FFDAB9;
-border-style: solid;
 text-decoration: none;
 color: #000;
-background: #D2B48C;
 }
 
-.menu li a{
-background: #FFDAB9;
-font-size: 0.9em;
-}
 .imageDetailsContainer
 {
 	width: 200px;

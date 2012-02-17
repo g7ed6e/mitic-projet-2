@@ -31,24 +31,30 @@
 		<div id="header">
 			<div id="bloc">
 				<div id="menu_gauche">
-				<ul class="liste">
-					<li onclick="javascript:show('smenu1');"><a href="#">Historique</a>
-					<ul id="smenu1">
+				<ul
+					 class="liste">
+					<li class="liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left" id ="l1" onclick="javascript:show('smenu1');"><a id="lienhisto" href="#">Historique</a></li>
+					<li>
+					<ul id="smenu1" class = "liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left">
 						<li><a href="#">Notre équipe</a></li>
 						<li><a href="#">Nos objectifs</a></li>
 						<li><a href="#">Actualités</a></li>
 					</ul>
 					</li>
+				</ul>
 				</div>
 				<div id="menu_droite">
-				<ul class="liste">
-					<li onclick="javascript:show('smenu2');"><a href="#">Filtres</a>
-					<ul id="smenu2" class="menu">
-						<li><a href="#">Notre équipe</a></li>
-						<li><a href="#">Nos objectifs</a></li>
-						<li><a href="#">Actualités</a></li>
+				<ul
+					 class="liste">
+					<li class=" liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" id ="l2" onclick="javascript:show('smenu2');"><a id="lienfiltre" href="#">Filtres</a></li>
+					<li>
+					<ul id="smenu2" class="menu ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right">
+						<li><input type="checkbox" /></li>
+						<li><input type="checkbox" /></li>
+						<li><input type="checkbox" /></li>
 					</ul>
 					</li>
+				</ul>
 				</div>
 			</div>
 
