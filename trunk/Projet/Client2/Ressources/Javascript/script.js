@@ -14,7 +14,10 @@ var compteur = 0;
 
 $(document).ready(function(){
 	resized();
-	
+	$("#choixRendu , #choixNiveau").buttonset();
+	$("#choixRendu input, #choixNiveau input").change(function(){
+		evenement(this);
+	});
 	$("#canvas").mousedown(function(evt){
 		clicked = true;
 		debut = {"x" : evt.clientX, "y" : evt.clientY};
@@ -115,6 +118,11 @@ $(document).ready(function(){
 			zoom -= 0.5;
 			draw();
 		}
+	});
+	$("button").button().click(function(){
+		$(this).next("ul").toggle();
+	}).blur(function(e){
+		$(this).next("ul").toggle();
 	});
 });
 
@@ -253,43 +261,21 @@ function getImageId(mousePos)
 	return -1;
 }
 
-function show(id) {
-	var d = document.getElementById(id);
-	if(id == "smenu1"){
-		var b = document.getElementById("l1");
-		if (!histoVisible) {
-			d.style.display='block';
-			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active'
-			histoVisible = true;
-		}else{
-			d.style.display='none';
-			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left'
-			histoVisible = false;
-		}
-	}else{
-		var b = document.getElementById("l2");
-		if (!filterVisible) {
-			d.style.display='block';
-			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right ui-state-active'
-			filterVisible = true;
-		}else{
-			d.style.display='none';
-			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right'
-			filterVisible = false;
-		}
+
+function evenement(object){
+	if (object.id == 'htm'){
+		HTML = true;
+	}
+	if (object.id == 'svg'){
+		HTML = false;
+	}
+	if (object.id == 'niv1'){
+		algoNPlusUn = false;
+	}
+	if (object.id == 'niv2'){
+		algoNPlusUn = true;
 	}
 }
-<<<<<<< .mine
-
-$(function() {
-	$( "#choixNiveau" ).buttonset();
-});
-
-$(function() {
-	$( "#choixRendu" ).buttonset();
-});
-=======
->>>>>>> .r86
 
 function positionnePopup(canvas, mousePos, nodeId)
 {

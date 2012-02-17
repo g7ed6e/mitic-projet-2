@@ -234,11 +234,13 @@ list-style-type: none;
 	width: 198px;
 	margin : -5px;
 	display : none;
+	text-decoration: none;
 }
 #smenu2{
 	width: 210px;
 	margin : -5px;
 	display : none;
+	text-decoration: none;
 }
 .liste li a {
 display: block;
