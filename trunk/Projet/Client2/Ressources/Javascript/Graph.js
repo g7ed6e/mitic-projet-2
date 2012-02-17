@@ -3,7 +3,8 @@ var canvas;
 var ctx;
 var mignatureSize = 50;
 var graphCenter;
-var algoNPlusUn = true;
+var algoNPlusUn = false;
+var renduSVG = false;
 var zoom = 1;
 
 $(document).ready(function(){

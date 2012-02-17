@@ -197,9 +197,11 @@ canvas#canvas{
 .popupImageDetails
 {
 	position: absolute;
-	width: 0px;
-	height: 0px;
-	opacity: 1;	
+	width: 400px;
+	height: 250px;
+	opacity: 1;
+	background-color: red;	
+	
 }
 
 
@@ -250,4 +252,11 @@ background: #D2B48C;
 .menu li a{
 background: #FFDAB9;
 font-size: 0.9em;
+}
+.imageDetailsContainer
+{
+	width: 200px;
+	height: 200px;
+}
+
 }
