@@ -6,8 +6,14 @@ var graphCenter;
 var algoNPlusUn = false;
 var renduSVG = false;
 var zoom = 1;
+var HTML = true;
 
 $(document).ready(function(){
+	$("#choixRendu , #choixNiveau").buttonset();
+	$("#choixRendu input, #choixNiveau input").change(function(){
+		evenement(this);
+	});
+	
 	canvas = $("#canvas").get(0);
 	ctx = canvas.getContext('2d'); 
 	ctx.canvas.width  = $("#main").innerWidth();
@@ -18,6 +24,22 @@ $(document).ready(function(){
 	graph = new Graph();
 
 });
+
+function evenement(object){
+	alert(object.id);
+	if (object.id == 'htm'){
+		HTML = true;
+	}
+	if (object.id == 'svg'){
+		HTML = false;
+	}
+	if (object.id == 'niv1'){
+		algoNPlusUn = false;
+	}
+	if (object.id == 'niv2'){
+		algoNPlusUn = true;
+	}
+}
 
 function Graph(options) {
 	  this.options = options || {};
