@@ -212,26 +212,48 @@ margin-left: 5em;
 
 #bloc {
 margin-top : 5px;
+position : relative;
+left : 5%;
 width: 950px;
 opacity : 0;
 }
 
 #menu_gauche {
-
 float: left;
 }
+
+#b1{
+	width : 170px;
+	}
+
+#b2{
+	width : 170px;
+	}
+	
 
 #menu_gauche ul{
 	overflow-x: hidden;
 	overflow-y: scroll;
 	max-height: 300px;
+	width : 170px;
+	margin-left : 1px;
+	margin-top : 1px;
 	z-index : 20;
 	}
 
 #menu_droite {
 float: left;
-width: 200px;
 }
+
+#menu_droite ul {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	max-height: 300px;
+	width : 170px;
+	z-index : 20;
+	margin-left : 1px;
+	margin-top : 1px;
+	}
 .liste {
 margin: 0;
 list-style-type: none;
@@ -245,7 +267,6 @@ list-style-type: none;
 }
 
 #smenu1{
-	width: 198px;
 	margin : -5px;
 	display : none;
 	text-decoration: none;
@@ -258,9 +279,9 @@ list-style-type: none;
 	text-decoration: none;
 }
 .liste li a {
-display: block;
-text-decoration: none;
-color: #000;
+	display: block;
+	text-decoration: none;
+	color: #000;
 }
 
 .imageDetailsContainer

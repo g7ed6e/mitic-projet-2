@@ -14,6 +14,7 @@ var compteur = 0;
 var histo = new Array();
 var nbhist = 0;
 var close = true;
+var close2 = true;
 
 $(document).ready(function(){
 	resized();
@@ -123,7 +124,7 @@ $(document).ready(function(){
 			draw();
 		}
 	});
-	$("button").button().click(function(){
+	$("#b1").button().click(function(){
 		if(close){
 			showHisto()
 			close = false;
@@ -131,7 +132,21 @@ $(document).ready(function(){
 			close = true;	
 		}
 		$(this).next("ul").toggle();
-	}).blur(function(e){
+	//}).blur(function(e){
+		//if(!close){
+		//$(this).next("ul").toggle();
+		//close = true;
+		//}
+	});
+	$("#b2").button().click(function(){
+		if(close){
+			showHisto()
+			close2 = false;
+		}else{
+			close2 = true;	
+		}
+		$(this).next("ul").toggle();
+	//}).blur(function(e){
 		//if(!close){
 		//$(this).next("ul").toggle();
 		//close = true;
@@ -304,6 +319,10 @@ function saveHisto(id){
 		$("#b1").next("ul").toggle();
 		close = true;
 	}
+	if(!close2){
+		$("#b2").next("ul").toggle();
+		close2 = true;
+	}
 }
 
 function showHisto(){
@@ -321,4 +340,8 @@ function showHisto(){
 function changeImg(id){
 	request(id, midValue);
 	$("#b1").next("ul").toggle();
+	if(!close2){
+		$("#b2").next("ul").toggle();
+		close2 = true;
+	}
 }
