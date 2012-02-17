@@ -2,11 +2,11 @@ var min = 1;
 var max = 49;
 var midValue = 1;//Math.round((max-min)/2);
 var hoveredImageId = -1;
-var debugMousePos = false;
+var debugMousePos = true;
 var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
 var histoVisible = false;
 var filterVisible = false;
-
+var popupShown = false;
 
 
 $(document).ready(function(){
@@ -56,17 +56,32 @@ $(document).ready(function(){
         	var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
         	if(debugMousePos) writeMessage(canvas, message);
         }
-        testImageHover(mousePos);
+        //testImageHover(mousePos);
     }).mousedown(function(evt){
     	var mousePos = getMousePos(canvas, evt);
+    	var nodeId = getImageId(mousePos);
+    	if (nodeId != -1)
+    	{
+    		hoveredImageId = nodeId;
+    	}
     }).mouseup(function(evt){
     	var mousePos = getMousePos(canvas, evt);
     	var nodeId = getImageId(mousePos); 
-    	if (nodeId != -1)
+    	if ((nodeId != -1)&&(hoveredImageId == nodeId)&&(!popupShown))
     	{
-    		request(nodeId, $("#nbNeighboursInput").val());
-    		$("#searchInput").val(nodeId);
+    		var img = new Image();
+			img.src = '../Server/index.php?controller=image&action=getImg&id='+nodeId+'&t=200';
+			jQuery(img).load(function() {
+				$(this).css('width', img.width).css('height', img.height).css('margin', '10'); 
+			});
+			$("#main").append("<div class='popupImageDetails'><p>Noeud :"+nodeId+"</p></div>");
+	        $(".popupImageDetails").append(img);
+	        positionnePopup(canvas, mousePos, nodeId);
+    		//request(nodeId, $("#nbNeighboursInput").val());
+    		//$("#searchInput").val(nodeId);
+    		
     	}
+    	else hoveredImageId = -1;
     });
 	
 	$('body').bind("onresize", resized);
@@ -176,7 +191,7 @@ function writeMessageHover(canvas, message){
     ctx.fillText(message, 10, 145);
 }
 
-function testImageHover(mousePos)
+/*function testImageHover(mousePos)
 {
 	var message = '';
 	var found = false;
@@ -204,7 +219,7 @@ function testImageHover(mousePos)
 	}
 	if(!found){ $(".popupImageDetails").remove(); hoveredImageId = -1;  }
 	if(debugMousePos)writeMessageHover(canvas, message);
-}
+}*/
 
 function getImageId(mousePos)
 {
@@ -239,8 +254,6 @@ function show(id) {
 		}
 	}
 }
-
-
 $(function() {
 	$( "#choixNiveau" ).buttonset();
 });
@@ -248,3 +261,8 @@ $(function() {
 $(function() {
 	$( "#choixRendu" ).buttonset();
 });
+function positionnePopup(canvas, mousePos, nodeId)
+{
+	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
+	popupShown = true;
+}
