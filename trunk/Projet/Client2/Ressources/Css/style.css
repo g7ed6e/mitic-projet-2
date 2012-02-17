@@ -195,11 +195,9 @@ canvas#canvas{
 .popupImageDetails
 {
 	position: absolute;
-	width: 400px;
-	height: 250px;
 	opacity: 1;
 	background-color: cyan;	
-	
+	float:left;
 }
 
 

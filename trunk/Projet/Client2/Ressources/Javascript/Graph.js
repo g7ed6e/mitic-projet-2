@@ -20,9 +20,7 @@ $(document).ready(function(){
 	ctx.canvas.height = $("#main").innerHeight();
 	$("#canvas").width($("#main").innerWidth());
 	graphCenter = {"x": $("#main").width() / 2, "y": $("#main").height() / 2};
-
 	graph = new Graph();
-
 });
 
 function evenement(object){
