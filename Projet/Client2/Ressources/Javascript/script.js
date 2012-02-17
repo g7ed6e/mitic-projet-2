@@ -81,16 +81,22 @@ $(document).ready(function(){
     }).mouseup(function(evt){
     	var mousePos = getMousePos(canvas, evt);
     	var nodeId = getImageId(mousePos); 
-    	if ((nodeId != -1)&&(hoveredImageId == nodeId)&&(!popupShown))
+    	if ((nodeId != -1)&&(hoveredImageId == nodeId))
     	{
+    		if(popupShown) $(".popupImageDetails").remove();
     		var img = new Image();
 			img.src = '../Server/index.php?controller=image&action=getImg&id='+nodeId+'&t=200';
 			jQuery(img).load(function() {
-				$(this).css('width', img.width).css('height', img.height).css('margin', '10'); 
+				$(this).css('width', img.width).css('height', img.height).css('margin', 10);
+				$(".popupImageDetails").css("width", img.width + 20).css('height', img.height + 50);
+				$("#main").append("<div class='popupImageDetails'><br /><button>Centrer l\'image</button></div>");
+				$(".popupImageDetails").prepend(img);
+				$(".popupImageDetails > button").bind('click', function(){
+		    		request(nodeId, $("#nbNeighboursInput").val());
+		    		$("#searchInput").val(nodeId);
+				}).button();
+		        positionnePopup(canvas, mousePos, nodeId);
 			});
-			$("#main").append("<div class='popupImageDetails'><p>Noeud :"+nodeId+"</p></div>");
-	        $(".popupImageDetails").append(img);
-	        positionnePopup(canvas, mousePos, nodeId);
     	}
     	else hoveredImageId = -1;
     });
@@ -273,6 +279,18 @@ function show(id) {
 		}
 	}
 }
+<<<<<<< .mine
+
+$(function() {
+	$( "#choixNiveau" ).buttonset();
+});
+
+$(function() {
+	$( "#choixRendu" ).buttonset();
+});
+=======
+>>>>>>> .r86
+
 function positionnePopup(canvas, mousePos, nodeId)
 {
 	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
