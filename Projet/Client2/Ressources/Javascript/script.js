@@ -117,6 +117,9 @@ function ok(){
 			$('#chooser').animate({
 				height : 0
 			},100,function() {});
+			$('#radio').animate({
+				opacity : 100
+			},1000,function() {});
 			search();
 		});
 		$("#btnOk").unbind("click", ok).click(search);
@@ -228,3 +231,12 @@ function show(id) {
 		}
 	}
 }
+
+
+$(function() {
+	$( "#choixNiveau" ).buttonset();
+});
+
+$(function() {
+	$( "#choixRendu" ).buttonset();
+});

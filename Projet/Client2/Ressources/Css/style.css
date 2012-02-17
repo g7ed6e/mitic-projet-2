@@ -69,15 +69,36 @@ body{
 #radio{
 	margin-top : 2px;
 	position : absolute;
-	right : 20px;
-	width : 30%;
+	right : 30px;
+	width : 25%;
+	opacity : 0;
 }
 
 #choixRendu{
 	position : absolute;
-	right : 30%;
+	right : 0%;
 	top : 0px;
 }
+
+#choixRendu label {
+	width: 85px;
+	height: 28px;
+	text-align: center;
+}​
+
+#choixNiveau{
+	position : absolute;
+	left : 0%;
+	top : 0px;
+}
+
+#choixNiveau label {
+	width: 85px;
+	height: 28px;
+	text-align: center;
+	text-color: #808080;
+}
+
 
 
 
