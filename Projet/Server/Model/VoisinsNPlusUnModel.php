@@ -3,7 +3,7 @@ class VoisinsNPlusUnModel implements Model{
 
 	private function getAllDistances(){
 		$res = array();
-		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50.txt");
+		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50bis.txt");
 		$distances = explode("\n", $file);
 
 		foreach ($distances as $distance){
@@ -37,8 +37,8 @@ class VoisinsNPlusUnModel implements Model{
 
 		// extraction des $nn proches voisins de $id ainsi que leurs distance par rapoort � $id
 		$voisins_id = $this->voisinsN($id, $nn, $array);
-//		var_dump('voisins_id');
-//		var_dump($voisins_id);
+	//	var_dump('voisins_id');
+	//	var_dump($voisins_id);
 
 		// on construit aussi un tableau contenant uniquement les associations d'image (I.E les liens qui seront affich�s)
 		$liens = array();
@@ -52,28 +52,38 @@ class VoisinsNPlusUnModel implements Model{
 
 		// extraction des $nPlusUn plus proches voisins des $nn plus proches voisins de $id
 		$tmp = array();
+		//var_dump(sizeof(array_keys($voisins_id)));
+		
 		foreach(array_keys($voisins_id) as $key)
 		{
 			$voisinsNPlusUnKeys = array_keys($this->voisinsN($key, $nPlusUn, $array));
+			//var_dump(sizeof($voisinsNPlusUnKeys));
 			// maintenant on va chercher la distance de ces points par rapport � $id
 			foreach($voisinsNPlusUnKeys as $vNPlusUnKey)
 			{
 				if($vNPlusUnKey != $id)
 				{
+					$liens[$nb_liens] = array(intval($key), $vNPlusUnKey);
+					$nb_liens++;
 					foreach ($array as $a)
 					{
 						if( (($a[0] == $id)&&($a[1] == $vNPlusUnKey))
 						|| (($a[0] == $vNPlusUnKey)&&($a[1] == $id)))
 						{
 							$tmp[$vNPlusUnKey] = $a[2];
-							$liens[$nb_liens] = array(intval($key), $vNPlusUnKey);
-							$nb_liens++;
+// 							$liens[$nb_liens] = array(intval($key), $vNPlusUnKey);
+// 							$nb_liens++;
 							break;
 						}
 					}
+												
 				}
 			}
+			
 		}
+// 		var_dump($nb_liens);
+// 		var_dump(sizeof($liens));
+		
 		// fusion avec le tableau des voisins de premier niveau
 		foreach ($tmp as $key => $value)
 		{
@@ -115,14 +125,15 @@ class VoisinsNPlusUnModel implements Model{
 		// on place le deuxieme point sur l'axe des abcisses
 		$positions[1] = array($deuxieme_point_de_ref, array_shift(array_values($voisins_id)), 0);
 		// ensuite grace a trigo et AlKashi on recupere angle et position du point delativement aux deux autres.
-		$i = 0;
+		$i = 2;
 		$max = 0;
 		foreach($voisins_id as $key => $value)      // voisins_id = distance des points par rapport a $id (ici le point a)
 													// $key id du point $value la distance
 		{
+			if($key == $deuxieme_point_de_ref)continue;
 			$max = $value > $max ? $value : $max; 
 			// on a deja les 2 premiers points
-			if(($i == 0)||($i == 1)) { $i++;continue; }
+			//if(($i == 0)||($i == 1)) { $i++;continue; }
 						
 			$a = $voisins_id[$deuxieme_point_de_ref];// distance par rapport au point A (0, 0)
 			$b = $voisins_deuxieme_point_de_ref[$key];// distance par rapport au deuxieme point de ref B (x, 0)
@@ -135,16 +146,15 @@ class VoisinsNPlusUnModel implements Model{
 		}
 		
 		// une fois le max trouvé on applique le ratio
-		// en fonction de la resolution envoyée
+		// en fonction de la resolution envoyée 
 		$max_screen = (min($w, $h) / 2) - 20;
 		$ratio = ($max_screen ) / $max;
 		foreach($positions as $key => &$value)
-		{
+		{		
 			$value[1] *= ($ratio);
 			$value[2] *= ($ratio);
 		}
 		
-		var_dump("prout");
 		return array('positions' => $positions, 'liens' => $liens);
 	}
 
@@ -159,8 +169,8 @@ class VoisinsNPlusUnModel implements Model{
 	//Calcul l'emplacement des points pour la version v1 (étoile)
 	private function coordonnesXY($angle , $distance){
 		$coordonnees = array();
-		$coordonnees ['x'] = $distance * cos($angle);
-		$coordonnees ['y'] = $distance * sin($angle);
+		$coordonnees ['x'] = round($distance * cos($angle), 4);
+		$coordonnees ['y'] = round($distance * sin($angle), 4);
 		return $coordonnees;
 	}
 }
