@@ -11,6 +11,8 @@ var clicked = false;
 var debut;
 var dragDeplacementDelta;
 var compteur = 0;
+var histo = new Array();
+var nbhist = 0;
 
 $(document).ready(function(){
 	resized();
@@ -95,6 +97,7 @@ $(document).ready(function(){
 				$("#main").append("<div class='popupImageDetails'><br /><button>Centrer l\'image</button></div>");
 				$(".popupImageDetails").prepend(img);
 				$(".popupImageDetails > button").bind('click', function(){
+					saveHisto(nodeId);
 		    		request(nodeId, $("#nbNeighboursInput").val());
 		    		$("#searchInput").val(nodeId);
 				}).button();
@@ -135,7 +138,8 @@ function okKeypressedEnter(event){
 function searchKeypressedEnter(event){
 	if ( event.which == 13 ) { search(); }
 }
-function ok(){	
+function ok(){
+		saveHisto($('#searchInput').val());
 		$('.index').animate({
 			opacity: 0
 		},500, function(){
@@ -281,4 +285,12 @@ function positionnePopup(canvas, mousePos, nodeId)
 {
 	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
 	popupShown = true;
+}
+
+function saveHisto(id){
+	histo[nbhist]=id;
+	nbhist++;
+	for(var i =0; i<nbhist; i++){
+		alert(histo[i]);
+	}
 }
