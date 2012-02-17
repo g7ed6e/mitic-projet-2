@@ -4,6 +4,8 @@ var midValue = 1;//Math.round((max-min)/2);
 var hoveredImageId = -1;
 var debugMousePos = false;
 var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
+var histoVisible = false;
+var filterVisible = false;
 
 $(document).ready(function(){
 	resized();
@@ -98,6 +100,9 @@ function ok(){
 				},500,function() {});
 				
 				$('#zoomSlider').animate({
+					opacity : 100
+				},500,function() {});
+				$('#bloc').animate({
 					opacity : 100
 				},500,function() {});
 			});
@@ -199,4 +204,25 @@ function getImageId(mousePos)
 		}
 	}
 	return -1;
+}
+
+function show(id) {
+	var d = document.getElementById(id);
+	if(id == "smenu1"){
+		if (!histoVisible) {
+			d.style.display='block';
+			histoVisible = true;
+		}else{
+			d.style.display='none';
+			histoVisible = false;
+		}
+	}else{
+		if (!filterVisible) {
+			d.style.display='block';
+			filterVisible = true;
+		}else{
+			d.style.display='none';
+			filterVisible = false;
+		}
+	}
 }

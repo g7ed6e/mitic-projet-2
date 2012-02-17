@@ -35,7 +35,30 @@
 			</canvas>
 		
 		<div id="header">
-			<div id="searchDiv"><input type="text" id="searchInput" value="" />
+			<div id="bloc">
+				<div id="menu_gauche">
+				<ul class="liste">
+					<li onclick="javascript:show('smenu1');"><a href="#">Historique</a>
+					<ul id="smenu1">
+						<li><a href="#">Notre équipe</a></li>
+						<li><a href="#">Nos objectifs</a></li>
+						<li><a href="#">Actualités</a></li>
+					</ul>
+					</li>
+				</div>
+				<div id="menu_droite">
+				<ul class="liste">
+					<li onclick="javascript:show('smenu2');"><a href="#">Filtres</a>
+					<ul id="smenu2" class="menu">
+						<li><a href="#">Notre équipe</a></li>
+						<li><a href="#">Nos objectifs</a></li>
+						<li><a href="#">Actualités</a></li>
+					</ul>
+					</li>
+				</div>
+			</div>
+
+<div id="searchDiv"><input type="text" id="searchInput" value="" />
 				<a href="#" id="btnOk">Ok</a>
 			</div>
 			<div id="radio">
