@@ -7,6 +7,8 @@ var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
 var histoVisible = false;
 var filterVisible = false;
 
+
+
 $(document).ready(function(){
 	resized();
 	$("#canvas").draggable();

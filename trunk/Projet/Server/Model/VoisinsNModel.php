@@ -1,14 +1,17 @@
 <?php
 class VoisinsNModel implements Model{
 
-	private function getAllDistances(){
+	public function getAllDistances(){
 		$res = array();
-		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50.txt");
+		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50bis.txt");
 		$distances = explode("\n", $file);
-
+		
 		foreach ($distances as $distance){
 			$distance = trim($distance);
-			if(!empty($distance)) $res[] = explode(" ", $distance);
+			if(!empty($distance)) 
+			{
+				$res[] = explode(" ", $distance);
+			}
 		}
 		return $res;
 	}

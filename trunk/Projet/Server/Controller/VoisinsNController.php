@@ -16,5 +16,13 @@ class VoisinsNController implements Controller{
 		$view->Render();
 	}
 
+	
+	public function getAllDistances()
+	{
+		require_once 'View/JsonView.php';
+		$voisins = $this->model->getAllDistances();
+		$view = new JsonView($voisins);
+		$view->Render();
+	}
 }
 ?>

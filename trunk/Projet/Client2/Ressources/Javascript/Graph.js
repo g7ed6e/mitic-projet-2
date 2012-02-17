@@ -1,7 +1,9 @@
 var graph;
 var canvas;
 var ctx;
+var mignatureSize = 50;
 var graphCenter;
+var algoNPlusUn = true;
 var zoom = 1;
 
 $(document).ready(function(){
@@ -108,7 +110,7 @@ function Graph(options) {
 	    {    
 	        
 	        var img=new Image();
-	        img.src="../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50";
+	        img.src="../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=" + mignatureSize;
 	        // on attend le chargement complet de l'image pour l'insérer dans le canvas
 	        jQuery(img).load(function() {
 		        node.width = img.width;
@@ -141,27 +143,54 @@ function Graph(options) {
 	}
 
 	function request(id, nbNeighbours){
+		
+		if(!algoNPlusUn){ 			
+			$.ajax({
+				  url: '../Server/index.php',
+				  dataType: 'json',
+				  cache: false,
+				  data:  {"controller" : "voisinsN", "id" : id, "nn" : nbNeighbours, "action" : "getVoisinsN", "w": canvas.width, "h": canvas.height},
+				  success: function(data) {
+						graph.clearNodes();
+						var liens = data.liens;
+						var positions = data.positions;
+						for(var i in positions){
+							var node = new Node(positions[i][0], positions[i][1], positions[i][2]);
+							graph.addNode(node);
+						}	
+						for(var i in liens)			
+							graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
+					
+						draw();
 
-		$.ajax({
-			  url: '../Server/index.php',
-			  dataType: 'json',
-			  cache: false,
-			  data: {"controller" : "voisinsN", "id" : id, "nn" : nbNeighbours, "action" : "getVoisinsN", "w": canvas.width, "h": canvas.height},
-			  success: function(data) {
-					graph.clearNodes();
-					var liens = data.liens;
-					var positions = data.positions;
-					for(var i in positions){
-						var node = new Node(positions[i][0], positions[i][1], positions[i][2]);
-						graph.addNode(node);
-					}	
-					for(var i in liens)			
-						graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
-				
-					draw();
+				  }
+			});	
+		}
+		else{
+			$.ajax({
+				  url: '../Server/index.php',
+				  dataType: 'json',
+				  cache: false,
+				  data:   {"controller" : "voisinsNPlusUn", "id" : id, "nn" : nbNeighbours, "nnPlusUn" : nbNeighbours, "action" : "getVoisinsNPlusUn", "w": canvas.width, "h": canvas.height},
+				  success: function(data) {
+						graph.clearNodes();
+						var liens = data.liens;
+						var positions = data.positions;
+						for(var i in positions){
+							var node = new Node(positions[i][0], positions[i][1], positions[i][2]);
+							graph.addNode(node);
+						}	
+						for(var i in liens)			
+							graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
+					
+						draw();
 
-			  }
-		});
+				  }
+			});	
+			}
+			
+		
+		
 			 
 	}
 	
