@@ -2,6 +2,8 @@ var graph;
 var canvas;
 var ctx;
 var graphCenter;
+var zoom = 1;
+
 $(document).ready(function(){
 	canvas = $("#canvas").get(0);
 	ctx = canvas.getContext('2d'); 
@@ -67,9 +69,9 @@ function Graph(options) {
 	  this.id = node_id;
 	  this.width = width || 0;
 	  this.height = height || 0;
-	  this.center = {"x" : x + graphCenter.x, "y" : y + graphCenter.y};
-	  this.position = {"x" : this.center.x - (this.width/2), "y" : this.center.y - (this.height/2)};
-	  this.position2 = {"x" : this.center.x + (this.width/2), "y" : this.center.y + (this.height/2)};
+	  this.center = {"x" : x, "y" : y};
+	  this.position = {"x" : this.center.x - (this.width/2)  + graphCenter.x, "y" : this.center.y - (this.height/2) + graphCenter.y};
+	  this.position2 = {"x" : this.center.x + (this.width/2)  + graphCenter.x, "y" : this.center.y + (this.height/2) + graphCenter.y};
 	  this.nodesTo = [];
 	  this.nodesFrom = [];
 	  this.data = {};
@@ -111,9 +113,13 @@ function Graph(options) {
 	        jQuery(img).load(function() {
 		        node.width = img.width;
 		        node.height = img.height;
-		        node.position = {"x" : node.center.x - (node.width/2), "y" : node.center.y - (node.height/2)};
-		  	  	node.position2 = {"x" : node.center.x + (node.width/2), "y" : node.center.y + (node.height/2)};
-		  	    ctx.fillRect(node.position.x, node.position.y, img.width, img.height);       // afficher un rectangle plein
+		  	    console.log(node.center);
+		  	    console.log(zoom);
+
+		        node.position = {"x" : (node.center.x * zoom) - (node.width/2) + graphCenter.x, "y" : (node.center.y * zoom) - (node.height/2) + graphCenter.y};
+		  	  	node.position2 = {"x" : (node.center.x * zoom) + (node.width/2) + graphCenter.x, "y" : (node.center.y * zoom) + (node.height/2) + graphCenter.y};
+		  	  //  console.log(node.position);
+		  	  	ctx.fillRect(node.position.x, node.position.y, img.width, img.height);       // afficher un rectangle plein
 		        ctx.drawImage(img,node.position.x, node.position.y, img.width, img.height);
 	        });
 
@@ -127,16 +133,14 @@ function Graph(options) {
 	function drawEdge(edge) {
 
 		if (canvas.getContext) {
-			ctx.moveTo(edge.source.center.x, edge.source.center.y);			
-			ctx.lineTo(edge.target.center.x, edge.target.center.y);
+			ctx.moveTo(edge.source.center.x * zoom + graphCenter.x, edge.source.center.y* zoom + graphCenter.y);			
+			ctx.lineTo(edge.target.center.x * zoom + graphCenter.x, edge.target.center.y *zoom + graphCenter.y);
 		    ctx.lineWidth = 0.2;
 			ctx.stroke();	
 		}
 	}
 
 	function request(id, nbNeighbours){
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		canvas.width = canvas.width;
 
 		$.ajax({
 			  url: '../Server/index.php',
@@ -162,6 +166,8 @@ function Graph(options) {
 	}
 	
 	function draw(){
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		canvas.width = canvas.width;
 		
 		for(var i in graph.edges)				
 			drawEdge(graph.edges[i]);				

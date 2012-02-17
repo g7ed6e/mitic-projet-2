@@ -1,12 +1,13 @@
 var min = 1;
 var max = 49;
-var midValue = Math.round((max-min)/2);
+var midValue = 1;//Math.round((max-min)/2);
 var hoveredImageId = -1;
 var debugMousePos = false;
 var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
 
 $(document).ready(function(){
 	resized();
+	$("#canvas").draggable();
 	$("#nbNeighboursInput").val(midValue);
 	$("#slider").slider({
 		max : max,
@@ -60,6 +61,14 @@ $(document).ready(function(){
 	$("#graphSaver").click(function() { 
 		// save canvas image as data url (png format by default)
 	    $("#graphSaver").attr("href", canvas.toDataURL());
+	});
+	$("#zoomP").click(function(){		
+		zoom += 1;
+		draw();
+	});
+	$("#zoomM").click(function(){
+		zoom -= 0.5;
+		draw();
 	});
 });
 
