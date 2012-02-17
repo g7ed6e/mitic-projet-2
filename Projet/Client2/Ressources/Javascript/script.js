@@ -16,7 +16,6 @@ $(document).ready(function(){
 		orientation : 'vertical',
 		stop : function(event, ui){
 			zoomChange(ui.value);
-
 		},
 		slide : function(event, ui){
 			$("#nbNeighboursInput").val(ui.value);
@@ -24,13 +23,8 @@ $(document).ready(function(){
 	});
 	$("#topLabelSlider").html(max);
 	$("#bottomLabelSlider").html(min);
-	
 	$("#btnOk").click(ok);
-	$("#searchInput").keypress(okKeypressedEnter);
-			
-			
-	
-	$("#searchInput").focus(function(){
+	$("#searchInput").keypress(okKeypressedEnter).focus(function(){
 		if($(this).val() == searchInputDefaultText)
 		{
 			$(this).val('').css('color', '#000000').css('font-style', 'normal');
@@ -67,8 +61,6 @@ $(document).ready(function(){
 		// save canvas image as data url (png format by default)
 	    $("#graphSaver").attr("href", canvas.toDataURL());
 	});
-	
-	
 });
 
 function resized(){
@@ -186,7 +178,6 @@ function testImageHover(mousePos)
 	if(!found){ $(".popupImageDetails").remove(); hoveredImageId = -1;  }
 	if(debugMousePos)writeMessageHover(canvas, message);
 }
-
 
 function getImageId(mousePos)
 {
