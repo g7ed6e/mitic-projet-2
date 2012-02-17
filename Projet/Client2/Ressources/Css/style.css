@@ -68,7 +68,7 @@ body{
 }
 
 #radio{
-	margin-top : 2px;
+	margin-top : 0px;
 	position : absolute;
 	right : 30px;
 	width : 25%;
@@ -83,7 +83,7 @@ body{
 
 #choixRendu label {
 	width: 85px;
-	height: 28px;
+	height: 26px;
 	text-align: center;
 }
 
@@ -95,9 +95,8 @@ body{
 
 #choixNiveau label {
 	width: 85px;
-	height: 28px;
+	height: 26px;
 	text-align: center;
-	text-color: #808080;
 }
 
 

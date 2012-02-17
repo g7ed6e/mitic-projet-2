@@ -260,13 +260,6 @@ function show(id) {
 		}
 	}
 }
-$(function() {
-	$( "#choixNiveau" ).buttonset();
-});
-
-$(function() {
-	$( "#choixRendu" ).buttonset();
-});
 function positionnePopup(canvas, mousePos, nodeId)
 {
 	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
