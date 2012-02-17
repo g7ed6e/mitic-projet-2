@@ -290,7 +290,4 @@ function positionnePopup(canvas, mousePos, nodeId)
 function saveHisto(id){
 	histo[nbhist]=id;
 	nbhist++;
-	for(var i =0; i<nbhist; i++){
-		alert(histo[i]);
-	}
 }
