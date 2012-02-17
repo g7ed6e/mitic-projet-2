@@ -1,7 +1,7 @@
 <?php
 require_once 'Model/VoisinsNPlusUnModel.php';
 
-class VoisinsNPlusUnController implements Controller{
+class VoisinsNPlusUnController{
 
 	private $model;
 

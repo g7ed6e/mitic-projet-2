@@ -11,7 +11,15 @@ var filterVisible = false;
 
 $(document).ready(function(){
 	resized();
-	$("#canvas").draggable();
+	$("#canvas").draggable(
+		{ 
+			//disabled: true, 
+			drag: function(event){
+				console.log("aa");
+				event.stopPropagation();
+			}
+		}
+	);
 	$("#nbNeighboursInput").val(midValue);
 	$("#slider").slider({
 		max : max,
