@@ -13,6 +13,7 @@ var dragDeplacementDelta;
 var compteur = 0;
 var histo = new Array();
 var nbhist = 0;
+var close = true;
 
 $(document).ready(function(){
 	resized();
@@ -29,7 +30,7 @@ $(document).ready(function(){
 	}).mousemove(function(evt){
 		if(clicked) $("#canvas").trigger('dragCanvas', [{"x" : evt.clientX, "y" : evt.clientY}]);
 	});
-	
+
 	$("#canvas").bind('dragCanvas', function(evt, param){
 		compteur++;
 		dragDeplacementDelta = {"x" : debut.x - param.x, "y" : debut.y - param.y};
@@ -38,7 +39,7 @@ $(document).ready(function(){
 		if(compteur  %2 == 0)draw();
 		debut = param;
 	});
-	
+
 	$("#nbNeighboursInput").val(midValue);
 	$("#slider").slider({
 		max : max,
@@ -47,11 +48,11 @@ $(document).ready(function(){
 		step : 1,
 		orientation : 'vertical',
 		stop : function(event, ui){
-			zoomChange(ui.value);
-		},
-		slide : function(event, ui){
-			$("#nbNeighboursInput").val(ui.value);
-		}
+		zoomChange(ui.value);
+	},
+	slide : function(event, ui){
+		$("#nbNeighboursInput").val(ui.value);
+	}
 	});
 	$("#topLabelSlider").html(max);
 	$("#bottomLabelSlider").html(min);
@@ -67,29 +68,29 @@ $(document).ready(function(){
 			$(this).attr('value', searchInputDefaultText).css('font-style', 'italic').css('color', '#aaa');
 		}
 	}).attr('value', searchInputDefaultText);
-	
-	
+
+
 	$(canvas).mousemove(function(evt){
-        var mousePos = getMousePos(canvas, evt);
-        if(debugMousePos){
-        	var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
-        	if(debugMousePos) writeMessage(canvas, message);
-        }
-        //testImageHover(mousePos);
-    }).mousedown(function(evt){
-    	var mousePos = getMousePos(canvas, evt);
-    	var nodeId = getImageId(mousePos);
-    	if (nodeId != -1)
-    	{
-    		hoveredImageId = nodeId;
-    	}
-    }).mouseup(function(evt){
-    	var mousePos = getMousePos(canvas, evt);
-    	var nodeId = getImageId(mousePos); 
-    	if ((nodeId != -1)&&(hoveredImageId == nodeId))
-    	{
-    		if(popupShown) $(".popupImageDetails").remove();
-    		var img = new Image();
+		var mousePos = getMousePos(canvas, evt);
+		if(debugMousePos){
+			var message = "Mouse position: " + mousePos.x + "," + mousePos.y;
+			if(debugMousePos) writeMessage(canvas, message);
+		}
+		//testImageHover(mousePos);
+	}).mousedown(function(evt){
+		var mousePos = getMousePos(canvas, evt);
+		var nodeId = getImageId(mousePos);
+		if (nodeId != -1)
+		{
+			hoveredImageId = nodeId;
+		}
+	}).mouseup(function(evt){
+		var mousePos = getMousePos(canvas, evt);
+		var nodeId = getImageId(mousePos); 
+		if ((nodeId != -1)&&(hoveredImageId == nodeId))
+		{
+			if(popupShown) $(".popupImageDetails").remove();
+			var img = new Image();
 			img.src = '../Server/index.php?controller=image&action=getImg&id='+nodeId+'&t=200';
 			jQuery(img).load(function() {
 				$(this).css('width', img.width).css('height', img.height).css('margin', 10);
@@ -98,19 +99,19 @@ $(document).ready(function(){
 				$(".popupImageDetails").prepend(img);
 				$(".popupImageDetails > button").bind('click', function(){
 					saveHisto(nodeId);
-		    		request(nodeId, $("#nbNeighboursInput").val());
-		    		$("#searchInput").val(nodeId);
+					request(nodeId, $("#nbNeighboursInput").val());
+					$("#searchInput").val(nodeId);
 				}).button();
-		        positionnePopup(canvas, mousePos, nodeId);
+				positionnePopup(canvas, mousePos, nodeId);
 			});
-    	}
-    	else hoveredImageId = -1;
-    });
-	
+		}
+		else hoveredImageId = -1;
+	});
+
 	$('body').bind("onresize", resized);
 	$("#graphSaver").click(function() { 
 		// save canvas image as data url (png format by default)
-	    $("#graphSaver").attr("href", canvas.toDataURL());
+		$("#graphSaver").attr("href", canvas.toDataURL());
 	});
 	$("#zoomP").click(function(){		
 		zoom += 0.5;
@@ -123,9 +124,18 @@ $(document).ready(function(){
 		}
 	});
 	$("button").button().click(function(){
+		if(close){
+			showHisto()
+			close = false;
+		}else{
+			close = true;	
+		}
 		$(this).next("ul").toggle();
 	}).blur(function(e){
-		$(this).next("ul").toggle();
+		//if(!close){
+		//$(this).next("ul").toggle();
+		//close = true;
+		//}
 	});
 });
 
@@ -139,48 +149,48 @@ function searchKeypressedEnter(event){
 	if ( event.which == 13 ) { search(); }
 }
 function ok(){
-		saveHisto($('#searchInput').val());
-		$('.index').animate({
-			opacity: 0
-		},500, function(){
-			$('#header').animate({
-				top: '-=300'
-			},500,function() {
-				
-				$('#main').animate({
-					opacity : 100
-				},5000,function() {});
-				
-				$('#nbNeighbours').animate({
-					opacity : 100
-				},500,function() {});
-				
-				$('#zoomSlider').animate({
-					opacity : 100
-				},500,function() {});
-				$('#bloc').animate({
-					opacity : 100
-				},500,function() {});
-			});
-			$('#chooser').animate({
-				opacity : 0
-			},1000,function() {});
-			$('#chooser').animate({
-				width : 0
-			},100,function() {});
-			$('#chooser').animate({
-				height : 0
-			},100,function() {});
-			$('#radio').animate({
+	$('.index').animate({
+		opacity: 0
+	},500, function(){
+		$('#header').animate({
+			top: '-=300'
+		},500,function() {
+
+			$('#main').animate({
 				opacity : 100
-			},1000,function() {});
-			search();
+			},5000,function() {});
+
+			$('#nbNeighbours').animate({
+				opacity : 100
+			},500,function() {});
+
+			$('#zoomSlider').animate({
+				opacity : 100
+			},500,function() {});
+			$('#bloc').animate({
+				opacity : 100
+			},500,function() {});
 		});
-		$("#btnOk").unbind("click", ok).click(search);
-		$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
+		$('#chooser').animate({
+			opacity : 0
+		},1000,function() {});
+		$('#chooser').animate({
+			width : 0
+		},100,function() {});
+		$('#chooser').animate({
+			height : 0
+		},100,function() {});
+		$('#radio').animate({
+			opacity : 100
+		},1000,function() {});
+		search();
+	});
+	$("#btnOk").unbind("click", ok).click(search);
+	$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
 }
 
 function search(){
+	saveHisto($('#searchInput').val());
 	request($('#searchInput').val(), $("#nbNeighboursInput").val());
 }
 
@@ -189,37 +199,37 @@ function zoomChange(value){
 }
 
 function getMousePos(canvas, evt){
-    // get canvas position
-    var obj = canvas;
-    var top = 0;
-    var left = 0;
-    while (obj && obj.tagName != 'BODY') {
-        top += obj.offsetTop;
-        left += obj.offsetLeft;
-        obj = obj.offsetParent;
-    }
- 
-    // return relative mouse position
-    var mouseX = evt.clientX - left + window.pageXOffset;
-    var mouseY = evt.clientY - top + window.pageYOffset;
-    return {
-        x: mouseX,
-        y: mouseY
-    };
+	// get canvas position
+	var obj = canvas;
+	var top = 0;
+	var left = 0;
+	while (obj && obj.tagName != 'BODY') {
+		top += obj.offsetTop;
+		left += obj.offsetLeft;
+		obj = obj.offsetParent;
+	}
+
+	// return relative mouse position
+	var mouseX = evt.clientX - left + window.pageXOffset;
+	var mouseY = evt.clientY - top + window.pageYOffset;
+	return {
+		x: mouseX,
+		y: mouseY
+	};
 }
 
 function writeMessage(canvas, message){
-    ctx.clearRect(0, 0, 150, 30);
-    ctx.font = '8pt Calibri';
-    ctx.fillStyle = 'black';
-    ctx.fillText(message, 10, 25);
+	ctx.clearRect(0, 0, 150, 30);
+	ctx.font = '8pt Calibri';
+	ctx.fillStyle = 'black';
+	ctx.fillText(message, 10, 25);
 }
 
 function writeMessageHover(canvas, message){
-    ctx.clearRect(0, 30, 150, 150);
-    ctx.font = '8pt Calibri';
-    ctx.fillStyle = 'black';
-    ctx.fillText(message, 10, 145);
+	ctx.clearRect(0, 30, 150, 150);
+	ctx.font = '8pt Calibri';
+	ctx.fillStyle = 'black';
+	ctx.fillText(message, 10, 145);
 }
 
 /*function testImageHover(mousePos)
@@ -290,4 +300,25 @@ function positionnePopup(canvas, mousePos, nodeId)
 function saveHisto(id){
 	histo[nbhist]=id;
 	nbhist++;
+	if(!close){
+		$("#b1").next("ul").toggle();
+		close = true;
+	}
+}
+
+function showHisto(){
+
+
+	$('#smenu1').empty();
+	for(var i = 0; i < nbhist ; i++){
+		var img="../Server/index.php?controller=image&action=getImg&id="+histo[i]+"&t=50";
+		var chisto ="<li><a href='#' onclick='changeImg("+histo[i]+");'><img src="+img+"><span class='marge'>"+histo[i]+"</span></a></li>";
+		$(chisto).appendTo('#smenu1');
+
+	}
+}
+
+function changeImg(id){
+	request(id, midValue);
+	$("#b1").next("ul").toggle();
 }

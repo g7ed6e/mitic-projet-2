@@ -205,6 +205,11 @@ canvas#canvas{
 
 
 /*Menu*/
+
+.marge {
+margin-left: 5em;
+}
+
 #bloc {
 margin-top : 5px;
 width: 950px;
@@ -212,10 +217,16 @@ opacity : 0;
 }
 
 #menu_gauche {
-float: left;
-width: 200px;
 
+float: left;
 }
+
+#menu_gauche ul{
+	overflow-x: hidden;
+	overflow-y: scroll;
+	max-height: 300px;
+	z-index : 20;
+	}
 
 #menu_droite {
 float: left;
@@ -239,6 +250,7 @@ list-style-type: none;
 	display : none;
 	text-decoration: none;
 }
+
 #smenu2{
 	width: 210px;
 	margin : -5px;
