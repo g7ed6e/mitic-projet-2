@@ -184,11 +184,12 @@ canvas#canvas{
 
 #footer ul
 {
-	position :center;
+	position : relative;
+		left : 35%;
 	}
 #footer li
 {
-
+	left : 20%;
 	font-size: 12px;
 	list-style-type: none;
 	float: left;
