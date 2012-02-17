@@ -53,9 +53,6 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 				$controller->getVoisinsN( $_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
 			}
 			break;
-		case 'getAllDistances':			
-			$controller->getAllDistances();
-			break;
 		case 'getVoisinsNPlusUn':
 			if(  (isset($_GET['id'])) && (isset($_GET['nn'])) && (isset($_GET['nnPlusUn'])) && (isset($_GET['w'])) && (isset($_GET['h'])) )
 			{

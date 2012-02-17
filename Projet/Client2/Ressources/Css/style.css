@@ -1,6 +1,7 @@
 body{
 	font-family : verdana;
 	font-size: 12px;
+	overflow: hidden;
 }
 
 #chooser{
@@ -171,6 +172,7 @@ canvas#canvas{
 	position: absolute;
 	top: 0;
 	left: 0;
+	background-color: red;
 }
 #footer
 {

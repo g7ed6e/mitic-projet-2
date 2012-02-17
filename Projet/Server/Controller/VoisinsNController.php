@@ -1,7 +1,7 @@
 <?php
 require_once 'Model/VoisinsNModel.php';
 
-class VoisinsNController implements Controller{
+class VoisinsNController{
 
 	private $model;
 
