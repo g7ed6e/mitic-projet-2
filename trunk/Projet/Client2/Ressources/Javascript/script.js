@@ -1,25 +1,39 @@
 var min = 1;
 var max = 49;
-var midValue = 1;//Math.round((max-min)/2);
+var midValue = Math.round((max-min)/2);
 var hoveredImageId = -1;
-var debugMousePos = true;
+var debugMousePos = false;
 var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
 var histoVisible = false;
 var filterVisible = false;
 var popupShown = false;
-
+var clicked = false;
+var debut;
+var dragDeplacementDelta;
+var compteur = 0;
 
 $(document).ready(function(){
 	resized();
-	$("#canvas").draggable(
-		{ 
-			//disabled: true, 
-			drag: function(event){
-				console.log("aa");
-				event.stopPropagation();
-			}
-		}
-	);
+	
+	$("#canvas").mousedown(function(evt){
+		clicked = true;
+		debut = {"x" : evt.clientX, "y" : evt.clientY};
+	}).mouseup(function(){
+		draw();
+		clicked = false;
+	}).mousemove(function(evt){
+		if(clicked) $("#canvas").trigger('dragCanvas', [{"x" : evt.clientX, "y" : evt.clientY}]);
+	});
+	
+	$("#canvas").bind('dragCanvas', function(evt, param){
+		compteur++;
+		dragDeplacementDelta = {"x" : debut.x - param.x, "y" : debut.y - param.y};
+		graphCenter.x -= dragDeplacementDelta.x;
+		graphCenter.y -= dragDeplacementDelta.y;
+		if(compteur  %2 == 0)draw();
+		debut = param;
+	});
+	
 	$("#nbNeighboursInput").val(midValue);
 	$("#slider").slider({
 		max : max,
@@ -77,9 +91,6 @@ $(document).ready(function(){
 			$("#main").append("<div class='popupImageDetails'><p>Noeud :"+nodeId+"</p></div>");
 	        $(".popupImageDetails").append(img);
 	        positionnePopup(canvas, mousePos, nodeId);
-    		//request(nodeId, $("#nbNeighboursInput").val());
-    		//$("#searchInput").val(nodeId);
-    		
     	}
     	else hoveredImageId = -1;
     });
@@ -90,12 +101,14 @@ $(document).ready(function(){
 	    $("#graphSaver").attr("href", canvas.toDataURL());
 	});
 	$("#zoomP").click(function(){		
-		zoom += 1;
+		zoom += 0.5;
 		draw();
 	});
 	$("#zoomM").click(function(){
-		zoom -= 0.5;
-		draw();
+		if(zoom != 1){
+			zoom -= 0.5;
+			draw();
+		}
 	});
 });
 
