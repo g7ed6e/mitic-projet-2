@@ -237,19 +237,25 @@ function getImageId(mousePos)
 function show(id) {
 	var d = document.getElementById(id);
 	if(id == "smenu1"){
+		var b = document.getElementById("l1");
 		if (!histoVisible) {
 			d.style.display='block';
+			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active'
 			histoVisible = true;
 		}else{
 			d.style.display='none';
+			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left'
 			histoVisible = false;
 		}
 	}else{
+		var b = document.getElementById("l2");
 		if (!filterVisible) {
 			d.style.display='block';
+			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right ui-state-active'
 			filterVisible = true;
 		}else{
 			d.style.display='none';
+			b.className='liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right'
 			filterVisible = false;
 		}
 	}
