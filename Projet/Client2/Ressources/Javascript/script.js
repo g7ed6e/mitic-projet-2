@@ -190,16 +190,13 @@ function testImageHover(mousePos)
 
 function getImageId(mousePos)
 {
-	var found = false;
 	for (var i = 0;i < graph.nodes.length;i++)
 	{
 		var node = graph.nodes[i];
 		if((mousePos.x > node.position.x)&&(mousePos.x < node.position2.x)
 				&&(mousePos.y > node.position.y)&&(mousePos.y < node.position2.y)) {
 			return node.id;
-			found = true;
-			break;
 		}
 	}
-	if(!found){ return -1; }
+	return -1;
 }
