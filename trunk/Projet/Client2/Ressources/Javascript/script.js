@@ -18,8 +18,8 @@ var close2 = true;
 
 $(document).ready(function(){
 	resized();
-	$("#choixRendu , #choixNiveau").buttonset();
-	$("#choixRendu input, #choixNiveau input").change(function(){
+	$("#choixRendu , #choixData, #choixNiveau").buttonset();
+	$("#choixRendu input, #choixData input, #choixNiveau input").change(function(){
 		evenement(this);
 	});
 	$("#canvas").mousedown(function(evt){
@@ -306,6 +306,12 @@ function evenement(object){
 	}
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
+	}
+	if (object.id == 'pla'){
+		dataMatrice = false;
+	}
+	if (object.id == 'mat'){
+		dataMatrice = true;
 	}
 }
 
