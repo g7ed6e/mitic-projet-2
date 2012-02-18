@@ -18,6 +18,13 @@ var close2 = true;
 
 $(document).ready(function(){
 	resized();
+	remplirSlider();
+	$("#linkImg1, #linkImg2, #linkImg3, #linkImg4, #linkImg5," +
+		" #linkImg6, #linkImg7, #linkImg8, #linkImg9, #linkImg10," +
+		" #linkImg11, #linkImg12, #linkImg13, #linkImg14, #linkImg15," +
+		" #linkImg16, #linkImg17, #linkImg18, #linkImg19, #linkImg20").click(function(){
+		remplirSearch(this);
+	});
 	$("#choixRendu , #choixData, #choixNiveau").buttonset();
 	$("#choixRendu input, #choixData input, #choixNiveau input").change(function(){
 		evenement(this);
@@ -313,6 +320,30 @@ function evenement(object){
 	if (object.id == 'mat'){
 		dataMatrice = true;
 	}
+}
+
+function remplirSlider(){
+	//on parcour le slider
+	for (var i = 1;i <= 20 ;i++) {
+		//on genere un entier aléatoire en 1 et 49
+		var numRand = Math.floor(Math.random()*50);
+		//on recupere la case du slider
+		var img = document.getElementById("img"+i);
+		//on remplace l'image de cette case par celle dont
+		//l'ID sur le serveur coorespond au nombre aléatoire
+		img.src="../Server/index.php?controller=image&action=getImg&id="+numRand;
+		//on remplace aussi l'attribut alt de l'image par son id
+		img.alt=numRand;
+	}
+}
+
+function remplirSearch(object){
+	//on recupere le fils du lien (notre image)
+	var enfant = object.childNodes;
+	//on recupere son attribut alt (son ID)
+	var idImg = enfant[0].alt;
+	$("#searchInput").css('color', '#000000').css('font-style', 'normal');
+	$("#searchInput").val(idImg);
 }
 
 function positionnePopup(canvas, mousePos, nodeId)
