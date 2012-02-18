@@ -21,7 +21,7 @@
 	</head>
 	<body>
 		<script>
-			function getMaterial( path )
+			function getImageMaterial( url )
 			{
 				var image = new Image();
 				var material = new THREE.MeshBasicMaterial( { map : new THREE.Texture( image ) } );
@@ -33,9 +33,18 @@
 		        		material.map.image = this;
 		    		};
 				}
-				image.src = path;
+				image.src = url;
 				return material;
 			}
+			
+			var lineMaterial =  new THREE.LineBasicMaterial({
+				    color: 0xFF0000,
+				    opacity: 0.7,
+				    blending: THREE.AdditiveBlending,
+				    transparent: true,
+				    linewidth: 1
+				} );
+			
 		
 			var container, stats;
 			var camera, scene, renderer, group, particle;
@@ -76,38 +85,41 @@
 					  url: '../Server/index.php',
 					  dataType: 'json',
 					  cache: false,
-					  data:  {"controller" : "score", "id" : 1, "nn" : 20, "action" : "getScoreV2", "w": window.innerWidth / 8, "h": window.innerHeight / 8, "s": "1" },
+					  data:  {"controller" : "score", "id" : 1, "nn" : 20, "action" : "getScoreV2", "w": window.innerWidth / 4, "h": window.innerHeight / 4, "s": "0" },
 					  success: function(data) {
-// 							graph.clearNodes();
-// 							var liens = data.liens;
-// 							var positions = data.positions;
-// 							for(var i in positions){
-// 								var node = new Node(positions[i][0], positions[i][1], positions[i][2]);
-// 								graph.addNode(node);
-// 							}	
-// 							for(var i in liens)			
-// 								graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
-						
-// 							draw();
 							var liens = data.liens;
 							var positions = data.positions;	
-// 							for(var i in liens){
-// 								var geom = new THREE.Geometry();
-// 								geom.vertices.push( new THREE.Vertex( new THREE.Vector3(voxelPosition.x, 0, voxelPosition.z) ));
-// 								geom.vertices.push( new THREE.Vertex( new THREE.Vector3(voxelPosition.x, 0, voxelPosition.z) ));
-// 								this.drawingLine = new THREE.Line( geom , mat );
-// 								this.drawingLine.dynamic = true;
-// 								scene.addObject( this.drawingLine );
-// 							}
+							// itération sur les liens
+							for(var i in liens){
+								// recherche du premier point
+								var found = false;// flag pour optimiser ces 3 affreuses boucles imbriquées dues au format choisi à l'origine du projet
+								for (var j in positions){
+									if (liens[i][0] == positions[j][0]){
+										for (var k in positions){
+											if (liens[i][1] == positions[k][0]){
+												
+												var geom = new THREE.Geometry();
+												geom.vertices.push( new THREE.Vertex( new THREE.Vector3(positions[j][1], positions[j][2], 0) ));
+												geom.vertices.push( new THREE.Vertex( new THREE.Vector3(positions[k][1], positions[k][2], 0) ));
+												var o = new THREE.Line(geom, lineMaterial);
+												group.add(o);
+												found = true;
+												break;
+											}
+										}
+									}
+									if (found)break;
+								}
+							}
 					      for(var i in positions){
 					    	  var o = new THREE.Object3D();
 					    	  var id = positions[i][0];
-					    	  var path = "../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
+					    	  var imageUrl = "../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
 					    	  var cube = new THREE.Mesh(
-					    				new THREE.CubeGeometry( 5, 5, 0.1 ),
+					    				new THREE.CubeGeometry( 8, 8, 0.1 ),
 					    				//new THREE.MeshLambertMaterial( { color: 0xFF0000 } )
 					    				//new THREE.MeshBasicMaterial( { map : getMaterial( path ) } )
-					    				getMaterial( path )
+					    				getImageMaterial( imageUrl )
 									);
 					    	  o.add(cube);
 					    	  o.position = new THREE.Vector3(positions[i][1], positions[i][2], 0);
@@ -117,18 +129,6 @@
 							
 					  }
 				});	
-				
-// 				for ( var i = 0; i < 1000; i++ ) {
-
-// 					particle = new THREE.Particle( new THREE.ParticleCanvasMaterial( { color: Math.random() * 0x808008 + 0x808080, program: program } ) );
-// 					particle.position.x = Math.random() * 2000 - 1000;
-// 					particle.position.y = Math.random() * 2000 - 1000;
-// 					particle.position.z = Math.random() * 2000 - 1000;
-// 					particle.scale.x = particle.scale.y = Math.random() * 10 + 5;
-// 					group.add( particle );
-// 				}
-
-				
 				
 				renderer = new THREE.CanvasRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -144,55 +144,43 @@
 				document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 			}
 
-			//
-
 			function onDocumentMouseMove( event ) {
-
 				mouseX = event.clientX - windowHalfX;
 				mouseY = event.clientY - windowHalfY;
+				console.log(mouseX);
+				console.log(mouseY);
 			}
 
 			function onDocumentTouchStart( event ) {
-
 				if ( event.touches.length == 1 ) {
-
 					event.preventDefault();
-
 					mouseX = event.touches[ 0 ].pageX - windowHalfX;
 					mouseY = event.touches[ 0 ].pageY - windowHalfY;
 				}
 			}
 
 			function onDocumentTouchMove( event ) {
-
 				if ( event.touches.length == 1 ) {
-
 					event.preventDefault();
-
 					mouseX = event.touches[ 0 ].pageX - windowHalfX;
 					mouseY = event.touches[ 0 ].pageY - windowHalfY;
 				}
 			}
 
-			//
-
 			function animate() {
-
 				requestAnimationFrame( animate );
-
 				render();
 				stats.update();
-
 			}
 
 			function render() {
-
-// 				camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-// 				camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+				
+ 				camera.position.x += ( mouseX - camera.position.x ) * 0.05;
+ 				camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
 				camera.lookAt( scene.position );
 
-// 				group.rotation.x += 0.01;
-// 				group.rotation.y += 0.02;
+ 				//group.rotation.x += 0.01;
+ 				//group.rotation.y += 0.02;
 
 				renderer.render( scene, camera );
 
