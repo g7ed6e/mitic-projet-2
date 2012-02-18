@@ -1,5 +1,5 @@
-var min = 1;
-var max = 49;
+var min = 2;
+var max = 19;
 var midValue = Math.round((max-min)/2);
 var hoveredImageId = -1;
 var debugMousePos = false;

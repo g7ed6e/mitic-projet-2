@@ -81,33 +81,48 @@ body{
 
 #radio{
 	position : absolute;
-	top : 70px;
-	right : 30px;
-	width : 25%;
+	top : 55px;
+	right : 10px;
+	width : 450px;
 	opacity : 0;
 }
 
 #choixRendu{
 	position : absolute;
-	right : 0%;
+	right : 0px;
 	top : 0px;
 }
 
 #choixRendu label {
-	width: 70px;
-	height: 26px;
+	width: 55px;
+	height: 35px;
 	text-align: center;
 }
 
 #choixNiveau{
 	position : absolute;
-	left : 0%;
+	right : 165px;
 	top : 0px;
 }
 
 #choixNiveau label {
-	width: 70px;
-	height: 26px;
+	padding-top : 5px;
+	width: 55px;
+	height: 30px;
+	font-size : 10px;
+	text-align: center;
+}
+
+#choixData{
+	position : absolute;
+	left : 0px;
+	top : 0px;
+}
+
+#choixData label {
+	padding-top : 10px;
+	width: 55px;
+	height: 25px;
 	font-size : 10px;
 	text-align: center;
 }
