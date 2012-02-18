@@ -15,6 +15,7 @@ class ImageController implements Controller{
 		require_once 'View/ImageView.php';
 		$view = new ImageView($image);
 		$view->Render();
+		imagedestroy($image[0]);
 	}
 }
 ?>
