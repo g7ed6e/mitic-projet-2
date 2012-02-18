@@ -120,9 +120,9 @@ body{
 }
 
 #choixData label {
-	padding-top : 10px;
+	padding-top : 5px;
 	width: 55px;
-	height: 25px;
+	height: 30px;
 	font-size : 10px;
 	text-align: center;
 }

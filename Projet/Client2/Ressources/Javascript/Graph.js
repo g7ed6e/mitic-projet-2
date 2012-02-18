@@ -7,6 +7,7 @@ var algoNPlusUn = false;
 var renduSVG = false;
 var zoom = 1;
 var HTML = true;
+var dataMatrice = false;
 
 $(document).ready(function(){
 
