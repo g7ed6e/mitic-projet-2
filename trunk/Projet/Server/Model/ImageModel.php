@@ -8,6 +8,9 @@ class ImageModel implements Model{
 		$file = ROOT_DATA_REPOSITORY."/img/".$id.".jpg";
 		$size = getimagesize($file);
 		$res = array();
+		
+		$CompressJPG = 25; //100 pas de compression, 0 compression max
+		$CompressPNG = 9;  //0 pas de compression, 9 compression max
 
 		//chargement de l'image en fonction du format
 		if ($size){
@@ -31,8 +34,21 @@ class ImageModel implements Model{
 
 				// copie de l'image, avec le redimensionnement.
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$size[0]*$c, $size[1]*$c,$size[0],$size[1]);
-				$res[1]=$img_mini;
-				//return $img_mini;
+				
+				//compression image
+				if ($size['mime']=='image/jpeg' ) {
+		        	imagejpeg($img_mini, $img_mini2, $CompressJPG );
+		        	imagedestroy($img_mini);
+		        	$res[1]=$img_mini2;
+				}
+				if ($size['mime']=='image/png' ) {
+		        	imagepng($img_mini, $img_mini2, $CompressPNG );
+		        	imagedestroy($img_mini);
+		        	$res[1]=$img_mini2;
+				}
+				else {//gif pas de compression possible....
+					$res[1]=$img_mini;
+				}
 			}elseif($t!=0){
 				if($size[0]>$size[1]){
 					$ratio = $size[1]/$size[0];
@@ -44,8 +60,21 @@ class ImageModel implements Model{
 
 					// copie de l'image, avec le redimensionnement.
 					imagecopyresized($img_mini,$img_big,0,0,0,0,$t, $t*$ratio,$size[0],$size[1]);
-					$res[1]=$img_mini;
-					//return $img_mini;
+					
+					//compression image
+					if ($size['mime']=='image/jpeg' ) {
+			        	imagejpeg($img_mini, $img_mini2, $CompressJPG );
+			        	imagedestroy($img_mini);
+			        	$res[1]=$img_mini2;
+					}
+					if ($size['mime']=='image/png' ) {
+			        	imagepng($img_mini, $img_mini2, $CompressPNG );
+			        	imagedestroy($img_mini);
+			        	$res[1]=$img_mini2;
+					}
+					else {//gif pas de compression possible....
+						$res[1]=$img_mini;
+					}
 				}else{
 					$ratio = $size[0]/$size[1];
 					//cas de la taille fixée
@@ -56,8 +85,21 @@ class ImageModel implements Model{
 
 					// copie de l'image, avec le redimensionnement.
 					imagecopyresized($img_mini,$img_big,0,0,0,0,$t*$ratio, $t,$size[0],$size[1]);
-					$res[1]=$img_mini;
-					//return $img_mini;
+						
+					//compression image
+					if ($size['mime']=='image/jpeg' ) {
+			        	imagejpeg($img_mini, $img_mini2, $CompressJPG );
+			        	imagedestroy($img_mini);
+			        	$res[1]=$img_mini2;
+					}
+					if ($size['mime']=='image/png' ) {
+			        	imagepng($img_mini, $img_mini2, $CompressPNG );
+			        	imagedestroy($img_mini);
+			        	$res[1]=$img_mini2;
+					}
+					else {//gif pas de compression possible....
+						$res[1]=$img_mini;
+					}
 				}
 			}elseif($w!=0&&$l!=0){
 				//cas de la taille fixée
@@ -68,12 +110,38 @@ class ImageModel implements Model{
 
 				// copie de l'image, avec le redimensionnement.
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-				$res[1]=$img_mini;
-				//return $img_mini;
+					
+				//compression image
+				if ($size['mime']=='image/jpeg' ) {
+		        	imagejpeg($img_mini, $img_mini2, $CompressJPG );
+		        	imagedestroy($img_mini);
+		        	$res[1]=$img_mini2;
+				}
+				if ($size['mime']=='image/png' ) {
+		        	imagepng($img_mini, $img_mini2, $CompressPNG );
+		        	imagedestroy($img_mini);
+		        	$res[1]=$img_mini2;
+				}
+				else {//gif pas de compression possible....
+					$res[1]=$img_mini;
+				}
 
 			}else{
 				//cas sans paramètres
-				$res[1]=$img_big;
+				//compression image
+				if ($size['mime']=='image/jpeg' ) {
+		        	imagejpeg($img_big, $img_big2, $CompressJPG );
+		        	imagedestroy($img_big);
+		        	$res[1]=$img_big2;
+				}
+				if ($size['mime']=='image/png' ) {
+		        	imagepng($img_big, $img_big2, $CompressPNG );
+		        	imagedestroy($img_big);
+		        	$res[1]=$img_big2;
+				}
+				else {//gif pas de compression possible....
+					$res[1]=$img_big;
+				}	
 				//return $img_big;
 			}
 			return $res;
