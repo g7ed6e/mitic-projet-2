@@ -96,9 +96,9 @@ $(document).ready(function(){
 	}).mouseup(function(evt){
 		var mousePos = getMousePos(canvas, evt);
 		var nodeId = getImageId(mousePos); 
+		if(popupShown) $(".popupImageDetails").remove();
 		if ((nodeId != -1)&&(hoveredImageId == nodeId))
 		{
-			if(popupShown) $(".popupImageDetails").remove();
 			var img = new Image();
 			img.src = '../Server/index.php?controller=image&action=getImg&id='+nodeId+'&t=200';
 			jQuery(img).load(function() {
