@@ -64,6 +64,7 @@ $(document).ready(function(){
 	});
 	$("#topLabelSlider").html(max);
 	$("#bottomLabelSlider").html(min);
+	$("#btnOk").button();
 	$("#btnOk").click(ok);
 	$("#searchInput").keypress(okKeypressedEnter).focus(function(){
 		if($(this).val() == searchInputDefaultText)

@@ -64,6 +64,7 @@ body{
 	color: #aaa;
 	margin : 3px;
 }
+
 .OK{
 	float : right;
 	border : 1px solid black;
@@ -85,6 +86,14 @@ body{
 	right : 10px;
 	width : 450px;
 	opacity : 0;
+}
+
+#btnOk {
+	position : absolute;
+	top : 4px;
+	width: 35px;
+	height: 20px;
+	font-size : 10px;
 }
 
 #choixRendu{
