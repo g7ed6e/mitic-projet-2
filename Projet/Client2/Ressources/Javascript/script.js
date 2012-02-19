@@ -1,4 +1,4 @@
-var min = 2;
+var min = 0;
 var max = 19;
 var midValue = Math.round((max-min)/2);
 var hoveredImageId = -1;
@@ -15,8 +15,49 @@ var histo = new Array();
 var nbhist = 0;
 var close = true;
 var close2 = true;
+function mon_erreur(nouvelle,fichier,ligne)
+{
+ erreur = "Message d'erreur:\n"+ nouvelle+"\n"+fichier+"\n"+ligne;
+ affiche_erreur();
+ return true;
+}
 
+function affiche_erreur()
+{
+ alert(window.erreur)
+}
 $(document).ready(function(){
+	
+	//window.onerror = mon_erreur;
+	  $('#canvas').bind( 'swipe', function( e ) {
+			/*graphCenter.x -= 150;
+			draw();
+		    e.stopImmediatePropagation();
+		    return false;*/
+		  } );  
+	  
+
+/*
+	  $('#canvas').bind( 'swiperight', function( e ) {
+			graphCenter.x += 150;
+			draw();
+		    e.stopImmediatePropagation();
+		    return false;
+		  } ); 
+	  
+	  $('#canvas').bind( 'swipeup', function( e ) {
+			graphCenter.y -= 150;
+			draw();
+		    e.stopImmediatePropagation();
+		    return false;
+		  } ); 
+	  $('#canvas').bind( 'swipedown', function( e ) {
+			graphCenter.y += 150;
+			draw();
+		    e.stopImmediatePropagation();
+		    return false;
+		  } ); */
+	
 	resized();
 	remplirSlider();
 	$("#linkImg1, #linkImg2, #linkImg3, #linkImg4, #linkImg5," +
@@ -44,11 +85,19 @@ $(document).ready(function(){
 		dragDeplacementDelta = {"x" : debut.x - param.x, "y" : debut.y - param.y};
 		graphCenter.x -= dragDeplacementDelta.x;
 		graphCenter.y -= dragDeplacementDelta.y;
-		if(compteur  %2 == 0)draw();
+		if(compteur  %6 == 0 )draw();
 		debut = param;
 	});
 
-	$("#nbNeighboursInput").val(midValue);
+	$("#nbNeighboursInput").val(midValue).keyup(function(event){
+		console.log(this.value);
+		if(!(this.value.toString().search(/^[0-9]+$/) == 0))
+			this.value = this.value.substring(0, this.value.length-1);
+		else{
+			$("#slider").slider('value', this.value);
+			zoomChange($("#slider").slider('value'));
+		}
+	});
 	$("#slider").slider({
 		max : max,
 		min : min,
@@ -64,6 +113,7 @@ $(document).ready(function(){
 	});
 	$("#topLabelSlider").html(max);
 	$("#bottomLabelSlider").html(min);
+
 	$("#btnOk").button();
 	$("#btnOk").click(ok);
 	$("#searchInput").keypress(okKeypressedEnter).focus(function(){
@@ -125,13 +175,13 @@ $(document).ready(function(){
 	$("#zoomP").click(function(){		
 		zoom += 0.5;
 		draw();
-	});
+	}).button();
 	$("#zoomM").click(function(){
 		if(zoom != 1){
 			zoom -= 0.5;
 			draw();
 		}
-	});
+	}).button();
 	$("#b1").button().click(function(){
 		if(close){
 			showHisto()
@@ -163,7 +213,7 @@ $(document).ready(function(){
 });
 
 function resized(){
-	$("#searchInput").width($("#searchDiv").width() - 70);
+	//$("#searchInput").width($("#searchDiv").width() - 70);
 }
 function okKeypressedEnter(event){
 	if ( event.which == 13 ) { ok(); }
@@ -176,26 +226,13 @@ function ok(){
 		opacity: 0
 	},500, function(){
 		$('#header').animate({
-			top: '-=300'
+			top: '0'
 		},500,function() {
 
-			$('#main').animate({
+			$('#main, #nbNeighbours, #zoomSlider').animate({
 				opacity : 100
 			},5000,function() {});
 
-			$('#nbNeighbours').animate({
-				opacity : 100
-			},500,function() {});
-
-			$('#zoomSlider').animate({
-				opacity : 100
-			},500,function() {});
-			$('#bloc').animate({
-				opacity : 100
-			},500,function() {});
-			$('#logo').animate({
-				opacity : 100
-			},500,function() {});
 		});
 		$('#chooser').animate({
 			opacity : 0
@@ -206,9 +243,10 @@ function ok(){
 		$('#chooser').animate({
 			height : 0
 		},100,function() {});
-		$('#radio').animate({
+		$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #canvas, .fleche').show().animate({
 			opacity : 100
 		},1000,function() {});
+
 		search();
 	});
 	$("#btnOk").unbind("click", ok).click(search);
@@ -257,36 +295,6 @@ function writeMessageHover(canvas, message){
 	ctx.fillStyle = 'black';
 	ctx.fillText(message, 10, 145);
 }
-
-/*function testImageHover(mousePos)
-{
-	var message = '';
-	var found = false;
-	for (var i = 0;i < graph.nodes.length;i++)
-	{
-		var node = graph.nodes[i];
-		if((mousePos.x > node.position.x)&&(mousePos.x < node.position2.x)
-				&&(mousePos.y > node.position.y)&&(mousePos.y < node.position2.y)) {
-			message = (node.id);
-			if(node.id != hoveredImageId)
-			{
-				$(".popupImageDetails").remove(); 
-				hoveredImageId = node.id;
-				var img = new Image();
-				img.src = '../Server/index.php?controller=image&action=getImg&id='+node.id+'&t=150';
-				jQuery(img).load(function() { $(".popupImageDetails").css('width', img.width).css('height', img.height); });
-				$("#main").append("<div class='popupImageDetails'></div>");
-		        $(".popupImageDetails").append(img);			        
-			}
-			$(".popupImageDetails").css('left', mousePos.x + 20)
-				.css('top', mousePos.y + 20);
-			found = true;
-			break;
-		}
-	}
-	if(!found){ $(".popupImageDetails").remove(); hoveredImageId = -1;  }
-	if(debugMousePos)writeMessageHover(canvas, message);
-}*/
 
 function getImageId(mousePos)
 {
@@ -345,6 +353,8 @@ function remplirSearch(object){
 	var idImg = enfant[0].alt;
 	$("#searchInput").css('color', '#000000').css('font-style', 'normal');
 	$("#searchInput").val(idImg);
+	$("#searchInput").effect("highlight", {'color' : 'red'}, 1000);
+
 }
 
 function positionnePopup(canvas, mousePos, nodeId)
@@ -386,3 +396,4 @@ function changeImg(id){
 		close2 = true;
 	}
 }
+

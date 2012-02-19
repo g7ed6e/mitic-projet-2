@@ -14,10 +14,26 @@ $(document).ready(function(){
 	
 	canvas = $("#canvas").get(0);
 	ctx = canvas.getContext('2d'); 
-	ctx.canvas.width  = $("#main").innerWidth();
-	ctx.canvas.height = $("#main").innerHeight();
-	$("#canvas").width($("#main").innerWidth());
-	graphCenter = {"x": $("#main").width() / 2, "y": $("#main").height() / 2};
+	ctx.canvas.width  = $("#main").innerWidth() - $("#zoomDiv").innerWidth();
+	ctx.canvas.height = $("#main").innerHeight()-$("#canvas").get(0).offsetTop-$("#footer").innerHeight()-10;
+	graphCenter = {"x":ctx.canvas.width / 2, "y": ctx.canvas.height / 2};
+	$("#fg").css("left", 0).css("top", $("#canvas").get(0).offsetTop + graphCenter.y-23+"px").click(function(){
+		graphCenter.x -= 75;
+		draw();
+	});
+	$("#fd").css("left", ctx.canvas.width-35).css("top", $("#canvas").get(0).offsetTop + graphCenter.y-23 +"px").click(function(){
+		graphCenter.x += 75;
+		draw();
+	});
+	$("#fh").css("left", graphCenter.x-24).css("top", $("#canvas").get(0).offsetTop).click(function(){
+		graphCenter.y -= 75;
+		draw();
+	});
+	$("#fb").css("left", graphCenter.x-24).css("top", $("#canvas").get(0).offsetTop + ctx.canvas.height -35+"px").click(function(){
+		graphCenter.y += 75;
+		draw();
+	});
+
 	graph = new Graph();
 });
 
