@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<title>WebGL Graph Démo</title>
+		<title>Projet M2 MITIC 2011/2012 : Navigation dans une collection d'images similaires</title>
 		<script type="text/javascript" src="lib/Three.js"></script>
 		<script type="text/javascript" src="lib/Stats.js"></script>
 		<script type="text/javascript" src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
@@ -27,30 +26,167 @@
 		
 			var lineMaterial =  new THREE.LineBasicMaterial({
 			    color: 0xFF0000,
-			    opacity: 0.7,
+			    opacity: 0.2,
 			    blending: THREE.AdditiveBlending,
 			    transparent: true,
 			    linewidth: 1
 			} );
 			
+			var PI2 = Math.PI * 2;
+			var particleMaterial = new THREE.ParticleCanvasMaterial( {
+				color: 0xFF0000,
+				program: function ( context ) {
+					context.beginPath();
+					context.arc( 0, 0, 1, 0, PI2, true );
+					context.closePath();
+					context.fill();
+				}
+			} );
+			
 			var container, stats;
-			var camera, scene, renderer, group, particle;
-			var mouseX = 0, mouseY = 0;
+			var camera, scene, renderer, images;
+			var imagesObjects = [], liensObjects = [], projector, keyValues = new Array();// pour le picking
+			var mouseX = 0, mouseY = 0, ctrlPressed = false;// inputs
 			var windowHalfX = window.innerWidth / 2;
 			var windowHalfY = window.innerHeight / 2;
+			var liens, positions;
+			var timer, timerEnabled = 0, step = 0, nextImage = 1016, nextImagePosition = new THREE.Vector3(0, 0, 0);// animation
+			var cameraLookAt = new THREE.Vector3(0, 0, 0);var lastCameraLookAt = new THREE.Vector3(0, 0, 0);
+			var hoveredImage = -1;
+			
+			function explodeGraph() {
+				if(!timerEnabled) {
+					timerEnabled = true;
+					drawImages();
+					drawLiens();
+					explode();	
+				}
+			}
+			
+			function explode(){
+				for(var i in positions){
+					var imgName = "img_" + positions[i][0];
+					var imgNode = images.getChildByName(imgName, false);
+					imgNode.translateX(positions[i][1] * 0.04);
+					imgNode.translateY(positions[i][2] * 0.04);
+					for(var j in liens){
+						if (liens[j][0] == positions[i][0]) {
+							lignes.getChildByName("link_" + j).geometry.vertices[0].position = imgNode.position;
+							continue;
+						}
+						if(liens [j][1] == positions[i][0]) {
+							lignes.getChildByName("link_" + j).geometry.vertices[1].position = imgNode.position;
+						}
+					}
+				}
+				step++;
+				if(step == 25){
+					timerEnabled = false;
+					step = 0;
+				}
+				else{
+					timer = setTimeout('explode()', 50);
+				}
+			}
+			
+			function clearGraph() {
+				positions = [];
+				tmpPositions = [];
+				for(var i = 0;i<imagesObjects.length;i++) {
+					images.remove(imagesObjects[i]);// ici voir éventuelle fuite mémoire (cf doc Three.js)
+				}
+				imagesObjects = [];
+				keyValues = new Array();
+			}
+			
+			function clearLiens(){
+				for(var i = 0;i<liensObjects.length;i++){
+					lignes.remove(liensObjects[i]);
+				}
+				liens = [];
+				liensObjects = [];		
+			}
+			
+			function moveToNextImage(){
+				if(!timerEnabled){
+					timerEnabled = true;
+					move();
+				}
+			}
+			
+			function move(){
+				var imgNode;
+				for(var i in positions){
+					if(positions[i][0] == nextImage){
+						// on recentre l'image
+						var imgNode = images.getChildByName("img_" + nextImage, false);// positions[i][0], false);
+						imgNode.translateX(-(positions[i][1] * 0.04));
+						imgNode.translateY(-(positions[i][2] * 0.04));
+						break;
+					}
+				}
+				step++;
+				if(step == 25) {
+					timerEnabled = false;
+					step = 0;
+					clearGraph();
+					requestGraph(nextImage, 20);
+				}else{
+					timer = setTimeout('move()', 50);
+				}
+			}
+			
+			function implode(){
+				for(var i in positions){
+					if(positions[i][0] == nextImage) {
+						nextImagePosition.x = positions[i][1];
+						nextImagePosition.y = positions[i][2];
+						continue;
+					}
+					var imgNode = images.getChildByName("img_" + positions[i][0], false);
+					imgNode.translateX(-(positions[i][1] * 0.04));
+					imgNode.translateY(-(positions[i][2] * 0.04));
+					for(var j in liens){
+						if (liens[j][0] == positions[i][0]) {
+							lignes.getChildByName("link_" + j).geometry.vertices[0].position = imgNode.position;
+							continue;
+						}
+						if(liens [j][1] == positions[i][0]) {
+							lignes.getChildByName("link_" + j).geometry.vertices[1].position = imgNode.position;
+						}
+					}
+				}
+
+				step++;
+				if(step == 25){
+					timerEnabled = false;
+					step = 0;
+					moveToNextImage();
+				}
+				else{
+					timer = setTimeout('implode()', 50);
+				}
+			}
+			
+			function implodeGraph() {
+				if(!timerEnabled) {
+					timerEnabled = true;
+					var o = images.getChildByName("img_" + nextImage);
+					nextImagePosition = o.position;//new THREE.Vector3(positions[i][1], positions[i][2], 0);
+					implode();	
+				}
+			}
 			
 			function init() {
-
-				//container = document.createElement( 'div' );
-				//document.body.appendChild( container );
 				$('body').append("<div id='container'></div>");
 				
+				projector = new THREE.Projector();
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
-				camera.position.z = 100;
-
+				camera.position.z = 600;
+				
 				scene = new THREE.Scene();
 				scene.add( camera );
-
+				
 				var PI2 = Math.PI * 2;
 				var program = function ( context ) {
 					context.beginPath();
@@ -59,56 +195,15 @@
 					context.fill();
 				}
 
-				group = new THREE.Object3D();
-				scene.add( group );
+				images = new THREE.Object3D();
+				//images.scale = globalScale;
+				scene.add(images);
 
-				$.ajax({
-					  url: '../Server/index.php',
-					  dataType: 'json',
-					  cache: false,
-					  data:  {"controller" : "score", "id" : 1, "nn" : 20, "action" : "getScoreV2", "w": window.innerWidth / 4, "h": window.innerHeight / 4, "s": "0" },
-					  success: function(data) {
-							var liens = data.liens;
-							var positions = data.positions;	
-							// itération sur les liens
-							for(var i in liens){
-								// recherche du premier point
-								var found = false;// flag pour optimiser ces 3 affreuses boucles imbriquées dues au format choisi à l'origine du projet
-								for (var j in positions){
-									if (liens[i][0] == positions[j][0]){
-										for (var k in positions){
-											if (liens[i][1] == positions[k][0]){ 
-												var geom = new THREE.Geometry();
-												geom.vertices.push( new THREE.Vertex( new THREE.Vector3(positions[j][1], positions[j][2], 0) ));
-												geom.vertices.push( new THREE.Vertex( new THREE.Vector3(positions[k][1], positions[k][2], 0) ));
-												var o = new THREE.Line(geom, lineMaterial);
-												group.add(o);
-												found = true;
-												break;
-											}
-										}
-									}
-									if (found)break;
-								}
-							}
-					      for(var i in positions){
-					    	  var o = new THREE.Object3D();
-					    	  var id = positions[i][0];
-					    	  var imageUrl = "../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
-					    	  var cube = new THREE.Mesh(
-					    				new THREE.CubeGeometry( 8, 8, 0.1 ),
-					    				//new THREE.MeshLambertMaterial( { color: 0xFF0000 } )
-					    				//new THREE.MeshBasicMaterial( { map : getMaterial( path ) } )
-					    				getImageMaterial( imageUrl )
-									);
-					    	  o.add(cube);
-					    	  o.position = new THREE.Vector3(positions[i][1], positions[i][2], 0);
-							  group.add(o);  
-					      }
-					    	  
-							
-					  }
-				});	
+				lignes = new THREE.Object3D();
+				//lignes.scale = globalScale;
+				scene.add(lignes);
+				
+				requestGraph(nextImage, 20);
 				
 				renderer = new THREE.CanvasRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
@@ -123,10 +218,62 @@
 				jQuerylogo.src = "Ressources/Images/jquery12.gif";
 				var webGLlogo = new Image();
 				webGLlogo.src = "Ressources/Images/webgl-logo.png";
-				$("#container").append(renderer.domElement).append(stats.domElement).append("<div id='logos'></div>");
-				$("#logos").append(webGLlogo).append(html5logo).append(jQuerylogo);
+				$("#container").append(renderer.domElement).append(stats.domElement).append("<div id='logos'></div>").append("<div id='#footer'><span>Projet M2 MITIC 2011/2012 : Navigation dans une collection d'images similaires</span></div>");
+				$("#logos").append("<span id='poweredby'>powered by</span><br/>").append(webGLlogo).append(html5logo).append(jQuerylogo);
 			}
-
+			
+			function drawImages(){
+				for(var i in positions){
+			    	  var o = new THREE.Object3D();
+			    	  //o.matrixWorld = matrix;
+			    	  var id = positions[i][0];
+			    	  o.name = "img_" + id;
+			    	  var imageUrl = "../Server/index.php?controller=image&action=getImg&id="+id+"&t=100";
+			    	  var cube = new THREE.Mesh(
+			    				new THREE.CubeGeometry(50, 50, 1),
+			    				//new THREE.MeshLambertMaterial( { color: 0xFF0000 } )
+			    				getImageMaterial( imageUrl )
+							);
+			    	  o.add(cube);
+			    	  o.position = new THREE.Vector3(0, 0, 0);
+					  images.add(o);
+					  imagesObjects.push(o);
+					  keyValues[o.id] = o.name;
+			      }
+			}
+			
+			function drawLiens() {
+				for(var i in liens) {
+					var img0 = images.getChildByName("img_" + liens[i][0], false);
+					var img1 = images.getChildByName("img_" + liens[i][1], false);
+					var geom = new THREE.Geometry();
+					var vertice0 = new THREE.Vertex( new THREE.Vector3(0, 0, 0));
+					var vertice1 = new THREE.Vertex( new THREE.Vector3(0, 0, 0));
+					geom.vertices.push(vertice0);
+					geom.vertices.push(vertice1);
+					var o = new THREE.Line(geom, lineMaterial);
+					o.geometry.dynamic = true;
+					o.geometry.__dirtyVertices = true;
+					o.name = "link_" + i;
+					lignes.add(o);
+					liensObjects.push(o);
+				}
+			}
+			
+			function requestGraph(id_ref, nbVoisins) {
+				$.ajax({
+					  url: '../Server/index.php',
+					  dataType: 'json',
+					  cache: false,
+					  data:  {"controller" : "score", "id" : id_ref, "nn" : nbVoisins, "action" : "getScoreV2", "w": window.innerWidth, "h": window.innerHeight, "s": "0" },
+					  success: function(data) {
+						liens = data.liens;
+						positions = data.positions;	
+						explodeGraph();
+					  }
+				});	
+			}
+			
 			function animate() {
 				requestAnimationFrame( animate );
 				render();
@@ -134,36 +281,130 @@
 			}
 
 			function render() {
- 				camera.position.x += ( mouseX - camera.position.x ) * 0.02;
- 				camera.position.y += ( - mouseY - camera.position.y ) * 0.02;
-				camera.lookAt( scene.position );
- 				//group.rotation.x += 0.01;
- 				//group.rotation.y += 0.02;
+				camera.lookAt(cameraLookAt);//scene.position );
 				renderer.render( scene, camera );
 			}	
+			
+			function zoomOut(){
+				var o = images.getChildByName("img_" + hoveredImage); 
+				var scaleOffset = ((0.5-step)/5)/2;
+				o.scale = new THREE.Vector3(1 + scaleOffset, 1 + scaleOffset,1 + scaleOffset);
+				o.position.z -= 3*step;
+				step++;
+				if (step == 5) {
+					step = 0;
+					timerEnabled = false;
+					hoveredImage = -1;
+				}
+				else {
+					timer = setTimeout('zoomOut()', 25);
+				}
+			}
+			
+			function zoomOutImage(){
+				if(!timerEnabled){
+					timerEnabled = true;
+					zoomOut();
+				}
+			}
+			
+			function zoomIn(){
+				var o = images.getChildByName("img_" + hoveredImage);
+				var scaleOffset = ((step)/5)/2;
+				o.scale = new THREE.Vector3(1 + scaleOffset, 1 + scaleOffset,1 + scaleOffset);
+				o.position.z += 3*step;
+				step++;
+				if (step == 5) {
+					step = 0;
+					timerEnabled = false;
+				}
+				else {
+					timer = setTimeout('zoomIn()', 25);
+				}
+			}
+			
+			function zoomInImage(){
+				if(!timerEnabled){
+					timerEnabled = true;
+					zoomIn();
+				}
+			}
+			
+			
+			
 			$(document).ready(function(){
 				init();
 				animate();
 				$(document).bind('mousemove', function ( event ) {
-					mouseX = event.clientX - windowHalfX;
-					mouseY = event.clientY - windowHalfY;
+					event.preventDefault();
+// 					if(ctrlPressed){
+// 						mouseX = event.clientX - windowHalfX;
+// 						mouseY = event.clientY - windowHalfY;	
+// 					}
 // 					console.log(mouseX);
 // 					console.log(mouseY);
+						var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+						projector.unprojectVector( vector, camera );
+						var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+						var intersects = ray.intersectObjects(imagesObjects);
+						if ( intersects.length > 0 ) {
+							//intersects[ 0 ].object.material.color.setHex( 0xFF0000);// Math.random() * 0xffffff );
+// 							var particle = new THREE.Particle( particleMaterial );
+// 							particle.position = intersects[ 0 ].point;
+// 							particle.scale.x = particle.scale.y = 8;
+// 							scene.add( particle );
+							var o = intersects[0].object;
+							//alert(o.id);
+// 							console.log('found: '+ o.id);
+// 							console.log(keyValues);
+							if(hoveredImage == -1){
+								hoveredImage = keyValues[parseInt(o.id) - 1].substring(4);
+								//zoomInImage();	
+							}
+						} else {
+							if(hoveredImage != -1){
+								//zoomOutImage();
+							}
+						}
+						
+				}).click(function(event){
+						event.preventDefault();
+						var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+						projector.unprojectVector( vector, camera );
+						var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+						var intersects = ray.intersectObjects(imagesObjects);
+						if ( intersects.length > 0 ) {
+							var o = intersects[0].object;
+							nextImage = keyValues[parseInt(o.id) - 1].substring(4);
+							implodeGraph();
+						}
+				}).bind("keydown", function(event){
+					if (event.keyCode == 17) {
+						event.preventDefault();
+						ctrlPressed = true;
+					}
+				}).bind("keyup", function(event){
+					if (event.keyCode == 17){
+						event.preventDefault();
+						ctrlPressed = false;
+					}
+				}).keypress(function(event){
+					console.log(event);
+					switch(event.charCode){
+						case 122://Z
+							camera.position.z -= 10;
+							break;
+						case 115://S
+							camera.position.z += 10;
+							break;
+						case 113://Q
+							camera.position.x -= 10;
+							break;
+						case 100://D
+							camera.position.x += 10;
+							break;
+					}
 				});
-				
-// 				.('touchstart', function ( event ) {
-// 					if ( event.touches.length == 1 ) {
-// 						event.preventDefault();
-// 						mouseX = event.touches[ 0 ].pageX - windowHalfX;
-// 						mouseY = event.touches[ 0 ].pageY - windowHalfY;
-// 					}
-// 				}).('touchmove', function ( event ) {
-// 					if ( event.touches.length == 1 ) {
-// 						event.preventDefault();
-// 						mouseX = event.touches[ 0 ].pageX - windowHalfX;
-// 						mouseY = event.touches[ 0 ].pageY - windowHalfY;
-// 					}
-// 				});
 			});
 		</script>
 		<style>
@@ -171,6 +412,7 @@
 				background-color: #000000;
 				margin: 0px;
 				overflow: hidden;
+				font-size: 12px;
 			}
 			a {
 				color:#0078ff;
@@ -179,6 +421,18 @@
 				position: absolute;
 				top: 0px;
 				right: 20px;
+			}
+			#poweredby {
+				color: red;
+				font-style: italic;
+				text-align: center;
+				width: 100%;
+			}
+			#footer {
+				bottom: 0px;
+				right: 0px;
+				color: red;
+				font-size: 10px;
 			}
 		</style>
 	</head>
