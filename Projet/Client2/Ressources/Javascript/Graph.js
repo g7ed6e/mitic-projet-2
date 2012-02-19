@@ -8,28 +8,58 @@ var renduSVG = false;
 var zoom = 1;
 var HTML = true;
 var dataMatrice = false;
+var isClicked = true;
 
 $(document).ready(function(){
 
 	
 	canvas = $("#canvas").get(0);
 	ctx = canvas.getContext('2d'); 
-	ctx.canvas.width  = $("#main").innerWidth() - $("#zoomDiv").innerWidth();
-	ctx.canvas.height = $("#main").innerHeight()-$("#canvas").get(0).offsetTop-$("#footer").innerHeight()-10;
-	graphCenter = {"x":ctx.canvas.width / 2, "y": ctx.canvas.height / 2};
-	$("#fg").css("left", 0).css("top", $("#canvas").get(0).offsetTop + graphCenter.y-23+"px").click(function(){
+	resized();
+	$("#fg").click(function(){
 		graphCenter.x -= 75;
 		draw();
 	});
-	$("#fd").css("left", ctx.canvas.width-35).css("top", $("#canvas").get(0).offsetTop + graphCenter.y-23 +"px").click(function(){
+	
+	/*$("#fg").mousedown(function(){
+		if(isClicked){
+			setTimeout(function(){
+				graphCenter.x -= 25;
+				draw();
+				$("#fg").trigger('mousedown');
+			},100);
+		}
+	}).mouseup(function(){
+		alert("mouseUp");
+		//isClicked = false;
+	});
+*/
+/*	document.getElementById("fg").addEventListener('touchstart',touchEvent,false);
+	
+	function touchEvent(){
+		if(isClicked){
+			setTimeout(function(){
+				graphCenter.x -= 25;
+				draw();
+				touchEvent();
+			},100);
+		}else
+			isClicked = true;
+	}
+	
+	document.getElementById("fg").addEventListener('touchend',function(){
+		isClicked = false;
+	},false);
+	 */
+	$("#fd").click(function(){
 		graphCenter.x += 75;
 		draw();
 	});
-	$("#fh").css("left", graphCenter.x-24).css("top", $("#canvas").get(0).offsetTop).click(function(){
+	$("#fh").click(function(){
 		graphCenter.y -= 75;
 		draw();
 	});
-	$("#fb").css("left", graphCenter.x-24).css("top", $("#canvas").get(0).offsetTop + ctx.canvas.height -35+"px").click(function(){
+	$("#fb").click(function(){
 		graphCenter.y += 75;
 		draw();
 	});
@@ -134,12 +164,10 @@ function Graph(options) {
 	        jQuery(img).load(function() {
 		        node.width = img.width;
 		        node.height = img.height;
-		  	    console.log(node.center);
-		  	    console.log(zoom);
+
 
 		        node.position = {"x" : (node.center.x * zoom) - (node.width/2) + graphCenter.x, "y" : (node.center.y * zoom) - (node.height/2) + graphCenter.y};
 		  	  	node.position2 = {"x" : (node.center.x * zoom) + (node.width/2) + graphCenter.x, "y" : (node.center.y * zoom) + (node.height/2) + graphCenter.y};
-		  	  //  console.log(node.position);
 		  	  	ctx.fillRect(node.position.x, node.position.y, img.width, img.height);       // afficher un rectangle plein
 		        ctx.drawImage(img,node.position.x, node.position.y, img.width, img.height);
 	        });
@@ -214,6 +242,7 @@ function Graph(options) {
 	}
 	
 	function draw(){
+		
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		canvas.width = canvas.width;
 		

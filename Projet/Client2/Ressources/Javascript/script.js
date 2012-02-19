@@ -58,7 +58,7 @@ $(document).ready(function(){
 		    return false;
 		  } ); */
 	
-	resized();
+	//resized();
 	remplirSlider();
 	$("#linkImg1, #linkImg2, #linkImg3, #linkImg4, #linkImg5," +
 		" #linkImg6, #linkImg7, #linkImg8, #linkImg9, #linkImg10," +
@@ -90,7 +90,6 @@ $(document).ready(function(){
 	});
 
 	$("#nbNeighboursInput").val(midValue).keyup(function(event){
-		console.log(this.value);
 		if(!(this.value.toString().search(/^[0-9]+$/) == 0))
 			this.value = this.value.substring(0, this.value.length-1);
 		else{
@@ -113,9 +112,9 @@ $(document).ready(function(){
 	});
 	$("#topLabelSlider").html(max);
 	$("#bottomLabelSlider").html(min);
-
 	$("#btnOk").button();
 	$("#btnOk").click(ok);
+
 	$("#searchInput").keypress(okKeypressedEnter).focus(function(){
 		if($(this).val() == searchInputDefaultText)
 		{
@@ -160,6 +159,7 @@ $(document).ready(function(){
 					saveHisto(nodeId);
 					request(nodeId, $("#nbNeighboursInput").val());
 					$("#searchInput").val(nodeId);
+					$(".popupImageDetails").remove();
 				}).button();
 				positionnePopup(canvas, mousePos, nodeId);
 			});
@@ -167,18 +167,22 @@ $(document).ready(function(){
 		else hoveredImageId = -1;
 	});
 
-	$('body').bind("onresize", resized);
+	$(window).resize(function() {
+		resized();
+		draw();
+	});
+	
 	$("#graphSaver").click(function() { 
 		// save canvas image as data url (png format by default)
 		$("#graphSaver").attr("href", canvas.toDataURL());
 	});
 	$("#zoomP").click(function(){		
-		zoom += 0.5;
+		zoom *= 2;
 		draw();
 	}).button();
 	$("#zoomM").click(function(){
 		if(zoom != 1){
-			zoom -= 0.5;
+			zoom *= 0.5;
 			draw();
 		}
 	}).button();
@@ -213,7 +217,14 @@ $(document).ready(function(){
 });
 
 function resized(){
-	//$("#searchInput").width($("#searchDiv").width() - 70);
+	ctx.canvas.width  = $("#main").innerWidth() - $("#zoomDiv").innerWidth();
+	ctx.canvas.height = $("#main").innerHeight()-$("#canvas").get(0).offsetTop-$("#footer").innerHeight()-10;
+	graphCenter = {"x":ctx.canvas.width / 2, "y": ctx.canvas.height / 2};
+
+	$("#fg").css("left", 0).css("top", $("#canvas").get(0).offsetTop + graphCenter.y-23+"px");
+	$("#fd").css("left", ctx.canvas.width-35).css("top", $("#canvas").get(0).offsetTop + graphCenter.y-23 +"px");
+	$("#fh").css("left", graphCenter.x-24).css("top", $("#canvas").get(0).offsetTop);
+	$("#fb").css("left", graphCenter.x-24).css("top", $("#canvas").get(0).offsetTop + ctx.canvas.height -35+"px");
 }
 function okKeypressedEnter(event){
 	if ( event.which == 13 ) { ok(); }
