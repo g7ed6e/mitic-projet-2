@@ -3,58 +3,156 @@
 
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="user-scalable=no">
+		<meta name="viewport" content="initial-scale=1.0">
+		<meta name="viewport" content="width=device-width">
 		<title></title>
 		
 		<link rel="stylesheet" type="text/css" href="Ressources/Css/style.css" />
 		
-		<link rel="stylesheet" type="text/css"
-			href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
-			
-		<script type="text/javascript"
-			src="Ressources/Javascript/styleChange.js"></script>
-			
-		<script type="text/javascript" src="Ressources/Javascript/motor.js"></script>
-
-		<script type="text/javascript"
-			src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>
-			
-		<script type="text/javascript"
-			src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>
-			
-		<script type="text/javascript" src="Ressources/Javascript/Graph.js"></script>
+		<link rel="stylesheet" type="text/css" href="lib/jquery-ui/css/ui-lightness/jquery-ui-1.8.17.custom.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="lib/jquery.mobile-1.0.1.min.css" />-->
+		<script type="text/javascript" src="lib/jquery-ui/js/jquery-1.7.1.min.js"></script>	
+	<!--	<script type="text/javascript" src="lib/jquery.mobile-1.0.1.js"></script>	
+	 	<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>		<script type="text/javascript" src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>-->			
+		
+		<script type="text/javascript" src="lib/jquery-ui/js/jquery-ui-1.8.17.custom.min.js"></script>			
 		<script type="text/javascript" src="Ressources/Javascript/GraphSVG.js"></script>
-		<script type="text/javascript" src="Ressources/Javascript/to_merge.js"></script>
+		<script type="text/javascript" src="Ressources/Javascript/script.js"></script>
 	</head>
 	
 	
-	<body onresize="resized()">
+	<body>
 	
 		<div id="main">
-			<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgDiv">
-			</svg>
-		</div>
 		
-		<div class="index">
-			<img src="logos/irisa.png" alt="IRISA" desc="logo IRISA"/>
-			<img src="logos/icone_TEXMEX_F.png" alt="TEXMEX" desc="logo équipe texmex"/>
-		</div>
+			<div class="index">
+				<img src="ressources/images/irisa.png" alt="IRISA" title="logo IRISA"/>
+				<br/>
+				<img src="ressources/images/icone_TEXMEX_F.png" alt="TEXMEX" title="logo equipe texmex"/>
+			</div>
+			<canvas id="canvas">
+			</canvas>
+			
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgDiv">
+				</svg> 
+			<a href="#" id="fg" class="fleche"><img src="Ressources/images/fg.png" alt=""/></a>
+			<a href="#" id="fh" class="fleche"><img src="Ressources/images/fh.png" alt=""/></a>
+			<a href="#" id="fd" class="fleche"><img src="Ressources/images/fd.png" alt=""/></a>
+			<a href="#" id="fb" class="fleche"><img src="Ressources/images/fb.png" alt=""/></a>
+			
 		
-		<div id="searchDiv"><input type="text" id="searchInput"
-			value="2" /> <!-- <input type="text" id="searchInput" onclick="clickInputSearch()" value="2" value="Veuillez saisir votre recherche" />-->
-		<div class="OK" onClick="ok()">OK</div>
+		<div id="header">
+			<div id = "logo">
+				<img src="ressources/images/irisa.png" alt="IRISA" title="logo IRISA">
+				<div id="tex">
+				<img src="ressources/images/icone_TEXMEX_F.png" alt="TEXMEX" title="logo equipe texmex">
+				</div>
+			</div>
+			<div id="bloc">
+				<div id="menu_gauche">
+					<button id ="b1">Historique</button>
+					<ul id="smenu1" class = "liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left">
+						<li><a id = "25" href="#">Notre �quipe</a></li>
+						<li><a href="#">Nos objectifs</a></li>
+						<li><a href="#">Actualit�s</a></li>
+
+					</ul>
+				</div>
+				<div id="menu_droite">
+					<button id="b2">Filtres</button>
+					<ul id="smenu2" class="liste ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right">
+						<li><input type="checkbox" />Filtre 1</li>
+						<li><input type="checkbox" />Filtre 2</li>
+						<li><input type="checkbox" />Filtre 3</li>
+						<li><input type="checkbox" />Filtre 4</li>
+						<li><input type="checkbox" />Filtre 5</li>
+						<li><input type="checkbox" />Filtre 6</li>
+						<li><input type="checkbox" />Filtre 7</li>
+						<li><input type="checkbox" />Filtre 8</li>
+						<li><input type="checkbox" />Filtre 9</li>
+						<li><input type="checkbox" />Filtre 10</li>
+						<li><input type="checkbox" />Filtre 11</li>
+						<li><input type="checkbox" />Filtre 12</li>
+						<li><input type="checkbox" />Filtre 13</li>
+						<li><input type="checkbox" />Filtre 14</li>
+						<li><input type="checkbox" />Filtre 15</li>
+						<li><input type="checkbox" />Filtre 16</li>
+						<li><input type="checkbox" />Filtre 17</li>
+						<li><input type="checkbox" />Filtre 18</li>
+						<li><input type="checkbox" />Filtre 19</li>
+						<li><input type="checkbox" />Filtre 20</li>
+					</ul>
+				</div>
+			
+
+			<div id="searchDiv">
+				<input type="text" id="searchInput" value="" />
+				<button id="btnOk">Ok</button>
+			</div>
+			<div id="radio">
+									
+						<div class="ui-buttonset" id="choixRendu">
+							<input class="ui-helper-hidden-accessible" id="htm" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="htm"><img src="ressources/images/HTML5_Logo_64.png" height="30px" width="30px"  alt="HTML5" title="RenduHTML"/></label>
+							<input class="ui-helper-hidden-accessible" id="svg" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="svg"><img src="ressources/images/svg-logo-v.png" height="30px" width="30px"  alt="SVG" title="RenduSVG"/></label>
+						</div>	
+						<div class="ui-buttonset" id="choixNiveau">
+							<input class="ui-helper-hidden-accessible" id="niv1" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="niv1">Score</label>
+							<input class="ui-helper-hidden-accessible" id="niv2" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="niv2">Distance</label>
+						</div>
+		
+						<div class="ui-buttonset" id="choixData">
+							<input class="ui-helper-hidden-accessible" id="pla" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="pla">Plat</label>
+							<input class="ui-helper-hidden-accessible" id="mat" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="mat">Matrice</label>
+						</div>					
+			</div>
 		</div>
+		</div>
+		<div id="zoomDiv">		
+			<div id="nbNeighbours">
+				<div id="labelNeighbours">Nb Voisins</div>
+				<input type="text" id="nbNeighboursInput" />
+			</div>
+	
 			<div id="zoomSlider">
-			<div id="topLabelSlider"></div>
-			<div id="slider"></div>
-			<div id="bottomLabelSlider"></div>
+				<div id="topLabelSlider"></div>
+				<div id="slider"></div>
+				<div id="bottomLabelSlider"></div>
+							
+			</div>
+			<button id="zoomM">-</button>			
+			<button id="zoomP">+</button>
 		</div>
-		
-		<div id="nbNeighbours">
-			<div id="labelNeighbours">Nombre de voisins :</div>
-			<input type="text" readonly="readonly" id="nbNeighboursInput" size="1" />
+		<div class="demo" id="chooser">
+			<div class="scroll-pane ui-widget ui-widget-header ui-corner-all">
+				<div id="carroussel" class="scroll-content">
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg1"><img id="img1" class="carrousselImg" src="" height="100px" width="100px"  alt="01"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg2"><img id="img2" class="carrousselImg" src="" height="100px" width="100px"  alt="02"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg3"><img id="img3" class="carrousselImg" src="" height="100px" width="100px"  alt="03"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg4"><img id="img4" class="carrousselImg" src="" height="100px" width="100px"  alt="04"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg5"><img id="img5" class="carrousselImg" src="" height="100px" width="100px"  alt="05"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg6"><img id="img6" class="carrousselImg" src="" height="100px" width="100px"  alt="06"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg7"><img id="img7" class="carrousselImg" src="" height="100px" width="100px"  alt="07"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg8"><img id="img8" class="carrousselImg" src="" height="100px" width="100px"  alt="08"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg9"><img id="img9" class="carrousselImg" src="" height="100px" width="100px"  alt="09"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg10"><img id="img10" class="carrousselImg" src="" height="100px" width="100px"  alt="10"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg11"><img id="img11" class="carrousselImg" src="" height="100px" width="100px"  alt="11"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg12"><img id="img12" class="carrousselImg" src="" height="100px" width="100px"  alt="12"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg13"><img id="img13" class="carrousselImg" src="" height="100px" width="100px"  alt="13"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg14"><img id="img14" class="carrousselImg" src="" height="100px" width="100px"  alt="14"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg15"><img id="img15" class="carrousselImg" src="" height="100px" width="100px"  alt="15"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg16"><img id="img16" class="carrousselImg" src="" height="100px" width="100px"  alt="16"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg17"><img id="img17" class="carrousselImg" src="" height="100px" width="100px"  alt="17"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg18"><img id="img18" class="carrousselImg" src="" height="100px" width="100px"  alt="18"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg19"><img id="img19" class="carrousselImg" src="" height="100px" width="100px"  alt="19"/></a></div>
+					<div class="scroll-content-item ui-widget-header"><a href="#" id="linkImg20"><img id="img20" class="carrousselImg" src="" height="100px" width="100px"  alt="20"/></a></div>
+				</div>
+				<div class="scroll-bar-wrap ui-widget-content ui-corner-bottom">
+					<div class="scroll-bar"></div>
+				</div>
+			</div>
 		</div>
-		<div id="renderMode">
-			<!-- ici radio button style jquery avec logo html5 et svg pour les deux modes de rendu --> 
+
 		</div>
 		<div id="footer">
 			<ul>
