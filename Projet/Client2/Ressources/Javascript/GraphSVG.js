@@ -211,23 +211,27 @@ function Graph(options) {
 		
 		img=new Image();
 	    img.src="../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50";
+		jQuery(img).load(function() {
+		
 		        node.width = img.width;
 		        node.height = img.height;
 		  	    console.log(node.center);
 		  	    console.log(zoom);
-		var imgX = ( node.center.x - (node.width/2) );
-		var imgY = ( node.center.y - (node.height/2) );
-		var imgWidth = (node.center.x * zoom) - (node.width/2) + graphCenter.x;
-		var imgHeight = (node.center.y * zoom) - (node.height/2) + graphCenter.y;
+				
+			var imgX = Math.round( (node.center.x * zoom) - (node.width/2) + graphCenter.x );
+			var imgY = Math.round( (node.center.y * zoom) - (node.height/2) + graphCenter.y );
+			var imgWidth = Math.round(img.width);
+			var imgHeight = Math.round(img.height);
 
-		var myImg = document.createElement("image");
-		myImg.setAttribute("x",Math.round(imgX));
-		myImg.setAttribute("y",Math.round(imgY));
-		myImg.setAttribute("width",Math.round(imgWidth));
-		myImg.setAttribute("height",Math.round(imgHeight));
-		myImg.setAttribute("xlink:href","../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50");
-						
-		$("#svgDiv").append(myImg);			
+			var myImg = document.createElement("image");
+			myImg.setAttribute("x",imgX);
+			myImg.setAttribute("y",imgY);
+			myImg.setAttribute("width",imgWidth);
+			myImg.setAttribute("height",imgHeight);
+			myImg.setAttribute("xlink:href","../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50");
+							
+			$("#svgDiv").append(myImg);		
+		});
 	}
 	function drawEdge(edge){
 		$("#svgDiv").prepend($("<line x1=\""+Math.round(edge.source.center.x * zoom + graphCenter.x)+
