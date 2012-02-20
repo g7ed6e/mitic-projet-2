@@ -8,9 +8,6 @@ class ImageModel {
 		$file = ROOT_DATA_REPOSITORY."/img1491/".$id.".jpg";
 		$size = getimagesize($file);
 		$res = array();
-		
-		$CompressJPG = 25; //100 pas de compression, 0 compression max
-		$CompressPNG = 9;  //0 pas de compression, 9 compression max
 
 		//chargement de l'image en fonction du format
 		if ($size){
