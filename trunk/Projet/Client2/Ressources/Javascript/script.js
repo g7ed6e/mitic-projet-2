@@ -188,7 +188,7 @@ $(document).ready(function(){
 	}).button();
 	$("#b1").button().click(function(){
 		if(close){
-			showHisto()
+			showHisto();
 			close = false;
 		}else{
 			close = true;	
@@ -201,8 +201,7 @@ $(document).ready(function(){
 		//}
 	});
 	$("#b2").button().click(function(){
-		if(close){
-			showHisto()
+		if(close2){
 			close2 = false;
 		}else{
 			close2 = true;	
@@ -402,6 +401,7 @@ function showHisto(){
 function changeImg(id){
 	request(id, midValue);
 	$("#b1").next("ul").toggle();
+	close=true;
 	if(!close2){
 		$("#b2").next("ul").toggle();
 		close2 = true;
