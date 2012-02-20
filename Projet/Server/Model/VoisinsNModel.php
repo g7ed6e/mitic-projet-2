@@ -1,5 +1,5 @@
 <?php
-class VoisinsNModel implements Model{
+class VoisinsNModel {
 
 	public function getAllDistances(){
 		$res = array();

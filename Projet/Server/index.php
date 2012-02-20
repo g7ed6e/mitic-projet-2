@@ -1,67 +1,68 @@
 <?php
 require_once 'Config/constants.php';
-require_once 'Interface.php';
 require_once 'Controller/ImageController.php';
-require_once 'Controller/VoisinsNController.php';
-require_once 'Controller/VoisinsNPlusUnController.php';
+require_once 'Controller/ScoreController.php';
+require_once 'Controller/DistanceController.php';
 
 if(!empty($_GET['controller']) && !empty($_GET['action'])){
 
 	switch ($_GET['controller']){
 		case 'image':
 			$controller = new ImageController();
+			if ($_GET['action'] == 'getImg'){
+				if(isset($_GET['id'])) {
+					$controller->getImage($_GET['id'],!empty($_GET['w'])?$_GET['w']:null,!empty($_GET['h'])?$_GET['h']:null,!empty($_GET['s'])?$_GET['s']:null,!empty($_GET['t'])?$_GET['t']:null);
+				}
+			}
 			break;
-		case 'voisinsN':
-			$controller = new VoisinsNController();
+		case 'score':
+			$controller = new ScoreController();
+			if ($_GET['action'] == 'getScoreV1' ) {
+				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
+				$controller->getScoreV1( $_GET['id'], $n, $_GET['w'], $_GET['h']);	
+			}
+			else if ($_GET['action'] == 'getScoreV2') {
+				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
+				$s = $_GET["s"] != "0";
+				$controller->getScoreV2($_GET['id'], $n, $_GET['w'], $_GET['h'], $_GET['s']);
+			}
 			break;
-		case 'voisinsNPlusUn':
-			$controller = new VoisinsNPlusUnController();
+		case 'distance':
+			$controller = new DistanceController();
+			if($_GET["action"] == 'getVoisinsN'){
+				$controller->getVoisinsN();	
+			}
+			else if ($_GET['action'] == 'getVoisinsNPlusUn')
+			{
+				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
+				$nPlusUn = $_GET['nnPlusUn'] > 19 ? 19 : $_GET['nnPlusUn'];
+				$controller->getVoisinsNPlusUn( $_GET['id'], $n, $nPlusUn, $_GET['w'], $_GET['h'] );
+			}
 			break;
 		default:
 			break;
 	}
-
-	switch($_GET['action']){
-		// 		case 'allDistance' :
-		// 			$controller->allDistance();
-		// 			break;
-		// 		case 'getSignif' :
-		// 			if(!empty($_GET['id'])&&!empty($_GET['nn']))
-		// 			$controller->getSignificativesNodes($_GET['id'], $_GET['nn']);
-		// 			break;
-		// 		case 'getSignifV1':
-		// 			$controller->getSignificativesNodesV1($_GET['id'], $_GET['nn']);
-		// 			break;
-		// 		case 'getSignifV2':
-		// 			$controller->getSignificativesNodesV2($_GET['id'], $_GET['nn']);
-		// 			break;
-		case 'getImg':
-			if(isset($_GET['id']))
-
-			/*
-			 * id : id de l'image, paramètre obligatoire
-			 * w et h : entier pour choisir une taille définie de l'image sans ration (ne marche pas l'un sans l'autre), paramètre optionnel
-			 * s : scale de redimessionnement de l'image, paramètre optionnel
-			 * t : paramètre de redimensionnement fixe en respectant le ratio, paramètre optionnel
-			 * sans paramètre optionnel -> retour de l'image sans redimensionnement
-			 */
-			$controller->getImage($_GET['id'],!empty($_GET['w'])?$_GET['w']:null,!empty($_GET['h'])?$_GET['h']:null,!empty($_GET['s'])?$_GET['s']:null,!empty($_GET['t'])?$_GET['t']:null);
-			break;
-		case 'getVoisinsN':
-			if(  (isset($_GET['id'])) && (isset($_GET['nn'])) && (isset($_GET['w'])) && (isset($_GET['h'])) )
-			{
-				$controller->getVoisinsN( $_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
-			}
-			break;
-		case 'getVoisinsNPlusUn':
-			if(  (isset($_GET['id'])) && (isset($_GET['nn'])) && (isset($_GET['nnPlusUn'])) && (isset($_GET['w'])) && (isset($_GET['h'])) )
-			{
-				$controller->getVoisinsNPlusUn( $_GET['id'], $_GET['nn'], $_GET['nnPlusUn'], $_GET['w'], $_GET['h'] );
-			}
-			break;
-		default :
-			break;
-	}
+	
+// 	return;
+	
+// 	switch($_GET['action']){
+// 		case 'getImg':
+			
+// 		case 'getVoisinsN':
+// 			if(  (isset($_GET['id'])) && (isset($_GET['nn'])) && (isset($_GET['w'])) && (isset($_GET['h'])) )
+// 			{
+// 				$controller->getVoisinsN( $_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
+// 			}
+// 			break;
+// 		case 'getVoisinsNPlusUn':
+// 			if(  (isset($_GET['id'])) && (isset($_GET['nn'])) && (isset($_GET['nnPlusUn'])) && (isset($_GET['w'])) && (isset($_GET['h'])) )
+// 			{
+// 				$controller->getVoisinsNPlusUn( $_GET['id'], $_GET['nn'], $_GET['nnPlusUn'], $_GET['w'], $_GET['h'] );
+// 			}
+// 			break;
+// 		default :
+// 			break;
+// 	}
 
 }
 ?>
