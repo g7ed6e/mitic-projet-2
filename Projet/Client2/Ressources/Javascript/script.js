@@ -323,9 +323,11 @@ function getImageId(mousePos)
 function evenement(object){
 	if (object.id == 'htm'){
 		HTML = true;
+		webGL = false;
 	}
 	if (object.id == 'svg'){
 		HTML = false;
+		webGL = false;
 	}
 	if (object.id == 'niv1'){
 		algoNPlusUn = false;
@@ -334,6 +336,8 @@ function evenement(object){
 		algoNPlusUn = true;
 	}
 	if (object.id == 'wgl'){
+		HTML = false;
+		webGL = true;
 		alert('WEBGL....');
 	}
 }
