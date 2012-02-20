@@ -5,7 +5,6 @@ require_once 'Controller/ScoreController.php';
 require_once 'Controller/DistanceController.php';
 
 if(!empty($_GET['controller']) && !empty($_GET['action'])){
-
 	switch ($_GET['controller']){
 		case 'image':
 			$controller = new ImageController();
