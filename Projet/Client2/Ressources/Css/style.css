@@ -153,6 +153,8 @@ img{
     top: 100px;
     width: 100px;
     text-align: center;
+    opacity: 0;	
+	display: none;
 }
 
 #zoomSlider{
