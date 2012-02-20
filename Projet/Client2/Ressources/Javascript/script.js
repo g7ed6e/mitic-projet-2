@@ -291,7 +291,7 @@ function getMousePos(canvas, evt){
 		y: mouseY
 	};
 }
-
+/*
 function writeMessage(canvas, message){
 	ctx.clearRect(0, 0, 150, 30);
 	ctx.font = '8pt Calibri';
@@ -305,7 +305,7 @@ function writeMessageHover(canvas, message){
 	ctx.fillStyle = 'black';
 	ctx.fillText(message, 10, 145);
 }
-
+*/
 function getImageId(mousePos)
 {
 	for (var i = 0;i < graph.nodes.length;i++)
