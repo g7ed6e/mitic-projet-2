@@ -1,22 +1,24 @@
 var graph;
+var canvas;
+var ctx;
 var mignatureSize = 50;
 var graphCenter;
 var algoNPlusUn = false;
+var renduSVG = false;
 var zoom = 1;
 var HTML = true;
 var webGL = false;
-var renduSVG = false;
-
-//var isClicked = true;
+var isClicked = true;
 var rouge = 'rgba(255,0,0,1)';
 var orange = 'rgba(255,140,0,1)';
 var jaune = 'rgba(255,215,0,1)';
 var vert = 'rgba(0,255,0,1)';
 var pas;
-var graphDimension;
 
 $(document).ready(function() {
-
+	canvas = $("#canvas").get(0);
+	ctx = canvas.getContext('2d');
+	resized();
 	$("#fg").click(function() {
 		graphCenter.x -= 75;
 		draw();
@@ -146,6 +148,65 @@ function Edge(source, target, score) {
 	this.data = {};
 }
 
+function drawNode(node) {
+
+	if (canvas.getContext) {
+
+		var img = new Image();
+		img.src = "../Server/index.php?controller=image&action=getImg&id="
+				+ node.id + "&t=" + (mignatureSize * zoom);
+		// on attend le chargement complet de l'image pour l'insérer dans le
+		// canvas
+		jQuery(img).load(
+				function() {
+					node.width = img.width;
+					node.height = img.height;
+
+					node.position = {
+						"x" : (node.center.x * zoom) - (node.width / 2)
+								+ graphCenter.x,
+						"y" : (node.center.y * zoom) - (node.height / 2)
+								+ graphCenter.y
+					};
+					node.position2 = {
+						"x" : (node.center.x * zoom) + (node.width / 2)
+								+ graphCenter.x,
+						"y" : (node.center.y * zoom) + (node.height / 2)
+								+ graphCenter.y
+					};
+					ctx.fillRect(node.position.x, node.position.y, img.width,
+							img.height); // afficher un rectangle plein
+					ctx.drawImage(img, node.position.x, node.position.y,
+							img.width, img.height);
+				});
+
+	}
+
+}
+
+function drawEdge(edge) {
+
+	if (canvas.getContext) {
+		ctx.beginPath();
+		ctx.moveTo(edge.source.center.x * zoom + graphCenter.x,
+				edge.source.center.y * zoom + graphCenter.y);
+		ctx.lineTo(edge.target.center.x * zoom + graphCenter.x,
+				edge.target.center.y * zoom + graphCenter.y);
+		ctx.lineWidth = 0.5;
+		// choix de la couleur en fonction du pas
+		if (edge.score <= pas) {
+			ctx.strokeStyle = rouge;
+		} else if ((edge.score > 2 * pas) && (edge.score <= pas * 3)) {
+			ctx.strokeStyle = jaune;
+		} else if ((edge.score > pas) && (edge.score <= pas * 2)) {
+			ctx.strokeStyle = orange;
+		} else {
+			ctx.strokeStyle = vert;
+		}
+		ctx.stroke();
+	}
+}
+
 function request(id, nbNeighbours) {
 
 	if (!algoNPlusUn) {
@@ -158,8 +219,8 @@ function request(id, nbNeighbours) {
 				"id" : id,
 				"nn" : nbNeighbours,
 				"action" : "getScoreV2",
-				"w" : (graphDimension.width - 50),
-				"h" : (graphDimension.height - 50),
+				"w" : (canvas.width - 50),
+				"h" : (canvas.height - 50),
 				"s" : "0"
 			},
 			success : function(data) {
@@ -191,8 +252,8 @@ function request(id, nbNeighbours) {
 				"nn" : nbNeighbours,
 				"nnPlusUn" : nbNeighbours,
 				"action" : "getVoisinsNPlusUn",
-				"w" : graphDimension.width,
-				"h" : graphDimension.height
+				"w" : canvas.width,
+				"h" : canvas.height
 			},
 			success : function(data) {
 				graph.clearNodes();
@@ -217,7 +278,8 @@ function request(id, nbNeighbours) {
 
 function draw() {
 
-	clearGraph();
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	canvas.width = canvas.width;
 
 	for ( var i in graph.edges)
 		drawEdge(graph.edges[i]);
@@ -225,28 +287,4 @@ function draw() {
 	for ( var i in graph.nodes)
 		drawNode(graph.nodes[i]);
 
-}
-
-function resized(){
-	$("#zoneGraph").get(0).width  = $("#main").innerWidth() - $("#zoomDiv").innerWidth();
-	$("#zoneGraph").get(0).height = $("#main").innerHeight()-$("#zoneGraph").get(0).offsetTop-$("#footer").innerHeight()-10;
-	graphDimension = {"width":$("#zoneGraph").get(0).width, "height": $("#zoneGraph").get(0).height};
-	graphCenter = {"x":$("#zoneGraph").get(0).width / 2, "y": $("#zoneGraph").get(0).height / 2};
-	$("#fg").css("left", 0).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23+"px");
-	$("#fd").css("left", ctx.canvas.width-35).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23 +"px");
-	$("#fh").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop);
-	$("#fb").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop + $("#zoneGraph").get(0).height -35+"px");
-}
-
-function findPas(liens){
-	var maxPas = 0;
-	var minPas = 1;
-	for(var i =0; i<liens.length; i++){
-		if(liens[i][2] > maxPas)
-			maxPas = liens[i][2];
-		
-		if(liens[i][2] < minPas)
-			minPas = liens[i][2]; 
-	}
-	pas = (maxPas-minPas)/4;
 }
