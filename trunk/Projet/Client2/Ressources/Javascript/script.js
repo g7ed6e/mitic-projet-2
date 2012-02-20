@@ -253,7 +253,7 @@ function ok(){
 		$('#chooser').animate({
 			height : 0
 		},100,function() {});
-		$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #canvas, .fleche').show().animate({
+		$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #canvas, .fleche, #zoomDiv').show().animate({
 			opacity : 100
 		},1000,function() {});
 
