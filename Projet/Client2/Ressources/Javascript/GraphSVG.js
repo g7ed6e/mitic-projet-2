@@ -8,6 +8,7 @@ var renduSVG = false;
 var zoom = 1;
 var HTML = true;
 var dataMatrice = false;
+var mySvg;
 
 $(document).ready(function(){
 
@@ -130,8 +131,8 @@ function Graph(options) {
 			$.ajax({
 				  url: '../Server/index.php',
 				  dataType: 'json',
-				  cache: false,
-				  data:  {"controller" : "voisinsN", "id" : id, "nn" : nbNeighbours, "action" : "getVoisinsN", "w": canvas.width, "h": canvas.height},
+				  cache: true,
+				  data:  {"controller" : "score", "id" : id, "nn" : nbNeighbours, "action" : "getScoreV2", "w": (canvas.width - 50), "h": (canvas.height - 50), "s": "0" },
 				  success: function(data) {
 						graph.clearNodes();
 						var liens = data.liens;
@@ -152,7 +153,7 @@ function Graph(options) {
 			$.ajax({
 				  url: '../Server/index.php',
 				  dataType: 'json',
-				  cache: false,
+				  cache: true,
 				  data:   {"controller" : "voisinsNPlusUn", "id" : id, "nn" : nbNeighbours, "nnPlusUn" : nbNeighbours, "action" : "getVoisinsNPlusUn", "w": canvas.width, "h": canvas.height},
 				  success: function(data) {
 						graph.clearNodes();
@@ -177,6 +178,17 @@ function Graph(options) {
 	}
 	
 	function draw(){
+		
+		mySvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		mySvg.setAttribute("version", "1.2");
+        mySvg.setAttribute("baseProfile", "tiny");
+		
+		while (document.getElementById("svgDiv").hasChildNodes()) {
+			document.getElementById("svgDiv").removeChild(document.getElementById("svgDiv").firstChild);
+		}
+        document.getElementById("svgDiv").appendChild(mySvg);
+		
+		
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		canvas.width = canvas.width;
 		
@@ -223,20 +235,35 @@ function Graph(options) {
 			var imgWidth = Math.round(img.width);
 			var imgHeight = Math.round(img.height);
 
-			var myImg = document.createElement("image");
+			var myImg = document.createElementNS("http://www.w3.org/1999/svg",	"image");
 			myImg.setAttribute("x",imgX);
 			myImg.setAttribute("y",imgY);
 			myImg.setAttribute("width",imgWidth);
 			myImg.setAttribute("height",imgHeight);
 			myImg.setAttribute("xlink:href","../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50");
 							
-			$("#svgDiv").append(myImg);		
+			mySvg.appendChild(myImg);		
 		});
 	}
 	function drawEdge(edge){
-		$("#svgDiv").prepend($("<line x1=\""+Math.round(edge.source.center.x * zoom + graphCenter.x)+
+	
+		var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", Math.round(edge.source.center.x * zoom + graphCenter.x));
+                line.setAttribute("y1", Math.round(edge.source.center.y * zoom + graphCenter.y));
+                line.setAttribute("x2", Math.round(edge.target.center.x * zoom + graphCenter.x));
+                line.setAttribute("y2", Math.round(edge.target.center.y * zoom + graphCenter.y));
+                line.setAttribute("style", "stroke:rgb(0,0,0);stroke-width:1");
+				
+	/*	var ligne = $("<line x1=\""+Math.round(edge.source.center.x * zoom + graphCenter.x)+
 				"\" y1=\""+Math.round(edge.source.center.y* zoom + graphCenter.y)+
 				"\" x2=\""+Math.round(edge.target.center.x * zoom + graphCenter.x)+
 				"\" y2=\""+Math.round(edge.target.center.y *zoom + graphCenter.y)+
-				"\" style=\"stroke:rgb(0,0,0);stroke-width:1\" />"));
+				"\" style=\"stroke:rgb(0,0,0);stroke-width:1\" />");*/
+		/*$("#svgDiv").prepend($("<line x1=\""+Math.round(edge.source.center.x * zoom + graphCenter.x)+
+				"\" y1=\""+Math.round(edge.source.center.y* zoom + graphCenter.y)+
+				"\" x2=\""+Math.round(edge.target.center.x * zoom + graphCenter.x)+
+				"\" y2=\""+Math.round(edge.target.center.y *zoom + graphCenter.y)+
+				"\" style=\"stroke:rgb(0,0,0);stroke-width:1\" />"));*/
+		
+		mySvg.appendChild(line);
 	}
