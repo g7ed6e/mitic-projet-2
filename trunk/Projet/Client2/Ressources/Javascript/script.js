@@ -351,7 +351,7 @@ function remplirSlider(){
 		var img = document.getElementById("img"+i);
 		//on remplace l'image de cette case par celle dont
 		//l'ID sur le serveur coorespond au nombre aléatoire
-		img.src="../Server/index.php?controller=image&action=getImg&id="+numRand;
+		img.src="../Server/index.php?controller=image&action=getImg&id="+numRand+"&w=100&l=100";
 		//on remplace aussi l'attribut alt de l'image par son id
 		img.alt=numRand;
 	}
