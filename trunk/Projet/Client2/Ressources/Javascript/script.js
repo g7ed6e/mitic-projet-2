@@ -293,17 +293,17 @@ function getMousePos(canvas, evt){
 }
 
 function writeMessage(canvas, message){
-	/*ctx.clearRect(0, 0, 150, 30);
+	ctx.clearRect(0, 0, 150, 30);
 	ctx.font = '8pt Calibri';
 	ctx.fillStyle = 'black';
-	ctx.fillText(message, 10, 25);*/
+	ctx.fillText(message, 10, 25);
 }
 
 function writeMessageHover(canvas, message){
-	/*ctx.clearRect(0, 30, 150, 150);
+	ctx.clearRect(0, 30, 150, 150);
 	ctx.font = '8pt Calibri';
 	ctx.fillStyle = 'black';
-	ctx.fillText(message, 10, 145);*/
+	ctx.fillText(message, 10, 145);
 }
 
 function getImageId(mousePos)

@@ -219,27 +219,20 @@ function Graph(options) {
 		var imgY = ( node.center.y - (node.height/2) );
 		var imgWidth = (node.center.x * zoom) - (node.width/2) + graphCenter.x;
 		var imgHeight = (node.center.y * zoom) - (node.height/2) + graphCenter.y;
-		alert("<image x=\""+imgX+
-				"\" y=\""+imgY+
-				"\" width=\""+imgWidth+
-				"\" height=\""+imgHeight+
-				"\" xlink:href=\"../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50\""+
-				" />");
-		$("#svgDiv").append(
-			$("<image x=\""+imgX+
-				"\" y=\""+imgY+
-				"\" width=\""+imgWidth+
-				"\" height=\""+imgHeight+
-				"\" xlink:href=\"../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50\""+
-				" />")
-		);
+
+		var myImg = document.createElement("image");
+		myImg.setAttribute("x",Math.round(imgX));
+		myImg.setAttribute("y",Math.round(imgY));
+		myImg.setAttribute("width",Math.round(imgWidth));
+		myImg.setAttribute("height",Math.round(imgHeight));
+		myImg.setAttribute("xlink:href","../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=50");
+						
+		$("#svgDiv").append(myImg);			
 	}
 	function drawEdge(edge){
-		$("#svgDiv").prepend($("<line x1=\""+edge.source.center.x * zoom + graphCenter.x+
-				"\" y1=\""+edge.source.center.y* zoom + graphCenter.y+
-				"\" x2=\""+edge.target.center.x * zoom + graphCenter.x+
-				"\" y2=\""+edge.target.center.y *zoom + graphCenter.y+
-				"\" style=\"stroke:rgb(0,0,0);stroke-width:0.5\" />"));
-		//<line x1="0" y1="0" x2="200" y2="200"
-		//style="stroke:rgb(255,0,0);stroke-width:2"/>
+		$("#svgDiv").prepend($("<line x1=\""+Math.round(edge.source.center.x * zoom + graphCenter.x)+
+				"\" y1=\""+Math.round(edge.source.center.y* zoom + graphCenter.y)+
+				"\" x2=\""+Math.round(edge.target.center.x * zoom + graphCenter.x)+
+				"\" y2=\""+Math.round(edge.target.center.y *zoom + graphCenter.y)+
+				"\" style=\"stroke:rgb(0,0,0);stroke-width:1\" />"));
 	}
