@@ -34,7 +34,7 @@ class ImageModel {
 
 				// copie de l'image, avec le redimensionnement.
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$size[0]*$c, $size[1]*$c,$size[0],$size[1]);
-				
+				imagedestroy($img_big);
 				$res[1]=$img_mini;
 			}elseif($t!=0){
 				if($size[0]>$size[1]){
@@ -47,7 +47,7 @@ class ImageModel {
 
 					// copie de l'image, avec le redimensionnement.
 					imagecopyresized($img_mini,$img_big,0,0,0,0,$t, $t*$ratio,$size[0],$size[1]);
-					
+					imagedestroy($img_big);
 					$res[1]=$img_mini;
 				}else{
 					$ratio = $size[0]/$size[1];
@@ -59,7 +59,7 @@ class ImageModel {
 
 					// copie de l'image, avec le redimensionnement.
 					imagecopyresized($img_mini,$img_big,0,0,0,0,$t*$ratio, $t,$size[0],$size[1]);
-		
+					imagedestroy($img_big);
 					$res[1]=$img_mini;
 				}
 			}elseif($w!=0&&$l!=0){
@@ -71,7 +71,7 @@ class ImageModel {
 
 				// copie de l'image, avec le redimensionnement.
 				imagecopyresized($img_mini,$img_big,0,0,0,0,$w,$l,$size[0],$size[1]);
-
+				imagedestroy($img_big);
 				$res[1]=$img_mini;
 
 			}else{
