@@ -9,6 +9,11 @@ var zoom = 1;
 var HTML = true;
 var webGL = false;
 var isClicked = true;
+var rouge = 'rgba(255,0,0,1)';
+var orange = 'rgba(255,140,0,1)';
+var jaune = 'rgba(255,215,0,1)';
+var vert = 'rgba(0,255,0,1)';
+var pas;
 
 $(document).ready(function(){
 	canvas = $("#canvas").get(0);
@@ -96,9 +101,9 @@ function Graph(options) {
 		this.edges = [];
 	};	
 	
-	Graph.prototype.addEdge = function(source, target) {
+	Graph.prototype.addEdge = function(source, target, score) {
 	  if(source.addConnectedTo(target) === true) {
-	    var edge = new Edge(source, target);
+	    var edge = new Edge(source, target, score);
 	    this.edges.push(edge);
 	    return true;
 	  }
@@ -144,9 +149,10 @@ function Graph(options) {
 	};
 
 
-	function Edge(source, target) {
+	function Edge(source, target, score) {
 	  this.source = source;
 	  this.target = target;
+	  this.score = score;
 	  this.data = {};
 	}
 	
@@ -179,9 +185,20 @@ function Graph(options) {
 	function drawEdge(edge) {
 
 		if (canvas.getContext) {
+			ctx.beginPath();
 			ctx.moveTo(edge.source.center.x * zoom + graphCenter.x, edge.source.center.y* zoom + graphCenter.y);			
 			ctx.lineTo(edge.target.center.x * zoom + graphCenter.x, edge.target.center.y *zoom + graphCenter.y);
-		    ctx.lineWidth = 0.2;
+		    ctx.lineWidth = 0.5;
+		    //choix de la couleur en fonction du pas
+		    if(edge.score<=pas){
+		    	ctx.strokeStyle = rouge;
+		    }else if((edge.score>2*pas)&&(edge.score<=pas*3)){
+		    	ctx.strokeStyle = jaune;
+		    }else if((edge.score>pas)&&(edge.score<=pas*2)){
+		    	ctx.strokeStyle = orange;
+		    }else{
+		    	ctx.strokeStyle = vert;
+		    }
 			ctx.stroke();	
 		}
 	}
@@ -197,13 +214,14 @@ function Graph(options) {
 				  success: function(data) {
 						graph.clearNodes();
 						var liens = data.liens;
+						findPas(liens);
 						var positions = data.positions;
 						for(var i in positions){
 							var node = new Node(positions[i][0], positions[i][1], positions[i][2]);
 							graph.addNode(node);
 						}	
 						for(var i in liens)			
-							graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
+							graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]), liens[i][2]);
 					
 						draw();
 
@@ -225,7 +243,7 @@ function Graph(options) {
 							graph.addNode(node);
 						}	
 						for(var i in liens)			
-							graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]));
+							graph.addEdge(graph.getNode(liens[i][0]), graph.getNode(liens[i][1]), liens[i][2]);
 					
 						draw();
 
@@ -249,4 +267,17 @@ function Graph(options) {
 		for(var i in graph.nodes)
 			drawNode(graph.nodes[i]);
 		
+	}
+	
+	function findPas(liens){
+		var maxPas = 0;
+		var minPas = 1;
+		for(var i =0; i<liens.length; i++){
+			if(liens[i][2] > maxPas)
+				maxPas = liens[i][2];
+			
+			if(liens[i][2] < minPas)
+				minPas = liens[i][2]; 
+		}
+		pas = (maxPas-minPas)/4;
 	}
