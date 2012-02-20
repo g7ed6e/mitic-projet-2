@@ -333,11 +333,8 @@ function evenement(object){
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
 	}
-	if (object.id == 'pla'){
-		dataMatrice = false;
-	}
-	if (object.id == 'mat'){
-		dataMatrice = true;
+	if (object.id == 'wgl'){
+		alert('WEBGL....');
 	}
 }
 
