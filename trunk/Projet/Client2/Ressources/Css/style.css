@@ -115,17 +115,8 @@ img{
 	margin-left: -1px;
 }
 
-#choixData, #choixNiveau, #choixRendu{
+#choixNiveau, #choixRendu{
 	float: right;
-}
-
-#choixData label {
-	padding-top : 5px;
-	width: 55px;
-	height: 33px;
-	font-size : 10px;
-	text-align: center;
-	margin-left: -1px;
 }
 
 
