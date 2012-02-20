@@ -49,7 +49,7 @@ class VoisinsNModel {
 		// extraction des nn proches voisins
 		$voisins_n = $this->voisinsN($id, $nn, $array); //recupererMin($id, $nn, $array);
 
-		// on remet de l'al�atoire afin de ne pas afficher une spirale
+		// on remet de l'aléatoire afin de ne pas afficher une spirale
 		uksort($voisins_n, function($a, $b)
 		{
 			return .01 * rand(0, 100) >= .5;
