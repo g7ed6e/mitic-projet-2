@@ -192,7 +192,7 @@ function Graph(options) {
 			$.ajax({
 				  url: '../Server/index.php',
 				  dataType: 'json',
-				  cache: false,
+				  cache: true,
 				  data:  {"controller" : "score", "id" : id, "nn" : nbNeighbours, "action" : "getScoreV2", "w": (canvas.width - 50), "h": (canvas.height - 50), "s": "0" },
 				  success: function(data) {
 						graph.clearNodes();
@@ -214,7 +214,7 @@ function Graph(options) {
 			$.ajax({
 				  url: '../Server/index.php',
 				  dataType: 'json',
-				  cache: false,
+				  cache: true,
 				  data:   {"controller" : "voisinsNPlusUn", "id" : id, "nn" : nbNeighbours, "nnPlusUn" : nbNeighbours, "action" : "getVoisinsNPlusUn", "w": canvas.width, "h": canvas.height},
 				  success: function(data) {
 						graph.clearNodes();
