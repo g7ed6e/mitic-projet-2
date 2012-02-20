@@ -107,6 +107,15 @@ img{
 	text-align: center;
 }
 
+#divBtnWGL img {
+	width: 30px;
+	height: 23px;
+	text-align: center;
+}
+
+#divBtnWGL {
+	margin-right : 3px;
+}
 
 #choixNiveau label {
 	padding-top : 5px;
@@ -117,7 +126,7 @@ img{
 	margin-left: -1px;
 }
 
-#choixNiveau, #choixRendu{
+#choixNiveau, #divBtnWGL, #choixRendu{
 	float: right;
 }
 
