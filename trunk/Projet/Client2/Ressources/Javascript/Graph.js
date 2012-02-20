@@ -11,8 +11,6 @@ var webGL = false;
 var isClicked = true;
 
 $(document).ready(function(){
-
-	
 	canvas = $("#canvas").get(0);
 	ctx = canvas.getContext('2d'); 
 	resized();
@@ -74,7 +72,6 @@ function Graph(options) {
 	  this.edges = [];
 	  this.layout;
 	}
-
 
 	Graph.prototype.addNode = function(node) {
 	  if(this.nodeSet[node.id] == undefined && !this.reached_limit()) {
@@ -159,7 +156,7 @@ function Graph(options) {
 	    {    
 	        
 	        var img=new Image();
-	        img.src="../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=" + mignatureSize;
+	        img.src="../Server/index.php?controller=image&action=getImg&id="+node.id+"&t=" + (mignatureSize * zoom);
 	        // on attend le chargement complet de l'image pour l'insérer dans le canvas
 	        jQuery(img).load(function() {
 		        node.width = img.width;
@@ -196,7 +193,7 @@ function Graph(options) {
 				  url: '../Server/index.php',
 				  dataType: 'json',
 				  cache: false,
-				  data:  {"controller" : "voisinsN", "id" : id, "nn" : nbNeighbours, "action" : "getVoisinsN", "w": canvas.width, "h": canvas.height},
+				  data:  {"controller" : "score", "id" : id, "nn" : nbNeighbours, "action" : "getScoreV2", "w": (canvas.width - 50), "h": (canvas.height - 50), "s": "0" },
 				  success: function(data) {
 						graph.clearNodes();
 						var liens = data.liens;

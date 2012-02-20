@@ -345,8 +345,8 @@ function evenement(object){
 function remplirSlider(){
 	//on parcour le slider
 	for (var i = 1;i <= 20 ;i++) {
-		//on genere un entier aléatoire en 1 et 49
-		var numRand = Math.floor(Math.random()*50);
+		//on genere un entier aléatoire en 1 et 1491
+		var numRand = Math.floor(Math.random()*1490) + 1;
 		//on recupere la case du slider
 		var img = document.getElementById("img"+i);
 		//on remplace l'image de cette case par celle dont

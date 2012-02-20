@@ -1,7 +1,7 @@
 <?php
 require_once 'Model/ImageModel.php';
 
-class ImageController implements Controller{
+class ImageController {
 
 	private $model;
 

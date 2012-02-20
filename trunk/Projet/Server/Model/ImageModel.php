@@ -1,11 +1,11 @@
 <?php
-class ImageModel implements Model{
+class ImageModel {
 
 
 
 	public function getImage($id,$w,$l,$c,$t){
 
-		$file = ROOT_DATA_REPOSITORY."/img/".$id.".jpg";
+		$file = ROOT_DATA_REPOSITORY."/img1491/".$id.".jpg";
 		$size = getimagesize($file);
 		$res = array();
 		
