@@ -114,6 +114,9 @@ $(document).ready(function(){
 	$("#bottomLabelSlider").html(min);
 	$("#btnOk").button();
 	$("#btnOk").click(ok);
+	
+	$("#btnWGL").button();
+	$("#btnWGL").click(wgl);
 
 	$("#searchInput").keypress(okKeypressedEnter).focus(function(){
 		if($(this).val() == searchInputDefaultText)
@@ -323,22 +326,15 @@ function getImageId(mousePos)
 function evenement(object){
 	if (object.id == 'htm'){
 		HTML = true;
-		webGL = false;
 	}
 	if (object.id == 'svg'){
 		HTML = false;
-		webGL = false;
 	}
 	if (object.id == 'niv1'){
 		algoNPlusUn = false;
 	}
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
-	}
-	if (object.id == 'wgl'){
-		HTML = false;
-		webGL = true;
-		alert('WEBGL....');
 	}
 }
 
@@ -409,3 +405,8 @@ function changeImg(id){
 	}
 }
 
+function wgl(){
+	var idWebGL=$("#searchInput").val();
+	var urlWGL="../Client2/indexWebGL.html?id="+idWebGL;
+	window.open(urlWGL);
+}
