@@ -91,21 +91,22 @@
 				<input type="text" id="searchInput" value="" />
 				<button id="btnOk">Ok</button>
 			</div>
-			<div id="radio">
-									
-						<div class="ui-buttonset" id="choixRendu">
-							<input class="ui-helper-hidden-accessible" id="htm" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="htm"><img src="ressources/images/HTML5_Logo_64.png" height="30px" width="30px"  alt="HTML5" title="RenduHTML"/></label>
-							<input class="ui-helper-hidden-accessible" id="svg" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="svg"><img src="ressources/images/svg-logo-v.png" height="30px" width="30px"  alt="SVG" title="RenduSVG"/></label>
-						</div>	
-						<div class="ui-buttonset" id="choixNiveau">
-							<input class="ui-helper-hidden-accessible" id="niv1" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="niv1">Score</label>
-							<input class="ui-helper-hidden-accessible" id="niv2" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="niv2">Distance</label>
-						</div>
-		
-						<div class="ui-buttonset" id="choixData">
-							<input class="ui-helper-hidden-accessible" id="pla" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" aria-pressed="true" for="pla">Plat</label>
-							<input class="ui-helper-hidden-accessible" id="mat" name="radio" type="radio" ><label aria-disabled="false" role="button" class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" aria-pressed="false" for="mat">Matrice</label>
-						</div>					
+			<div id="radio">	
+				<form>
+					<div class="ui-buttonset" id="choixRendu">
+						<input class="ui-helper-hidden-accessible" id="htm" name="radio" type="radio" ><label aria-disabled="false"  class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" for="htm"><img src="ressources/images/HTML5_Logo_64.png" height="30" width="30"  alt="HTML5" title="RenduHTML"/></label>
+						<input class="ui-helper-hidden-accessible" id="svg" name="radio" type="radio" ><label aria-disabled="false"  class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" for="svg"><img src="ressources/images/svg-logo-v.png" height="30" width="30"  alt="SVG" title="RenduSVG"/></label>
+					</div>
+				</form>	
+				<div id="divBtnWGL">
+					<button id="btnWGL"><img src="ressources/images/webgl-logo.png" height="30" width="30"  alt="WGL" title="RenduWGL"/></button>
+				</div>
+				<form>
+					<div class="ui-buttonset" id="choixNiveau">
+						<input class="ui-helper-hidden-accessible" id="niv1" name="radio" type="radio" ><label aria-disabled="false"  class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-left ui-state-active" for="niv1">Score</label>
+						<input class="ui-helper-hidden-accessible" id="niv2" name="radio" type="radio" ><label aria-disabled="false"  class="ui-button ui-widget ui-state-default ui-button-text-only ui-corner-right" for="niv2">Distance</label>
+					</div>
+				</form>				
 			</div>
 		</div>
 		</div>
@@ -161,7 +162,7 @@
 				<li>|</li>
 				<li><a href="http://code.google.com/p/mitic-projet-2/w/list" target="_blank">Wiki</a></li>
 				<li>|</li>
-				<li><a id="graphSaver" href="#" target="_blank">Save Graph to PNG (Client-Side HTML5 canvas conversion)</a></li>
+				<li><a id="graphSaver" href="#" onclick=encode_as_img_and_link()>Save Graph to SVG (Client-Side save)</a></li>
 			</ul>			
 		</div>
 	</body>

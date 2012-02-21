@@ -13,10 +13,7 @@ var graphDimension;
 
 $(document).ready(function() {
 
-	$("#fg").click(function() {
-		graphCenter.x -= 75;
-		draw();
-	});
+	
 
 	/*
 	 * $("#fg").mousedown(function(){ if(isClicked){ setTimeout(function(){
@@ -33,18 +30,6 @@ $(document).ready(function() {
 	 * document.getElementById("fg").addEventListener('touchend',function(){
 	 * isClicked = false; },false);
 	 */
-	$("#fd").click(function() {
-		graphCenter.x += 75;
-		draw();
-	});
-	$("#fh").click(function() {
-		graphCenter.y -= 75;
-		draw();
-	});
-	$("#fb").click(function() {
-		graphCenter.y += 75;
-		draw();
-	});
 
 	graph = new Graph();
 });

@@ -40,33 +40,7 @@ $(document).ready(function(){
 		evenement(this);
 	});
 	
-	/**
-	 * Permet de détectecter un drag dans la zone de dessin et 
-	 * envoi un evt de type dragGraph
-	 */
 	
-	$("#zoneGraph").mousedown(function(evt){
-		clicked = true;
-		debut = {"x" : evt.clientX, "y" : evt.clientY};
-	}).mouseup(function(){
-		draw();
-		clicked = false;
-	}).mousemove(function(evt){
-		if(clicked) $("#zoneGraph").trigger('dragGraph', [{"x" : evt.clientX, "y" : evt.clientY}]);
-	});
-
-	/**
-	 * Listener sur l'evt de type dragGraph
-	 * permet de déplacer le graph en fonction de la souris
-	 */
-	$("#zoneGraph").bind('dragGraph', function(evt, param){
-		compteur++;
-		dragDeplacementDelta = {"x" : debut.x - param.x, "y" : debut.y - param.y};
-		graphCenter.x -= dragDeplacementDelta.x;
-		graphCenter.y -= dragDeplacementDelta.y;
-		if(compteur  %6 == 0 )draw();
-		debut = param;
-	});
 	
 	/**
 	 * Permet de setter un nombre de voisins directement dans la zone de texte
