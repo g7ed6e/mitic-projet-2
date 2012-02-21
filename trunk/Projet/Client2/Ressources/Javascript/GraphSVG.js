@@ -5,6 +5,7 @@ var svgItems = [];
 var translateX = 0;
 var translateY = 0;
 var mousePos;
+var popupShown = false;
 
 $(document)
 .ready(
@@ -31,6 +32,7 @@ function() {
 	$("#zoneGraph").mousedown(function(evt){
 		clicked = true;
 		debut = {"x" : evt.clientX, "y" : evt.clientY};
+		if (popupShown) $(".popupImageDetails").remove();
 	}).mouseup(function(){
 		//draw();
 		clicked = false;
@@ -96,7 +98,7 @@ function clearGraph() {
 
 function drawNode(node){
 	
-	img=new Image();
+	var img=new Image();
 	img.src = "../Server/index.php?controller=image&action=getImg&id="
 				+ node.id + "&t=" + (mignatureSize * zoom);
 	jQuery(img).load(function() {
@@ -110,7 +112,7 @@ function drawNode(node){
 		var imgY = Math.round( (node.center.y * zoom) - (node.height/2) + graphCenter.y );
 		var imgWidth = Math.round(img.width);
 		var imgHeight = Math.round(img.height);
-		var item = divSVG.image(imgX, imgY, imgWidth, imgHeight,"../Server/index.php?controller=image&action=getImg&id="+ node.id + "&t=" + (mignatureSize * zoom));
+		var item = divSVG.image(imgX, imgY, imgWidth, imgHeight,img.src);
 		svgItems[svgItems.length] = item;
 		$(item).click(function() {
 			onClickImage(node.id, img);
@@ -128,7 +130,7 @@ function drawEdge(edge){
 	var y2 = Math.round(edge.target.center.y * zoom + graphCenter.y);
 	
 
-	var g = divSVG.group({stroke: 'black', strokeWidth: 1}); 
+	var g = divSVG.group({stroke: choixCouleur(edge.score), strokeWidth: 1}); 
 	var item = divSVG.line(g, x1, y1, x2, y2); 
 	svgItems[svgItems.length] = item;
 	$(item).attr("transform", "translate("+translateX+","+translateY+")");
@@ -163,6 +165,7 @@ function onClickImage(nodeId){
 				.button();
 		positionnePopup();
 	});
+	popupShown = true;
 }
 
 function positionnePopup(){
