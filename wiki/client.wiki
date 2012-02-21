@@ -2,7 +2,7 @@
 
 = Guide d'utilisation =
 
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 
 ---- 
 == Navigation dans les images ==
