@@ -49,11 +49,15 @@ Pour choisir le nombre de voisins, vous avez deux possibilités. La première es
 
 [http://img11.hostingpics.net/pics/674225dist.jpg]
 
+Avec cet élément vous avez la possibilité de choisir entre deux types de graphes. Un graphe étoilé avec le bouton "score" et un graphe interconnecté avec le bouton "distance". 
+
 [client#Guide_d'utilisation Retour au sommaire]
 
 === Choix du type d'affichage ===  
 
 [http://img11.hostingpics.net/pics/134296affichage.jpg]
+
+Cette zone vous permet de choisir entre les trois formats d'affichages que nous avons implémentés. Il y en a deux en 2D et un en 3D. Il y a HTML5, SVG et WebGL.
 
 [client#Guide_d'utilisation Retour au sommaire]
 
