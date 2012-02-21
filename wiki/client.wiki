@@ -1,62 +1,63 @@
 #summary Page de description du fonctionnement du client.
 
-= Navigation dans les images =
+= Guide d'utilisation =
 
+== Navigation dans les images ==
 
-== Page d'accueil ==
+=== Page d'accueil ===
 
 [http://img11.hostingpics.net/pics/709449accueil2.jpg]
 
 Pour naviguer dans les images a partir de la page d'accueil il vous suffit de saisir l'identifiant de l'image ou de la choisir dans les miniatures présentes en bas de la page. Un fois votre sélection faite appuyez sur le bouton "OK" ou pressez la touche "Entrée" de votre clavier. Une fois que vous avez validé, une animation s'affiche et vous arrivez a la page de graphe avec l'image choisie comme image centrale.
 
-== Page de graphe ==
+=== Page de graphe ===
 
 [http://img11.hostingpics.net/pics/131444nav.jpg]
 
-=== Graphe et barre de recherche ===
+==== Graphe et barre de recherche ====
 
 Pour effectuer une nouvelle recherche, deux options s'offrent a vous. Vous pouvez faire comme pour la page d'accueil. C'est a dire, saisir l'identifiant dans la barre de recherche puis valider avec la toucher "Entrée" ou le bouton "OK". Sinon vous pouvez directement choisir une image a centrée à l'intérieur du graphe. Pour ce faire, cliquez sur l'image, une fenêtre va s'ouvrir. Appuyez alors sur le bouton "centrer l'image".   
 
-=== Historique ===
+==== Historique ====
 
 Pour revenir à une recherche que vous avez effectuée durant votre session de travail/démonstration. Vous pouvez vous servir de l'historique qui se situe en haut à gauche de la fenêtre. Dans cet historique vous trouverez toutes vos recherches sous la forme d'une miniature de l'image suivie par son identifiant. Lorsque vous trouvez l'image voulue, cliquez dessus et cela centrera l'image.   
 
-= Paramétrage =
+== Paramétrage ==
 
-== Choix du nombre de voisins ==
+=== Choix du nombre de voisins ===
 
-== Choix de la représentation ==
+=== Choix de la représentation ===
 
 [http://img11.hostingpics.net/pics/674225dist.jpg]
 
-== Choix du type d'affichage ==
+=== Choix du type d'affichage ===
 
 [http://img11.hostingpics.net/pics/134296affichage.jpg]
 
-== Choix des filtres ==
+=== Choix des filtres ===
 
 [http://img11.hostingpics.net/pics/854494filtre.jpg]
 
-= Modification pour la lisibilité =
+== Modification pour la lisibilité ==
 
-== Agrandissement d'une image ==
+=== Agrandissement d'une image ===
 
-== Zoom sur le graphe ==
+=== Zoom sur le graphe ===
 
-== Déplacement du graphe ==
+=== Déplacement du graphe ===
 
 [http://img11.hostingpics.net/pics/461263fleche.jpg]
 
-= Autres fonctionnalités =
+== Autres fonctionnalités ==
 
 Les autres fonctionnalités se trouvent dans le pied de page du site.
 
 [http://img11.hostingpics.net/pics/616322footer.jpg] 
 
-== Acces au source et au wiki ==
+=== Acces au source et au wiki ===
 
 Les deux boutons "Source" et "Wiki" du footer permettent respectivement d’accéder a l'adresse du checkout du svn du projet et à la page d'accueil du Wiki du projet. 
  
-== Capture du graphe ==
+=== Capture du graphe ===
 
 Le bouton "Save Graph to PNG" permet d'afficher dans votre navigateur une représentation en PNG du graphe que vous avez a l'écran.
