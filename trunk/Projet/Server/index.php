@@ -25,6 +25,11 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 				$s = $_GET["s"] != "0";
 				$controller->getScoreV2($_GET['id'], $n, $_GET['w'], $_GET['h'], $_GET['s']);
 			}
+			else if ($_GET['action'] == 'getScoreV3') {
+				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
+				$s = $_GET["s"] != "0";
+				$controller->getScoreV3($_GET['id'], $n, $_GET['w'], $_GET['h'], $_GET['s']);
+			}
 			break;
 		case 'distance':
 			$controller = new DistanceController();
