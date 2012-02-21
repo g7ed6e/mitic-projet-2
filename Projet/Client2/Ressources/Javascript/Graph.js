@@ -157,7 +157,7 @@ function request(id, nbNeighbours) {
 				"controller" : "score",
 				"id" : id,
 				"nn" : nbNeighbours,
-				"action" : "getScoreV2",
+				"action" : "getScoreV3",
 				"w" : (graphDimension.width - 50),
 				"h" : (graphDimension.height - 50),
 				"s" : "1"

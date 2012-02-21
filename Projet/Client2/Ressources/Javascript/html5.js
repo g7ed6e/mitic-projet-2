@@ -180,7 +180,7 @@ function drawEdge(edge) {
 			ctx.strokeStyle = jaune;
 		} else if ((edge.score > pas) && (edge.score <= pas * 2)) {
 			ctx.strokeStyle = orange;
-		} else {
+		} else{
 			ctx.strokeStyle = vert;
 		}
 		ctx.stroke();
