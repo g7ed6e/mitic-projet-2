@@ -2,7 +2,7 @@
 
 = Guide d'utilisation =
 
-<wiki:toc max_depth="2" />
+<wiki:toc min_depth="2" max_depth="2" />
 
 ----
 
