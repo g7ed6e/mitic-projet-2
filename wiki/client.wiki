@@ -26,6 +26,8 @@ Pour revenir à une recherche que vous avez effectuée durant votre session de t
 
 === Choix du nombre de voisins ===
 
+[http://img11.hostingpics.net/pics/734958sliderzoo.jpg]
+
 === Choix de la représentation ===
 
 [http://img11.hostingpics.net/pics/674225dist.jpg]
@@ -44,7 +46,11 @@ Pour revenir à une recherche que vous avez effectuée durant votre session de t
 
 === Agrandissement d'une image ===
 
+[http://img11.hostingpics.net/pics/494170pop.jpg]
+
 === Zoom sur le graphe ===
+
+[http://img11.hostingpics.net/pics/734958sliderzoo.jpg]
 
 === Déplacement du graphe ===
 
