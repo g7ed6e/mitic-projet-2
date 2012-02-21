@@ -31,5 +31,13 @@ class ScoreController{
 		$view = new JsonView($voisins);
 		$view->Render();
 	}
+	
+	public function getScoreV3($id, $n, $w, $h, $s)
+	{
+		require_once 'View/JsonView.php';
+		$voisins = $this->model->getScoreV3($id, $n, $w, $h, $s);
+		$view = new JsonView($voisins);
+		$view->Render();
+	}
 }
 ?>
