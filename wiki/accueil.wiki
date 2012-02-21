@@ -11,6 +11,6 @@ Ce wiki a pour but de présenter notre projet de fin d'année de M2 MITIC à l'I
 Voici les différentes pages du wiki :
 
   * [http://code.google.com/p/mitic-projet-2/wiki/contexte Contexte et équipe de développement]
-  *[http://code.google.com/p/mitic-projet-2/wiki/methode Méthode]
+  * [http://code.google.com/p/mitic-projet-2/wiki/methode Méthode de développement]
   * [http://code.google.com/p/mitic-projet-2/wiki/serveur Partie Serveur]
   * [http://code.google.com/p/mitic-projet-2/wiki/client Partie Client]
