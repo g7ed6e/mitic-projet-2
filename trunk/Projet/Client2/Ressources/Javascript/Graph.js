@@ -230,6 +230,7 @@ function draw() {
 function resized(){
 	$("#zoneGraph").get(0).width  = $("#main").innerWidth() - $("#zoomDiv").innerWidth();
 	$("#zoneGraph").get(0).height = $("#main").innerHeight()-$("#zoneGraph").get(0).offsetTop-$("#footer").innerHeight()-10;
+	alert($("#zoneGraph").get(0).width);
 	graphDimension = {"width":$("#zoneGraph").get(0).width, "height": $("#zoneGraph").get(0).height};
 	graphCenter = {"x":$("#zoneGraph").get(0).width / 2, "y": $("#zoneGraph").get(0).height / 2};
 	$("#fg").css("left", 0).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23+"px");
