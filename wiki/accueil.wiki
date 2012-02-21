@@ -1,8 +1,6 @@
-#Page d'accueil du wiki du projet
-
 = Introduction =
 
-Ce wiki a pour but de présenter et de décrire le fonctionnement de notre projet de fin d'année de M2 MITIC à l'ISTIC de Rennes.
+Ce wiki a pour but de présenter notre projet de fin d'année de M2 MITIC à l'ISTIC de Rennes.
 
 = Details =
 
