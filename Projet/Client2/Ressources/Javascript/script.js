@@ -1,5 +1,6 @@
 var min = 2;
 var max = 40;
+var nbImage = 1490;
 var midValue = Math.round((max-min)/2);
 var hoveredImageId = -1;
 var debugMousePos = false;
@@ -179,7 +180,7 @@ function searchKeypressedEnter(event){
  * Déclenchement d'une recherche
  */
 function ok(){
-	if($('#searchInput').val() != "" && $('#searchInput').val() != searchInputDefaultText){	
+	if(isCorrectSearch()){	
 		$('.index').animate({
 			opacity: 0
 		},500, function(){
@@ -215,7 +216,7 @@ function ok(){
 }
 
 function search(){
-	if($('#searchInput').val() != "" && $('#searchInput').val() != searchInputDefaultText){
+	if(isCorrectSearch()){
 		saveHisto($('#searchInput').val());
 		request($('#searchInput').val(), $("#nbNeighboursInput").val());
 	}
@@ -245,7 +246,7 @@ function evenement(object){
 	}
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
-		max = 1490;
+		max = nbImage;
 		$("#topLabelSlider").html(max);
 		$( "#slider" ).slider( "option", "max", max );
 	}
@@ -255,7 +256,7 @@ function remplirSlider(){
 	//on parcour le slider
 	for (var i = 1;i <= 20 ;i++) {
 		//on genere un entier aléatoire en 1 et 1491
-		var numRand = Math.floor(Math.random()*1490) + 1;
+		var numRand = Math.floor(Math.random()*nbImage) + 1;
 		//on recupere la case du slider
 		var img = document.getElementById("img"+i);
 		//on remplace l'image de cette case par celle dont
@@ -316,4 +317,13 @@ function wgl(){
 	var idWebGL=$("#searchInput").val();
 	var urlWGL="../Client2/indexWebGL.html?id="+idWebGL;
 	window.open(urlWGL);
+}
+
+function isCorrectSearch(){
+	var searchVal = $('#searchInput').val();
+	return (searchVal.toString().search(/^[0-9]+$/) == 0)
+		&& searchVal != ""
+		&& searchVal != searchInputDefaultText
+		&& searchVal >= 1
+		&& searchVal <= nbImage+1;;
 }
