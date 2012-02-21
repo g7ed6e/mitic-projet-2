@@ -13,9 +13,7 @@ var debut;
 var dragDeplacementDelta;
 var compteur = 0;
 var histo = new Array();
-var nbhist = 0;
-var close = true;
-var close2 = true;
+
 
 $(document).ready(function(){
 	/**
@@ -130,7 +128,7 @@ $(document).ready(function(){
 
 
 /**
- * Gestion de la touche entrée pour le champ de recherche et 
+ * Gestion de la touche entrï¿½e pour le champ de recherche et 
  */
 function okKeypressedEnter(event){
 	if ( event.which == 13 ) { ok(); }
@@ -140,7 +138,7 @@ function searchKeypressedEnter(event){
 }
 
 /**
- * Declenchement d'une recherche avec le lancement de l'animation en cas de première recherche
+ * Declenchement d'une recherche avec le lancement de l'animation en cas de premiï¿½re recherche
  */
 function ok(){
 	if(isCorrectSearch()){	
@@ -227,7 +225,7 @@ function evenement(object){
 }
 
 /**
- * Remplissage du carroussel de la page d'accueil avec des images aléatoires
+ * Remplissage du carroussel de la page d'accueil avec des images alï¿½atoires
  */
 function remplirSlider(){
 	//on parcour le slider
@@ -245,7 +243,7 @@ function remplirSlider(){
 }
 
 /**
- * Méthode de remplissage de la barre de recherche quand on clique sur une miniature du carroussel
+ * Mï¿½thode de remplissage de la barre de recherche quand on clique sur une miniature du carroussel
  * @param object
  */
 function remplirSearch(object){
@@ -260,35 +258,11 @@ function remplirSearch(object){
 }
 
 /**
- * Méthode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
+ * Mï¿½thode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
  */
 function saveHisto(id){
 	var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
 	$('#smenu1').append("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
-	/*histo[nbhist]=id;
-	nbhist++;
-	if(!close){
-		$("#b1").next("ul").toggle();
-		close = true;
-	}
-	if(!close2){
-		$("#b2").next("ul").toggle();
-		close2 = true;
-	}*/
-}
-
-/**
- * Méthode générant la liste d'éléments de l'historique en html
- */
-function showHisto(){
-
-/*	$('#smenu1').empty();
-	for(var i = 0; i < nbhist ; i++){
-		var img="../Server/index.php?controller=image&action=getImg&id="+histo[i]+"&t=50";
-		var chisto ="<li><a href='#' onclick='changeImg("+histo[i]+");'><img src="+img+"><span class='marge'>"+histo[i]+"</span></a></li>";
-		$(chisto).appendTo('#smenu1');
-
-	}*/
 }
 
 /**
@@ -298,11 +272,6 @@ function showHisto(){
 function changeImg(id){
 	request(id, midValue);
 	$("#b1").next("ul").toggle();
-	close=true;
-	if(!close2){
-		$("#b2").next("ul").toggle();
-		close2 = true;
-	}
 }
 
 /**
@@ -315,7 +284,7 @@ function wgl(){
 }
 
 /**
- * Vérifie que le contenu de la barre de recherche est au format valide
+ * Vï¿½rifie que le contenu de la barre de recherche est au format valide
  * @returns {Boolean}
  */
 function isCorrectSearch(){
