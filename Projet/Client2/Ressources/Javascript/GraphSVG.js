@@ -1,26 +1,23 @@
-var canvas;
-var ctx;
-var divSVG;
-var svgItems = [];
-var translateX = 0;
-var translateY = 0;
-var mousePos;
-var popupShown = false;
+var divSVG;			// objet créé à partir de jquery SVG pour créer les lignes et images.
+var svgItems = [];	// liste des objets SVG dans la div
+var translateX = 0;	// valeur du x de la translation de "l'objet global SVG"
+var translateY = 0;	// valeur du x de la translation de "l'objet global SVG"
+var mousePos;		// valeurs pour la position de la souris
+var popupShown = false;	// boolean pour savoir si la popup est présente ou pas.
 
-$(document)
-.ready(
+$(document).ready(	// Execution au chargement du document
 function() {
 
-	$("#fg").click(function() {
+	$("#fg").click(function() {	// ajout de l'évènement au clique de la flèche gauche
 		translateGraph(-75,0);
 	});
-	$("#fd").click(function() {
+	$("#fd").click(function() {	// ajout de l'évènement au clique de la flèche droite
 		translateGraph(75,0);
 	});
-	$("#fh").click(function() {
+	$("#fh").click(function() {	// ajout de l'évènement au clique de la flèche haut
 		translateGraph(0,-75);
 	});
-	$("#fb").click(function() {
+	$("#fb").click(function() {	// ajout de l'évènement au clique de la flèche bas
 		translateGraph(0,75);
 	});
 	
@@ -28,41 +25,37 @@ function() {
 	 * Permet de détectecter un drag dans la zone de dessin et 
 	 * envoi un evt de type dragGraph
 	 */
-	
 	$("#zoneGraph").mousedown(function(evt){
 		clicked = true;
-		debut = {"x" : evt.clientX, "y" : evt.clientY};
-		if (popupShown) $(".popupImageDetails").remove();
-		return false;
+		debut = {"x" : evt.clientX, "y" : evt.clientY};		// valeur d'origine pour la translation
+		if (popupShown) $(".popupImageDetails").remove();	// enlever la popup lors d'un click dans le vide
+		return false;	// permet de ne pas parasiter avec le drag => la translation.
 	}).mouseup(function(){
-		//draw();
 		clicked = false;
-	}).mousemove(function(evt){
+	}).mousemove(function(evt){	// enregistrer la position de la souris
 		mousePos = getMousePos($("#zoneGraph"), evt);
 		if(clicked) $("#zoneGraph").trigger('dragGraph', [{"x" : evt.clientX, "y" : evt.clientY}]);
 	});
 
 	/**
 	 * Listener sur l'evt de type dragGraph
-	 * permet de déplacer le graph en fonction de la souris
+	 * permet de déplacer le graph en fonction de la souris via une translation du SVG
 	 */
 	$("#zoneGraph").bind('dragGraph', function(evt, param){
 		translateGraph( (param.x - debut.x) , (param.y -debut.y) );
 		debut = param;
 	});
 	
-				
-	canvas = $("#zoneGraph").get(0);
-	
-	resized();
+	resized();	// dimensionner la div contenant le graph.
 
-	$('#zoneGraph').svg({onLoad:function(svg) { 
+	$('#zoneGraph').svg({onLoad:function(svg) { // initialiser la zone de dessin SVG à partir de la div zoneGraph
 			divSVG = svg; 
 			var surface = svg.rect(0, 0, '100%', '100%', {id: 'surface', fill: 'white'});
 		} 
 	});
 });
 
+// Fonction pour effectuer une translation de tous les objets SVG créés
 function translateGraph(deltaX, deltaY){
 	translateX+= deltaX;
 	translateY+= deltaY;
@@ -71,6 +64,7 @@ function translateGraph(deltaX, deltaY){
 	}
 }
 /*
+// fonction pour déplacer avec une animation tous les objets SVG créés = ne fonctionne pas
 function translateGraphAnimated(deltaX, deltaY){
 	translateX+= deltaX;
 	translateY+= deltaY;
@@ -81,7 +75,7 @@ function translateGraphAnimated(deltaX, deltaY){
 	}
 }*/
 	
-
+// Nettoyer le graph pour pouvoir en réafficher un autre
 function clearGraph() {
 	$('#zoneGraph').svg('destroy');
 	$('#zoneGraph').svg({onLoad:
@@ -90,19 +84,19 @@ function clearGraph() {
 			var surface = svg.rect(0, 0, '100%', '100%', {id: 'surface', fill: 'white'});
 		} 
 	});
-	//canvas.width = canvas.width;
 	for( var i in svgItems ){
 		//divSVG.remove(svgItems[i]); 
 		svgItems.splice(i, 1); 
 	}
 }
 
+// dessiner une image SVG
 function drawNode(node){
 	
-	var img=new Image();
+	var img=new Image(); 
 	img.src = "../Server/index.php?controller=image&action=getImg&id="
 				+ node.id + "&t=" + (mignatureSize * zoom);
-	jQuery(img).load(function() {
+	jQuery(img).load(function() { //récupération de l'image et donc de ses données corrolaires.
 	
 		node.width = img.width;
 		node.height = img.height;
@@ -113,16 +107,16 @@ function drawNode(node){
 		var imgY = Math.round( (node.center.y * zoom) - (node.height/2) + graphCenter.y );
 		var imgWidth = Math.round(img.width);
 		var imgHeight = Math.round(img.height);
-		var item = divSVG.image(imgX, imgY, imgWidth, imgHeight,img.src);
-		svgItems[svgItems.length] = item;
+		var item = divSVG.image(imgX, imgY, imgWidth, imgHeight,img.src); // création de l'objet SVG image
+		svgItems[svgItems.length] = item;	// ajout de l'objet fraichement créé dans le tableau
 		$(item).click(function() {
-			onClickImage(node.id, img);
+			onClickImage(node.id, img);	// ajout de l'évènement sur l'image pour l'apparition de la popup
 		});
-		$(item).drag(function(){ return false;});
-		$(item).attr("transform", "translate("+translateX+","+translateY+")");
+		$(item).attr("transform", "translate("+translateX+","+translateY+")"); // translater l'élément si translation il y a
 	});
 }
 
+// dessiner une arrête ( = ligne ) en svg
 function drawEdge(edge){
 	
 	var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -131,13 +125,14 @@ function drawEdge(edge){
 	var x2 = Math.round(edge.target.center.x * zoom + graphCenter.x);
 	var y2 = Math.round(edge.target.center.y * zoom + graphCenter.y);
 	
-
+	//appel de choixCouleur(edge.score) pour avoir une couleur en fonction du score
 	var g = divSVG.group({stroke: choixCouleur(edge.score), strokeWidth: 1}); 
-	var item = divSVG.line(g, x1, y1, x2, y2); 
-	svgItems[svgItems.length] = item;
-	$(item).attr("transform", "translate("+translateX+","+translateY+")");
+	var item = divSVG.line(g, x1, y1, x2, y2); 	// création de lélément ligne SVG
+	svgItems[svgItems.length] = item;			// ajout de l'élément dans le tableau
+	$(item).attr("transform", "translate("+translateX+","+translateY+")"); // translater l'élément si translation il y a
 }
 
+// fonction pour (re)dimensionner la div contenant le graph
 function resized(){
 	$("#zoneGraph").css('width', $("#main").innerWidth() - $("#zoomDiv").innerWidth()+"px");
 	$("#zoneGraph").css('height', $("#main").innerHeight()-$("#zoneGraph").get(0).offsetTop-$("#footer").innerHeight()-10+"px");
@@ -149,37 +144,39 @@ function resized(){
 	$("#fb").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop + $("#zoneGraph").height() -35+"px");
 }
 
+// créer une popup de l'image cliquée et l'afficher à côté de la souris
 function onClickImage(nodeId){
 	var img = new Image();
 	img.src = '../Server/index.php?controller=image&action=getImg&id='+ nodeId + '&t=200';
-	jQuery(img).load(function() {
+	jQuery(img).load(function() { //chargement de l'image et de ses données corrolaires
 		$(".popupImageDetails")
 				.css("width",img.width + 20)
 				.css('height',img.height + 50);
 		$("#main").append("<div class='popupImageDetails'><br /><button>Centrer l\'image</button></div>");
 		$(".popupImageDetails").prepend(img);
-		$(".popupImageDetails > button").bind('click', function() {
-							saveHisto(nodeId);
-							zoom =1;
-							translateX = 0;
-							translateY = 0;
-							request(nodeId,$("#nbNeighboursInput").val());
-							$("#searchInput").val(nodeId);
-							$(".popupImageDetails").remove();
+		$(".popupImageDetails > button").bind('click', function() { // évènement au click sur le bouton "Centrer l'image"
+							saveHisto(nodeId);	// ajout de l'élement dans l'historique
+							zoom =1;			// réinitialisation du zoom
+							translateX = 0;		// réinitialisation du x de la translation
+							translateY = 0;		// réinitialisation du x de la translation
+							request(nodeId,$("#nbNeighboursInput").val());	// nouvelle requête
+							$("#searchInput").val(nodeId);					// rajout de l'id dans la barre de recherche
+							$(".popupImageDetails").remove();				// suppression de la popup
 						})
 				.button();
-		positionnePopup();
+		positionnePopup();	// positionnement de la popuplorsqu'elle apparaît
 	});
 	popupShown = true;
 }
 
+// fonction pour positionner la popup en fonction de la position de la souris
 function positionnePopup(){
 	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
 	popupShown = true;
 }
 
+// fonction pour récupérer la position de la souris relative à la fenêtre
 function getMousePos(div, evt){
-	// get canvas position
 	var obj = div;
 	var top = $(div).offset().top;
 	var left = $(div).offset().left;
@@ -191,21 +188,4 @@ function getMousePos(div, evt){
 		x: mouseX,
 		y: mouseY
 	};
-}
-
-
-function encode_as_img_and_link(){
-/*
- // Add some critical information
- //$("zoneGraph").attr({ version: '1.1' , xmlns:"http://www.w3.org/2000/svg"});
-
- var svg = $("#zoneGraph").html();
- var b64 = Base64.encode(svg);
-
- // Works in recent Webkit(Chrome)
- //$("graphSaver").html('data:image/svg+xml;base64,\n"+b64+"');
-
- // Works in Firefox 3.6 and Webit and possibly any browser which supports the data-uri
- //$("graphSaver").html('data:image/svg+xml;base64,\n"+b64+"');
-	window.open('data:image/svg+xml;base64,\n"+b64+"');*/
 }
