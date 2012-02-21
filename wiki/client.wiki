@@ -4,6 +4,8 @@
 
 <wiki:toc min_depth="2" max_depth="2" />
 
+[http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
+
 ----
 
 == Navigation dans les images ==
@@ -85,5 +87,3 @@ Les deux boutons "Source" et "Wiki" du footer permettent respectivement d’acc�
 === Capture du graphe ===
 
 Le bouton "Save Graph to PNG" permet d'afficher dans votre navigateur une représentation en PNG du graphe que vous avez a l'écran.
-
-[http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
