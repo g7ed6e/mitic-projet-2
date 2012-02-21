@@ -38,7 +38,9 @@ Pour revenir à une recherche que vous avez effectuée durant votre session de t
 
 [http://img11.hostingpics.net/pics/854494filtre.jpg]
 
-== Modification pour la lisibilité ==
+== Aide à la lisibilité ==
+
+=== Code couleur ===
 
 === Agrandissement d'une image ===
 
