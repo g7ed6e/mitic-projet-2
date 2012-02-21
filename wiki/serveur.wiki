@@ -16,17 +16,17 @@ Le fichier index.php qui se situe a la racine du serveur permet la réception de
 
 Le dossier Controller contient cinq classes php qui ont pour rôle :
 
-  * DistanceController :
+  * DistanceController : fait le lien entre DistanceModel et JsonView.
   * ImageController : fait le lien entre ImageModel et ImageView.
-  * ScoreController :
-  * VoisinsNController :
-  * VoisinsNplusUnController :
+  * ScoreController : fait le lien entre ScoreModel et JsonView.
+  * VoisinsNController : fait le lien entre VoisinsModel et JsonView.
+  * VoisinsNplusUnController : fait le lien entre VoisinsNplusUnModel et JsonView.
 
 Le dossier Model contient cinq classes php qui ont pour rôle :
 
-  * DistanceModel :
+  * DistanceModel : Possède deux méthodes. Une de ses méthodes récupère les plus proches éléments de l'id saisi. La deuxième retourne deux tableaux, un de liens entre les noeuds et un autre de position dans le canvas.Dans ce cas, on génère un graphe interconnecté.
   * ImageModel : possède une méthode permettant de renvoyer une image du serveur en fonction des paramètres saisis dans l'URL de la requête.
-  * ScoreModel :
+  * ScoreModel : Possède quatre méthodes. Une de ses méthodes récupère les plus proches éléments de l'id saisi. Les trois autres retournent deux tableaux, un de liens entre les noeuds et un autre de position dans le canvas. Il y a trois méthodes a cause des variations de fichiers d'entrées que nous avons connu. Dans ce cas, on génère un graphe étoile.
   * VoisinsNModel :
   * VoisinsNplusUnModel :
 
