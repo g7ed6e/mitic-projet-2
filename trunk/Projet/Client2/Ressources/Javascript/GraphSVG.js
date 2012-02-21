@@ -33,6 +33,7 @@ function() {
 		clicked = true;
 		debut = {"x" : evt.clientX, "y" : evt.clientY};
 		if (popupShown) $(".popupImageDetails").remove();
+		return false;
 	}).mouseup(function(){
 		//draw();
 		clicked = false;
@@ -117,6 +118,7 @@ function drawNode(node){
 		$(item).click(function() {
 			onClickImage(node.id, img);
 		});
+		$(item).drag(function(){ return false;});
 		$(item).attr("transform", "translate("+translateX+","+translateY+")");
 	});
 }
