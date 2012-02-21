@@ -18,3 +18,5 @@ Grille de l'état d'esprit :
 || Thomas || Vert || Vert || Orange || Vert || Vert || Vert || Orange ||
 || Farmin || Vert || Vert || Vert || Orange || Vert || Vert || Vert ||
 || Killian || Vert || Vert || Vert || Vert || Vert || Vert || Orange ||
+
+[http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
