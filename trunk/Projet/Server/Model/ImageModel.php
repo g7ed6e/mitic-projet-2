@@ -5,7 +5,7 @@ class ImageModel {
 
 	public function getImage($id,$w,$l,$c,$t){
 
-		$file = ROOT_DATA_REPOSITORY."/img1491/".$id.".jpg";
+		$file = ROOT_DATA_REPOSITORY."/img1491_mini/".$id.".jpg";
 		$size = getimagesize($file);
 		$res = array();
 
