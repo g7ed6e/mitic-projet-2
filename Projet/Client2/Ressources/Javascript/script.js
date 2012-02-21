@@ -120,24 +120,11 @@ $(document).ready(function(){
 	 * Cr√©ation des btn historique et filtre
 	 * gestion des traitements au click
 	 */
-	$("#b1").button().click(function(){
-		if(close){
-			showHisto();
-			close = false;
-		}else{
-			close = true;	
-		}
+	
+	$(".menu").button().click(function(){
 		$(this).next("ul").toggle();
+	});
 
-	});
-	$("#b2").button().click(function(){
-		if(close2){
-			close2 = false;
-		}else{
-			close2 = true;	
-		}
-		$(this).next("ul").toggle();
-	});
 });
 
 
@@ -276,7 +263,9 @@ function remplirSearch(object){
  * MÈthode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
  */
 function saveHisto(id){
-	histo[nbhist]=id;
+	var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
+	$('#smenu1').append("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
+	/*histo[nbhist]=id;
 	nbhist++;
 	if(!close){
 		$("#b1").next("ul").toggle();
@@ -285,7 +274,7 @@ function saveHisto(id){
 	if(!close2){
 		$("#b2").next("ul").toggle();
 		close2 = true;
-	}
+	}*/
 }
 
 /**
@@ -293,13 +282,13 @@ function saveHisto(id){
  */
 function showHisto(){
 
-	$('#smenu1').empty();
+/*	$('#smenu1').empty();
 	for(var i = 0; i < nbhist ; i++){
 		var img="../Server/index.php?controller=image&action=getImg&id="+histo[i]+"&t=50";
 		var chisto ="<li><a href='#' onclick='changeImg("+histo[i]+");'><img src="+img+"><span class='marge'>"+histo[i]+"</span></a></li>";
 		$(chisto).appendTo('#smenu1');
 
-	}
+	}*/
 }
 
 /**
