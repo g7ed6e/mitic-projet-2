@@ -142,7 +142,9 @@ $(document).ready(function(){
 
 
 
-
+/**
+ * Gestion de la touche entrée pour le champ de recherche et 
+ */
 function okKeypressedEnter(event){
 	if ( event.which == 13 ) { ok(); }
 }
@@ -151,7 +153,7 @@ function searchKeypressedEnter(event){
 }
 
 /**
- * DÃ©clenchement d'une recherche
+ * Declenchement d'une recherche avec le lancement de l'animation en cas de première recherche
  */
 function ok(){
 	if(isCorrectSearch()){	
@@ -189,6 +191,9 @@ function ok(){
 	}
 }
 
+/**
+ * Lancement d'une recherche a partir du contenu de la barre de recherche
+ */
 function search(){
 	if(isCorrectSearch()){
 		saveHisto($('#searchInput').val());
@@ -196,10 +201,18 @@ function search(){
 	}
 }
 
+/**
+ * Methode qui recharge le graphe quand on change la valeur de zoom
+ * @param value
+ */
 function zoomChange(value){
 	request($('#searchInput').val(),value);
 }
 
+/**
+ * Gestion de changement de valeur des boutons radio
+ * @param object
+ */
 function evenement(object){
 	if (object.id == 'htm'){
 		HTML = true;
@@ -226,6 +239,9 @@ function evenement(object){
 	}
 }
 
+/**
+ * Remplissage du carroussel de la page d'accueil avec des images aléatoires
+ */
 function remplirSlider(){
 	//on parcour le slider
 	for (var i = 1;i <= 20 ;i++) {
@@ -241,6 +257,10 @@ function remplirSlider(){
 	}
 }
 
+/**
+ * Méthode de remplissage de la barre de recherche quand on clique sur une miniature du carroussel
+ * @param object
+ */
 function remplirSearch(object){
 	//on recupere le fils du lien (notre image)
 	var enfant = object.childNodes;
@@ -252,7 +272,9 @@ function remplirSearch(object){
 
 }
 
-
+/**
+ * Méthode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
+ */
 function saveHisto(id){
 	histo[nbhist]=id;
 	nbhist++;
@@ -266,6 +288,9 @@ function saveHisto(id){
 	}
 }
 
+/**
+ * Méthode générant la liste d'éléments de l'historique en html
+ */
 function showHisto(){
 
 	$('#smenu1').empty();
@@ -277,6 +302,10 @@ function showHisto(){
 	}
 }
 
+/**
+ * Chargement de l'image id par l'historique en refermant ce dernier + les filtres
+ * @param id
+ */
 function changeImg(id){
 	request(id, midValue);
 	$("#b1").next("ul").toggle();
@@ -287,12 +316,19 @@ function changeImg(id){
 	}
 }
 
+/**
+ * Envoi de la requete pour le WebGL
+ */
 function wgl(){
 	var idWebGL=$("#searchInput").val();
 	var urlWGL="../Client2/indexWebGL.html?id="+idWebGL;
 	window.open(urlWGL);
 }
 
+/**
+ * Vérifie que le contenu de la barre de recherche est au format valide
+ * @returns {Boolean}
+ */
 function isCorrectSearch(){
 	var searchVal = $('#searchInput').val();
 	return (searchVal.toString().search(/^[0-9]+$/) == 0)
