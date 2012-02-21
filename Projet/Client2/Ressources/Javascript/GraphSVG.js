@@ -156,9 +156,7 @@ function onClickImage(nodeId){
 		$(".popupImageDetails").prepend(img);
 		$(".popupImageDetails > button").bind('click', function() { // évènement au click sur le bouton "Centrer l'image"
 							saveHisto(nodeId);	// ajout de l'élement dans l'historique
-							zoom =1;			// réinitialisation du zoom
-							translateX = 0;		// réinitialisation du x de la translation
-							translateY = 0;		// réinitialisation du x de la translation
+							centrerGraph();
 							request(nodeId,$("#nbNeighboursInput").val());	// nouvelle requête
 							$("#searchInput").val(nodeId);					// rajout de l'id dans la barre de recherche
 							$(".popupImageDetails").remove();				// suppression de la popup
@@ -188,4 +186,10 @@ function getMousePos(div, evt){
 		x: mouseX,
 		y: mouseY
 	};
+}
+
+function centrerGraph(){
+	zoom =1;			// réinitialisation du zoom
+	translateX = 0;		// réinitialisation du x de la translation
+	translateY = 0;		// réinitialisation du x de la translation
 }
