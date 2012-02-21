@@ -1,0 +1,5 @@
+#summary Architecture de la partie client
+
+
+
+[http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
