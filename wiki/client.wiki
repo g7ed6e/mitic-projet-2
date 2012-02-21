@@ -2,6 +2,9 @@
 
 = Guide d'utilisation =
 
+<wiki:toc max_depth="1" />
+
+---- 
 == Navigation dans les images ==
 
 === Page d'accueil ===
@@ -22,11 +25,14 @@ Pour effectuer une nouvelle recherche, deux options s'offrent a vous. Vous pouve
 
 Pour revenir à une recherche que vous avez effectuée durant votre session de travail/démonstration. Vous pouvez vous servir de l'historique qui se situe en haut à gauche de la fenêtre. Dans cet historique vous trouverez toutes vos recherches sous la forme d'une miniature de l'image suivie par son identifiant. Lorsque vous trouvez l'image voulue, cliquez dessus et cela centrera l'image.   
 
+---- 
 == Paramétrage ==
 
 === Choix du nombre de voisins ===
 
 [http://img11.hostingpics.net/pics/364201slider.jpg]
+
+Pour choisir le nombre de voisins, vous avez deux possibilités. La première est le slider qui se situe sur la droite de l'écran. Il vous suffit de déplacer le curseur et le graphe sera redessiné avec vos nouveaux paramètres. Sinon vous pouvez aussi changer directement la zone Nb Voisins avec le nombre désiré. Le nombre au dessus du slider correspond au nombre maximum et en dessous le nombre minimal.
 
 === Choix de la représentation ===
 
@@ -40,9 +46,14 @@ Pour revenir à une recherche que vous avez effectuée durant votre session de t
 
 [http://img11.hostingpics.net/pics/854494filtre.jpg]
 
+Cette zone permet de choisir les filtres que vous voulez activer. Pour l'instant cette zone est présente de façon graphique uniquement. Elle n'est pas fonctionnelle
+
+---- 
 == Aide à la lisibilité ==
 
 === Code couleur ===
+
+[http://img11.hostingpics.net/pics/449678index.png]
 
 === Agrandissement d'une image ===
 
@@ -56,6 +67,7 @@ Pour revenir à une recherche que vous avez effectuée durant votre session de t
 
 [http://img11.hostingpics.net/pics/461263fleche.jpg]
 
+---- 
 == Autres fonctionnalités ==
 
 Les autres fonctionnalités se trouvent dans le pied de page du site.
