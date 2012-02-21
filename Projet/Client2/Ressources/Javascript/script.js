@@ -237,10 +237,11 @@ function evenement(object){
 		max = 40;
 		$("#topLabelSlider").html(max);
 		$( "#slider" ).slider( "option", "max", max );
-		if (($( "#slider" ).slider( "option", "value", max ))> max){
+		if (($( "#slider" ).slider( "option", "value"))> max){
 			$( "#slider" ).slider( "option", "value", max );
+			$("#nbNeighboursInput").val(max);
 		}
-		
+			
 	}
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
