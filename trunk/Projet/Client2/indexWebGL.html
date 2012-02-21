@@ -431,9 +431,11 @@
 						projector.unprojectVector( vector, camera );
 						var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
 						var intersects = ray.intersectObjects(imagesObjects);
+
 						if ( intersects.length > 0 ) {
 							var o = intersects[0].object;
 							nextImage = keyValues[parseInt(o.id) - 1].substring(4);
+
 							implodeGraph();
 						}
 				}).bind("keydown", function(event){
@@ -509,6 +511,29 @@
 							break;
 					}
 				});
+			
+				document.addEventListener('touchstart',function(event){
+					event.preventDefault();
+					var vector = new THREE.Vector3( ( event.pageX / window.innerWidth ) * 2 - 1, - ( event.pageY / window.innerHeight ) * 2 + 1, 0.5 );
+					projector.unprojectVector( vector, camera );
+					var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+					var intersects = ray.intersectObjects(imagesObjects);
+
+					if ( intersects.length > 0 ) {
+						var o = intersects[0].object;
+						nextImage = keyValues[parseInt(o.id) - 1].substring(4);
+
+						implodeGraph();
+					}
+				},false);
+				/* * 
+				 * function touchEvent(){ if(isClicked){ setTimeout(function(){
+				 * graphCenter.x -= 25; draw(); touchEvent(); },100); }else isClicked =
+				 * true; }
+				 * 
+				 * document.getElementById("fg").addEventListener('touchend',function(){
+				 * isClicked = false; },false);*/
+			
 			});
 		</script>
 		<style>

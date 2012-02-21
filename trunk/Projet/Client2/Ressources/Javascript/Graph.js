@@ -160,7 +160,7 @@ function request(id, nbNeighbours) {
 				"action" : "getScoreV2",
 				"w" : (graphDimension.width - 50),
 				"h" : (graphDimension.height - 50),
-				"s" : "0"
+				"s" : "1"
 			},
 			success : function(data) {
 				graph.clearNodes();
@@ -233,7 +233,7 @@ function resized(){
 	graphDimension = {"width":$("#zoneGraph").get(0).width, "height": $("#zoneGraph").get(0).height};
 	graphCenter = {"x":$("#zoneGraph").get(0).width / 2, "y": $("#zoneGraph").get(0).height / 2};
 	$("#fg").css("left", 0).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23+"px");
-	$("#fd").css("left", ctx.canvas.width-35).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23 +"px");
+	$("#fd").css("left", $("#zoneGraph").get(0).width-35).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23 +"px");
 	$("#fh").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop);
 	$("#fb").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop + $("#zoneGraph").get(0).height -35+"px");
 }

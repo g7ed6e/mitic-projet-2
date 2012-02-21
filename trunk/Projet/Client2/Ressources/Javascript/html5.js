@@ -115,7 +115,13 @@ $(document)
 											hoveredImageId = -1;
 									});
 
+					$("#graphSaver").click(function() { 
+						// save canvas image as data url (png format by default)
+						$("#graphSaver").attr("href", canvas.toDataURL());
+					});
+					
 				});
+
 
 function clearGraph() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -179,4 +185,44 @@ function drawEdge(edge) {
 		}
 		ctx.stroke();
 	}
+}
+
+function getMousePos(canvas, evt){
+	// get canvas position
+	var obj = canvas;
+	var top = 0;
+	var left = 0;
+	while (obj && obj.tagName != 'BODY') {
+		top += obj.offsetTop;
+		left += obj.offsetLeft;
+		obj = obj.offsetParent;
+	}
+
+	// return relative mouse position
+	var mouseX = evt.clientX - left + window.pageXOffset;
+	var mouseY = evt.clientY - top + window.pageYOffset;
+	return {
+		x: mouseX,
+		y: mouseY
+	};
+}
+
+function positionnePopup(canvas, mousePos, nodeId)
+{
+	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
+	popupShown = true;
+}
+
+
+function getImageId(mousePos)
+{
+	for (var i = 0;i < graph.nodes.length;i++)
+	{
+		var node = graph.nodes[i];
+		if((mousePos.x > node.position.x)&&(mousePos.x < node.position2.x)
+				&&(mousePos.y > node.position.y)&&(mousePos.y < node.position2.y)) {
+			return node.id;
+		}
+	}
+	return -1;
 }
