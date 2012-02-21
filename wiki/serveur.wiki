@@ -1,15 +1,40 @@
 #summary Page de description de l'architecture du serveur.
 
-= Introduction =
+= Architecture du serveur =
 
-Add your content here.
+[http://img11.hostingpics.net/pics/430125server.png]
 
+Le serveur est composé de 5 dossiers. 
 
-= Details =
+Le dossier config contient le fichier constants.php . Ce fichier contient des constantes dont le serveur a besoin.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Le dossier data contient les éléments d'entrés notamment les images et les fichiers de données de tests qui nous ont étés fournis.
+
+Les dossiers Controller, Model et View contiennent le cœur du serveur en suivant un modèle MVC. Ces dossiers seront un peu plus détaillés par la suite. 
+
+Le fichier index.php qui se situe a la racine du serveur permet la réception des requêtes et de lancer les méthodes associés. Le retour des méthodes se fait sous forme de flux qui est récupéré par le client. 
+
+Le dossier Controller contient cinq classes php qui ont pour rôle :
+
+  * DistanceController :
+  * ImageController : fait le lien entre ImageModel et ImageView.
+  * ScoreController :
+  * VoisinsNController :
+  * VoisinsNplusUnController :
+
+Le dossier Model contient cinq classes php qui ont pour rôle :
+
+  * DistanceModel :
+  * ImageModel : possède une méthode permettant de renvoyer une image du serveur en fonction des paramètres saisis dans l'URL de la requête.
+  * ScoreModel :
+  * VoisinsNModel :
+  * VoisinsNplusUnModel :
+
+Le dossier View contient deux classes php :
+  * ImageView
+  * JsonView
+
+ImageView a pour rôle de renvoyer correctement les images qui sont demandés par le Client par le biais de la requete getImg. Tandis que JsonView retourne les données utiles au client pour dessiner le graphe (placement des points,etc.).
+
 
 [http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
