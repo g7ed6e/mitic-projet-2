@@ -8,7 +8,9 @@
 
 ----
 
-== Navigation dans les images ==  [client#Guide_d'utilisation Remonter]
+== Navigation dans les images == 
+
+[client#Guide_d'utilisation Remonter]
 
 === Page d'accueil ===
 
@@ -31,6 +33,8 @@ Pour revenir à une recherche que vous avez effectuée durant votre session de t
 ----
 
 == Paramétrage ==
+
+[client#Guide_d'utilisation Remonter]
 
 === Choix du nombre de voisins ===
 
@@ -56,6 +60,8 @@ Cette zone permet de choisir les filtres que vous voulez activer. Pour l'instant
 
 == Aide à la lisibilité ==
 
+[client#Guide_d'utilisation Remonter]
+
 === Code couleur ===
 
 [http://img11.hostingpics.net/pics/449678index.png]
@@ -75,6 +81,8 @@ Cette zone permet de choisir les filtres que vous voulez activer. Pour l'instant
 ----
 
 == Autres fonctionnalités ==
+
+[client#Guide_d'utilisation Remonter]
 
 Les autres fonctionnalités se trouvent dans le pied de page du site.
 
