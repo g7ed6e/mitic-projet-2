@@ -74,18 +74,21 @@ $(document).ready(function(){
 	$("#bottomLabelSlider").html(min);
 	
 	/**
-	 * CrÃ©ation du btn ok
+	 * Création du btn ok
 	 * association de la fonction ok au click
 	 */
 	$("#btnOk").button();
 	$("#btnOk").click(ok);
 	
 	/**
-	 * CrÃ©ation du btn webGL
+	 * Création du btn webGL
 	 * association de la fonction wgl au click
 	 */	
 	$("#btnWGL").button();
 	$("#btnWGL").click(wgl);
+	
+	$("#centrer").button();
+	$("#centrer").click(centrerGraph);
 
 	$("#searchInput").keypress(okKeypressedEnter).focus(function(){
 		if($(this).val() == searchInputDefaultText)
@@ -100,7 +103,7 @@ $(document).ready(function(){
 	}).attr('value', searchInputDefaultText);
 	
 	/**
-	 * CrÃ©ation des btn de zoom
+	 * Création des btn de zoom
 	 * gestion du zoom au click
 	 */
 	$("#zoomP").click(function(){		
@@ -115,7 +118,7 @@ $(document).ready(function(){
 	}).button();
 	
 	/**
-	 * CrÃ©ation des btn historique et filtre
+	 * Création des btn historique et filtre
 	 * gestion des traitements au click
 	 */
 	
@@ -128,7 +131,7 @@ $(document).ready(function(){
 
 
 /**
- * Gestion de la touche entrï¿½e pour le champ de recherche et 
+ * Gestion de la touche entr?e pour le champ de recherche et 
  */
 function okKeypressedEnter(event){
 	if ( event.which == 13 ) { ok(); }
@@ -138,7 +141,7 @@ function searchKeypressedEnter(event){
 }
 
 /**
- * Declenchement d'une recherche avec le lancement de l'animation en cas de premiï¿½re recherche
+ * Declenchement d'une recherche avec le lancement de l'animation en cas de premi?re recherche
  */
 function ok(){
 	if(isCorrectSearch()){	
@@ -225,17 +228,17 @@ function evenement(object){
 }
 
 /**
- * Remplissage du carroussel de la page d'accueil avec des images alï¿½atoires
+ * Remplissage du carroussel de la page d'accueil avec des images al?atoires
  */
 function remplirSlider(){
 	//on parcour le slider
 	for (var i = 1;i <= 20 ;i++) {
-		//on genere un entier alÃ©atoire en 1 et 1491
+		//on genere un entier aléatoire en 1 et 1491
 		var numRand = Math.floor(Math.random()*nbImage) + 1;
 		//on recupere la case du slider
 		var img = document.getElementById("img"+i);
 		//on remplace l'image de cette case par celle dont
-		//l'ID sur le serveur coorespond au nombre alÃ©atoire
+		//l'ID sur le serveur coorespond au nombre aléatoire
 		img.src="../Server/index.php?controller=image&action=getImg&id="+numRand+"&w=100&l=100";
 		//on remplace aussi l'attribut alt de l'image par son id
 		img.alt=numRand;
@@ -243,7 +246,7 @@ function remplirSlider(){
 }
 
 /**
- * Mï¿½thode de remplissage de la barre de recherche quand on clique sur une miniature du carroussel
+ * M?thode de remplissage de la barre de recherche quand on clique sur une miniature du carroussel
  * @param object
  */
 function remplirSearch(object){
@@ -258,7 +261,7 @@ function remplirSearch(object){
 }
 
 /**
- * Mï¿½thode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
+ * M?thode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
  */
 function saveHisto(id){
 	var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
@@ -284,7 +287,7 @@ function wgl(){
 }
 
 /**
- * Vï¿½rifie que le contenu de la barre de recherche est au format valide
+ * V?rifie que le contenu de la barre de recherche est au format valide
  * @returns {Boolean}
  */
 function isCorrectSearch(){
