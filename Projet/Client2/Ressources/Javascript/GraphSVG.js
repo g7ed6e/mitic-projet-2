@@ -130,6 +130,13 @@ function() {
 });
 
 function clearGraph() {
+/*	$('#divGraph').svg('destroy');
+	$('#divGraph').svg({onLoad:
+		function(svg) { 
+			divSVG = svg; 
+			var surface = svg.rect(0, 0, '100%', '100%', {id: 'surface', fill: 'white'});
+		} 
+	});*/
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	canvas.width = canvas.width;
 	for( var i in svgItems ){

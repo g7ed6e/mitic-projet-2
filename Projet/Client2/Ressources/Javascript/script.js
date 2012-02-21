@@ -15,17 +15,7 @@ var histo = new Array();
 var nbhist = 0;
 var close = true;
 var close2 = true;
-function mon_erreur(nouvelle,fichier,ligne)
-{
- erreur = "Message d'erreur:\n"+ nouvelle+"\n"+fichier+"\n"+ligne;
- affiche_erreur();
- return true;
-}
 
-function affiche_erreur()
-{
- alert(window.erreur)
-}
 $(document).ready(function(){
 	/**
 	 * En cas de resized de la fentre on redimensionne la zone 
@@ -109,6 +99,10 @@ $(document).ready(function(){
 	
 	$("#topLabelSlider").html(max);
 	$("#bottomLabelSlider").html(min);
+	
+	/**
+	 * Création du btn ok
+	 */
 	$("#btnOk").button();
 	$("#btnOk").click(ok);
 	
@@ -127,10 +121,7 @@ $(document).ready(function(){
 		}
 	}).attr('value', searchInputDefaultText);
 	
-	$("#graphSaver").click(function() { 
-		// save canvas image as data url (png format by default)
-		$("#graphSaver").attr("href", canvas.toDataURL());
-	});
+
 	$("#zoomP").click(function(){		
 		zoom *= 2;
 		draw();
@@ -149,11 +140,7 @@ $(document).ready(function(){
 			close = true;	
 		}
 		$(this).next("ul").toggle();
-	//}).blur(function(e){
-		//if(!close){
-		//$(this).next("ul").toggle();
-		//close = true;
-		//}
+
 	});
 	$("#b2").button().click(function(){
 		if(close2){
@@ -162,11 +149,6 @@ $(document).ready(function(){
 			close2 = true;	
 		}
 		$(this).next("ul").toggle();
-	//}).blur(function(e){
-		//if(!close){
-		//$(this).next("ul").toggle();
-		//close = true;
-		//}
 	});
 });
 
@@ -220,54 +202,6 @@ function zoomChange(value){
 	request($('#searchInput').val(),value);
 }
 
-function getMousePos(canvas, evt){
-	// get canvas position
-	var obj = canvas;
-	var top = 0;
-	var left = 0;
-	while (obj && obj.tagName != 'BODY') {
-		top += obj.offsetTop;
-		left += obj.offsetLeft;
-		obj = obj.offsetParent;
-	}
-
-	// return relative mouse position
-	var mouseX = evt.clientX - left + window.pageXOffset;
-	var mouseY = evt.clientY - top + window.pageYOffset;
-	return {
-		x: mouseX,
-		y: mouseY
-	};
-}
-/*
-function writeMessage(canvas, message){
-	ctx.clearRect(0, 0, 150, 30);
-	ctx.font = '8pt Calibri';
-	ctx.fillStyle = 'black';
-	ctx.fillText(message, 10, 25);
-}
-
-function writeMessageHover(canvas, message){
-	ctx.clearRect(0, 30, 150, 150);
-	ctx.font = '8pt Calibri';
-	ctx.fillStyle = 'black';
-	ctx.fillText(message, 10, 145);
-}
-*/
-function getImageId(mousePos)
-{
-	for (var i = 0;i < graph.nodes.length;i++)
-	{
-		var node = graph.nodes[i];
-		if((mousePos.x > node.position.x)&&(mousePos.x < node.position2.x)
-				&&(mousePos.y > node.position.y)&&(mousePos.y < node.position2.y)) {
-			return node.id;
-		}
-	}
-	return -1;
-}
-
-
 function evenement(object){
 	if (object.id == 'htm'){
 		HTML = true;
@@ -309,11 +243,6 @@ function remplirSearch(object){
 
 }
 
-function positionnePopup(canvas, mousePos, nodeId)
-{
-	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
-	popupShown = true;
-}
 
 function saveHisto(id){
 	histo[nbhist]=id;
@@ -329,7 +258,6 @@ function saveHisto(id){
 }
 
 function showHisto(){
-
 
 	$('#smenu1').empty();
 	for(var i = 0; i < nbhist ; i++){
