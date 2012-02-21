@@ -8,10 +8,6 @@ var webGL = false;
 var renduSVG = false;
 
 //var isClicked = true;
-var rouge = 'rgba(255,0,0,1)';
-var orange = 'rgba(255,140,0,1)';
-var jaune = 'rgba(255,215,0,1)';
-var vert = 'rgba(0,255,0,1)';
 var pas;
 var graphDimension;
 
@@ -165,7 +161,6 @@ function request(id, nbNeighbours) {
 			success : function(data) {
 				graph.clearNodes();
 				var liens = data.liens;
-				findPas(liens);
 				var positions = data.positions;
 				for ( var i in positions) {
 					var node = new Node(positions[i][0], positions[i][1],
@@ -225,17 +220,4 @@ function draw() {
 	for ( var i in graph.nodes)
 		drawNode(graph.nodes[i]);
 
-}
-
-function findPas(liens){
-	var maxPas = 0;
-	var minPas = 1;
-	for(var i =0; i<liens.length; i++){
-		if(liens[i][2] > maxPas)
-			maxPas = liens[i][2];
-		
-		if(liens[i][2] < minPas)
-			minPas = liens[i][2]; 
-	}
-	pas = (maxPas-minPas)/4;
 }

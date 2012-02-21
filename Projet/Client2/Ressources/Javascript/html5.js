@@ -173,18 +173,31 @@ function drawEdge(edge) {
 		ctx.lineTo(edge.target.center.x * zoom + graphCenter.x,
 				edge.target.center.y * zoom + graphCenter.y);
 		ctx.lineWidth = 0.5;
-		// choix de la couleur en fonction du pas
-		if (edge.score <= pas) {
-			ctx.strokeStyle = rouge;
-		} else if ((edge.score > 2 * pas) && (edge.score <= pas * 3)) {
-			ctx.strokeStyle = jaune;
-		} else if ((edge.score > pas) && (edge.score <= pas * 2)) {
-			ctx.strokeStyle = orange;
-		} else{
-			ctx.strokeStyle = vert;
-		}
+		// choix de la couleur en fonction du score
+		ctx.strokeStyle = choixCouleur(edge.score);
 		ctx.stroke();
 	}
+}
+
+//choix de la couleur en fonction du score
+function choixCouleur(score){
+	if (score <= 0.4){//dans les tons vert
+		var rouge = Math.round(score*255);
+		var vert = 255;
+	}
+	else if ((score > 0.4)||(score <= 0.7)){//dans les tons jaune
+		var rouge = 255;
+		var vert = Math.round((1-score)*230);
+	}
+	else if ((score > 0.7)||(score <= 0.9)){//dans les tons orange
+		var rouge = 255;
+		var vert = Math.round((1-score)*140);
+	}
+	else if ((score > 0.9)){//dans les tons rouge
+		var rouge = Math.round(score*255);
+		var vert = Math.round((1-score)*140);
+	}
+	return 'rgba('+rouge+','+vert+',0,1)';
 }
 
 function getMousePos(canvas, evt){
