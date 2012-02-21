@@ -50,7 +50,7 @@ class ScoreModel {
 		foreach($scores as $voisinId => $score)
 		{
 			$nVoisins[$voisinId] = 1 - $score;
-			array_push($liens, array($id, $voisinId, round($score, 4)));			
+						
 		} 
 		$distances = array_values($nVoisins);
 		$max = max($distances);
@@ -59,6 +59,7 @@ class ScoreModel {
 		$i = 0;
 		foreach($nVoisins as $voisinId => &$voisinDistance) {// ici les distances sont un chiffre entre 0 et 1 qui permettra de placer les voisins à l'écran
 			$voisinDistance = (($voisinDistance - $min) / $ref_dist);
+			array_push($liens, array($id, $voisinId, round($voisinDistance, 4)));
 			$voisinDistance += (0.25 * (1 - $voisinDistance));// pour repousser la premiere image qui vient se mettre sur l'image de référence
 			// on calcule les coordonnées pour un id donné
 			$coords = $this->coordonnesXY($i * $angle, $voisinDistance);
