@@ -1,5 +1,5 @@
-var min = 0;
-var max = 19;
+var min = 2;
+var max = 40;
 var midValue = Math.round((max-min)/2);
 var hoveredImageId = -1;
 var debugMousePos = false;
@@ -234,9 +234,19 @@ function evenement(object){
 	}
 	if (object.id == 'niv1'){
 		algoNPlusUn = false;
+		max = 40;
+		$("#topLabelSlider").html(max);
+		$( "#slider" ).slider( "option", "max", max );
+		if (($( "#slider" ).slider( "option", "value", max ))> max){
+			$( "#slider" ).slider( "option", "value", max );
+		}
+		
 	}
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
+		max = 1490;
+		$("#topLabelSlider").html(max);
+		$( "#slider" ).slider( "option", "max", max );
 	}
 }
 
