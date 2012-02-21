@@ -27,8 +27,8 @@ Le dossier Model contient cinq classes php qui ont pour rôle :
   * DistanceModel : Possède deux méthodes. Une de ses méthodes récupère les plus proches éléments de l'id saisi. La deuxième retourne deux tableaux, un de liens entre les noeuds et un autre de position dans le canvas.Dans ce cas, on génère un graphe interconnecté.
   * ImageModel : possède une méthode permettant de renvoyer une image du serveur en fonction des paramètres saisis dans l'URL de la requête.
   * ScoreModel : Possède quatre méthodes. Une de ses méthodes récupère les plus proches éléments de l'id saisi. Les trois autres retournent deux tableaux, un de liens entre les noeuds et un autre de position dans le canvas. Il y a trois méthodes a cause des variations de fichiers d'entrées que nous avons connu. Dans ce cas, on génère un graphe étoile.
-  * VoisinsNModel :
-  * VoisinsNplusUnModel :
+  * VoisinsNModel : Possède trois méthodes. Une de ses méthodes récupère tous les éléments du fichier d'entrée. La deuxième calcule les coordonnes XY d'un point. La dernière permet de calculer les coordonnées des différents noeuds du graphe. Dans ce cas, on génère un graphe étoile. Cette classe n'est plus utilisée.
+  * VoisinsNplusUnModel :Possède trois méthodes. Une de ses méthodes récupère tous les éléments du fichier d'entrée. La deuxième calcule les coordonnes XY d'un point. La dernière permet de calculer les coordonnées des différents noeuds du graphe. Dans ce cas, on génère un graphe interconnecté. Cette classe n'est plus utilisée.
 
 Le dossier View contient deux classes php :
   * ImageView
