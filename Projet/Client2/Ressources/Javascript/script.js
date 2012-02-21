@@ -102,10 +102,15 @@ $(document).ready(function(){
 	
 	/**
 	 * Création du btn ok
+	 * association de la fonction ok au click
 	 */
 	$("#btnOk").button();
 	$("#btnOk").click(ok);
 	
+	/**
+	 * Création du btn webGL
+	 * association de la fonction wgl au click
+	 */	
 	$("#btnWGL").button();
 	$("#btnWGL").click(wgl);
 
@@ -121,7 +126,10 @@ $(document).ready(function(){
 		}
 	}).attr('value', searchInputDefaultText);
 	
-
+	/**
+	 * Création des btn de zoom
+	 * gestion du zoom au click
+	 */
 	$("#zoomP").click(function(){		
 		zoom *= 2;
 		draw();
@@ -132,6 +140,11 @@ $(document).ready(function(){
 			draw();
 		}
 	}).button();
+	
+	/**
+	 * Création des btn historique et filtre
+	 * gestion des traitements au click
+	 */
 	$("#b1").button().click(function(){
 		if(close){
 			showHisto();
@@ -153,49 +166,59 @@ $(document).ready(function(){
 });
 
 
+
+
 function okKeypressedEnter(event){
 	if ( event.which == 13 ) { ok(); }
 }
 function searchKeypressedEnter(event){
 	if ( event.which == 13 ) { search(); }
 }
+
+/**
+ * Déclenchement d'une recherche
+ */
 function ok(){
-	$('.index').animate({
-		opacity: 0
-	},500, function(){
-		$('#header').animate({
-			top: '0'
-		},500,function() {
-
-			$('#main, #nbNeighbours, #zoomSlider').animate({
+	if($('#searchInput').val() != "" && $('#searchInput').val() != searchInputDefaultText){	
+		$('.index').animate({
+			opacity: 0
+		},500, function(){
+			$('#header').animate({
+				top: '0'
+			},500,function() {
+	
+				$('#main, #nbNeighbours, #zoomSlider').animate({
+					opacity : 100
+				},5000,function() {});
+	
+			});
+			$('#chooser').animate({
+				opacity : 0
+			},1000,function() {});
+			$('#chooser').animate({
+				width : 0
+			},100,function() {});
+			$('#chooser').animate({
+				height : 0
+			},100,function() {});
+			$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #zoneGraph, .fleche, #zoomDiv').show().animate({
 				opacity : 100
-			},5000,function() {});
-
+			},1000,function() {});
+	
+			search();
+			resized();
+	
 		});
-		$('#chooser').animate({
-			opacity : 0
-		},1000,function() {});
-		$('#chooser').animate({
-			width : 0
-		},100,function() {});
-		$('#chooser').animate({
-			height : 0
-		},100,function() {});
-		$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #zoneGraph, .fleche, #zoomDiv').show().animate({
-			opacity : 100
-		},1000,function() {});
-
-		search();
-		resized();
-
-	});
-	$("#btnOk").unbind("click", ok).click(search);
-	$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
+		$("#btnOk").unbind("click", ok).click(search);
+		$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
+	}
 }
 
 function search(){
-	saveHisto($('#searchInput').val());
-	request($('#searchInput').val(), $("#nbNeighboursInput").val());
+	if($('#searchInput').val() != "" && $('#searchInput').val() != searchInputDefaultText){
+		saveHisto($('#searchInput').val());
+		request($('#searchInput').val(), $("#nbNeighboursInput").val());
+	}
 }
 
 function zoomChange(value){
