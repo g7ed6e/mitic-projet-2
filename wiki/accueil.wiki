@@ -8,6 +8,6 @@ Ce wiki a pour but de présenter et de décrire le fonctionnement de notre proje
 
 Voici les différentes pages du wiki :
 
-  * [[contexte|Contexte et équipe de développement]]
-  * [[serveur|Partie Serveur]]
-  * [[client|Partie Client]]
+  * [http://code.google.com/p/mitic-projet-2/wiki/contexte Contexte et équipe de développement]
+  * [http://code.google.com/p/mitic-projet-2/wiki/serveur Partie Serveur]
+  * [http://code.google.com/p/mitic-projet-2/wiki/client Partie Client]
