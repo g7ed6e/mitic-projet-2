@@ -2,7 +2,7 @@
 
 = Guide d'utilisation =
 
-<wiki:toc min_depth="3" max_depth="2" />
+<wiki:toc max_depth="3" />
 
 [http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
 
