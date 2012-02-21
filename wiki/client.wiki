@@ -8,7 +8,7 @@
 
 ----
 
-== Navigation dans les images ==
+== Navigation dans les images ==  [client#Guide_d'utilisation Remonter]
 
 === Page d'accueil ===
 
