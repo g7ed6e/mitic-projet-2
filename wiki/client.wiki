@@ -1,4 +1,4 @@
-#summary Page de description de l'architecture du serveur
+#summary Page de description du fonctionnement du client.
 
 = Introduction =
 
