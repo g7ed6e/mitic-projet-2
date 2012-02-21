@@ -95,3 +95,14 @@ function drawEdge(edge){
 	var item = divSVG.line(g, x1, y1, x2, y2); 
 	svgItems[svgItems.length] = g;
 }
+
+function resized(){
+	$("#zoneGraph").css('width', $("#main").innerWidth() - $("#zoomDiv").innerWidth()+"px");
+	$("#zoneGraph").css('height', $("#main").innerHeight()-$("#zoneGraph").get(0).offsetTop-$("#footer").innerHeight()-10+"px");
+	graphDimension = {"width":$("#zoneGraph").width(), "height": $("#zoneGraph").height()};
+	graphCenter = {"x":$("#zoneGraph").width() / 2, "y": $("#zoneGraph").height() / 2};
+	$("#fg").css("left", 0).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23+"px");
+	$("#fd").css("left", $("#zoneGraph").width()-35).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23 +"px");
+	$("#fh").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop);
+	$("#fb").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop + $("#zoneGraph").height() -35+"px");
+}
