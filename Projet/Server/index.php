@@ -17,16 +17,16 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 		case 'score':
 			$controller = new ScoreController();
 			if ($_GET['action'] == 'getScoreV1' ) {
-				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
+				$n = $_GET['nn'] > 1490 ? 1490 : $_GET['nn'];
 				$controller->getScoreV1( $_GET['id'], $n, $_GET['w'], $_GET['h']);	
 			}
 			else if ($_GET['action'] == 'getScoreV2') {
-				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
+				$n = $_GET['nn'] > 1490 ? 1490 : $_GET['nn'];
 				$s = $_GET["s"] != "0";
 				$controller->getScoreV2($_GET['id'], $n, $_GET['w'], $_GET['h'], $_GET['s']);
 			}
 			else if ($_GET['action'] == 'getScoreV3') {
-				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
+				$n = $_GET['nn'] > 1490 ? 1490 : $_GET['nn'];
 				$s = $_GET["s"] != "0";
 				$controller->getScoreV3($_GET['id'], $n, $_GET['w'], $_GET['h'], $_GET['s']);
 			}
