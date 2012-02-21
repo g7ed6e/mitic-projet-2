@@ -1,4 +1,4 @@
-#summary Page d'accueil du wiki du projet
+#summary Page d'accueil du wiki du projet.
 
                              
 [http://www.istic.univ-rennes1.fr/digitalAssets/285/285751_istic-logo-h150.gif]
