@@ -4,6 +4,7 @@ var divSVG;
 var svgItems = [];
 var translateX = 0;
 var translateY = 0;
+var mousePos;
 
 $(document)
 .ready(
@@ -34,6 +35,7 @@ function() {
 		//draw();
 		clicked = false;
 	}).mousemove(function(evt){
+		mousePos = getMousePos($("#zoneGraph"), evt);
 		if(clicked) $("#zoneGraph").trigger('dragGraph', [{"x" : evt.clientX, "y" : evt.clientY}]);
 	});
 
@@ -46,35 +48,12 @@ function() {
 		debut = param;
 	});
 	
-	/*
-	 * $('#canvas').bind( 'swipe', function( e ) { graphCenter.x -=
-	 * 150; draw(); e.stopImmediatePropagation(); return false; } );
-	 * 
-	 * 
-	 * 
-	 * $('#canvas').bind( 'swiperight', function( e ) {
-	 * graphCenter.x += 150; draw();
-	 * e.stopImmediatePropagation(); return false; } );
-	 * 
-	 * $('#canvas').bind( 'swipeup', function( e ) {
-	 * graphCenter.y -= 150; draw();
-	 * e.stopImmediatePropagation(); return false; } );
-	 * $('#canvas').bind( 'swipedown', function( e ) {
-	 * graphCenter.y += 150; draw();
-	 * e.stopImmediatePropagation(); return false; } );
-	 */
-
-			
+				
 	canvas = $("#zoneGraph").get(0);
-	//ctx = canvas.getContext('2d');
-	resized();
-	//$("#zoneGraph").width( $("#main").innerWidth() - $("#zoomDiv").innerWidth());
-	//$("#zoneGraph").height( $("#main").innerHeight()-$("#zoneGraph").get(0).offsetTop-$("#footer").innerHeight()-10);
 	
-	//$('#divGraph').width($("#zoneGraph").width());
-	//$('#divGraph').height($("#zoneGraph").height());
-	$('#zoneGraph').svg({onLoad:
-		function(svg) { 
+	resized();
+
+	$('#zoneGraph').svg({onLoad:function(svg) { 
 			divSVG = svg; 
 			var surface = svg.rect(0, 0, '100%', '100%', {id: 'surface', fill: 'white'});
 		} 
@@ -108,7 +87,6 @@ function clearGraph() {
 			var surface = svg.rect(0, 0, '100%', '100%', {id: 'surface', fill: 'white'});
 		} 
 	});
-	//ctx.clearRect(0, 0, canvas.width, canvas.height);
 	//canvas.width = canvas.width;
 	for( var i in svgItems ){
 		//divSVG.remove(svgItems[i]); 
@@ -134,6 +112,9 @@ function drawNode(node){
 		var imgHeight = Math.round(img.height);
 		var item = divSVG.image(imgX, imgY, imgWidth, imgHeight,"../Server/index.php?controller=image&action=getImg&id="+ node.id + "&t=" + (mignatureSize * zoom));
 		svgItems[svgItems.length] = item;
+		$(item).click(function() {
+			onClickImage(node.id, img);
+		});
 		$(item).attr("transform", "translate("+translateX+","+translateY+")");
 	});
 }
@@ -163,6 +144,47 @@ function resized(){
 	$("#fh").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop);
 	$("#fb").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop + $("#zoneGraph").height() -35+"px");
 }
+
+function onClickImage(nodeId){
+	var img = new Image();
+	img.src = '../Server/index.php?controller=image&action=getImg&id='+ nodeId + '&t=200';
+	jQuery(img).load(function() {
+		$(".popupImageDetails")
+				.css("width",img.width + 20)
+				.css('height',img.height + 50);
+		$("#main").append("<div class='popupImageDetails'><br /><button>Centrer l\'image</button></div>");
+		$(".popupImageDetails").prepend(img);
+		$(".popupImageDetails > button").bind('click', function() {
+							saveHisto(nodeId);
+							request(nodeId,$("#nbNeighboursInput").val());
+							$("#searchInput").val(nodeId);
+							$(".popupImageDetails").remove();
+						})
+				.button();
+		positionnePopup();
+	});
+}
+
+function positionnePopup(){
+	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
+	popupShown = true;
+}
+
+function getMousePos(div, evt){
+	// get canvas position
+	var obj = div;
+	var top = $(div).offset().top;
+	var left = $(div).offset().left;
+
+	// return relative mouse position
+	var mouseX = evt.clientX - left + window.pageXOffset;
+	var mouseY = evt.clientY - top + window.pageYOffset;
+	return {
+		x: mouseX,
+		y: mouseY
+	};
+}
+
 
 function encode_as_img_and_link(){
 /*

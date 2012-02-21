@@ -107,57 +107,33 @@ $(document)
 													+ nodeId + '&t=200';
 											jQuery(img)
 													.load(
-															function() {
-																$(this)
-																		.css(
-																				'width',
-																				img.width)
-																		.css(
-																				'height',
-																				img.height)
-																		.css(
-																				'margin',
-																				10);
-																$(
-																		".popupImageDetails")
-																		.css(
-																				"width",
-																				img.width + 20)
-																		.css(
-																				'height',
-																				img.height + 50);
-																$("#main")
-																		.append(
-																				"<div class='popupImageDetails'><br /><button>Centrer l\'image</button></div>");
-																$(
-																		".popupImageDetails")
-																		.prepend(
-																				img);
-																$(
-																		".popupImageDetails > button")
-																		.bind(
-																				'click',
-																				function() {
-																					saveHisto(nodeId);
-																					request(
-																							nodeId,
-																							$(
-																									"#nbNeighboursInput")
-																									.val());
-																					$(
-																							"#searchInput")
-																							.val(
-																									nodeId);
-																					$(
-																							".popupImageDetails")
-																							.remove();
-																				})
-																		.button();
-																positionnePopup(
-																		canvas,
-																		mousePos,
-																		nodeId);
-															});
+														function() {
+															$(this)
+																	.css('width',img.width)
+																	.css('height',img.height)
+																	.css('margin',10);
+															$(".popupImageDetails")
+																	.css("width",img.width + 20)
+																	.css('height',img.height + 50);
+															$("#main")
+																	.append("<div class='popupImageDetails'><br /><button>Centrer l\'image</button></div>");
+															$(".popupImageDetails")
+																	.prepend(img);
+															$(".popupImageDetails > button")
+																	.bind('click', function() {
+																				saveHisto(nodeId);
+																				request(nodeId,$("#nbNeighboursInput").val());
+																				$("#searchInput")
+																						.val(nodeId);
+																				$(".popupImageDetails")
+																						.remove();
+																			})
+																	.button();
+															positionnePopup(
+																	canvas,
+																	mousePos,
+																	nodeId);
+														});
 										} else
 											hoveredImageId = -1;
 									});
