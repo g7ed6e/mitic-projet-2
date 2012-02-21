@@ -1,15 +1,43 @@
 #summary Page de description du fonctionnement du client.
 
-= Introduction =
+= Navigation dans les images =
 
-Add your content here.
+== Page d'accueil ==
 
+[http://img11.hostingpics.net/pics/709449accueil2.jpg]
 
-= Details =
+Pour naviguer dans les images a partir de la page d'accueil il vous suffit de saisir l'identifiant de l'image ou de la choisir dans les miniatures présentes en bas de la page. Un fois votre sélection faite appuyez sur le bouton "OK" ou pressez la touche "Entrée" de votre clavier. Une fois que vous avez validé, une animation s'affiche et vous arrivez a la page de graphe avec l'image choisie comme image centrale.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Page de graphe ==
 
-[http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
+=== graphe et barre de recherche ===
+
+=== historique ===
+
+= Paramétrage =
+
+== Choix du nombre de voisins ==
+
+== Choix de la présentation ==
+
+== Choix du type d'affichage ==
+
+= Modification pour la lisibilité =
+
+== Zoom sur le graphe ==
+
+== Déplacement du graphe ==
+
+= Autres fonctionnalités =
+
+Les autres fonctionnalités se trouvent dans le pied de page du site.
+
+[http://img11.hostingpics.net/pics/616322footer.jpg] 
+
+== Acces au source et au wiki ==
+
+Les deux boutons "Source" et "Wiki" du footer permettent respectivement d’accéder a l'adresse du checkout du svn du projet et à la page d'accueil du Wiki du projet. 
+ 
+== Capture du graphe ==
+
+Le bouton "Save Graph to PNG" permet d'afficher dans votre navigateur une représentation en PNG du graphe que vous avez a l'écran.
