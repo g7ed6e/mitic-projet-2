@@ -158,6 +158,9 @@ function onClickImage(nodeId){
 		$(".popupImageDetails").prepend(img);
 		$(".popupImageDetails > button").bind('click', function() {
 							saveHisto(nodeId);
+							zoom =1;
+							translateX = 0;
+							translateY = 0;
 							request(nodeId,$("#nbNeighboursInput").val());
 							$("#searchInput").val(nodeId);
 							$(".popupImageDetails").remove();
