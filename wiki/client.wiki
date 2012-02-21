@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Page de description de l'architecture du serveur
 
 = Introduction =
 
