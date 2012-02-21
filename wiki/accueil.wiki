@@ -14,4 +14,4 @@ Voici les différentes pages du wiki :
   * [http://code.google.com/p/mitic-projet-2/wiki/contexte Contexte et équipe de développement]
   * [http://code.google.com/p/mitic-projet-2/wiki/methode Méthode de développement]
   * [http://code.google.com/p/mitic-projet-2/wiki/serveur Architecture serveur]
-  * [http://code.google.com/p/mitic-projet-2/wiki/serveur Architecture client]
+  * [http://code.google.com/p/mitic-projet-2/wiki/architecture_client Architecture client]
