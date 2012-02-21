@@ -1,0 +1,13 @@
+#Page d'accueil du wiki du projet
+
+= Introduction =
+
+Ce wiki a pour but de présenter et de décrire le fonctionnement de notre projet de fin d'année de M2 MITIC à l'ISTIC de Rennes.
+
+= Details =
+
+Voici les différentes pages du wiki :
+
+  * [[contexte|Contexte et équipe de développement]]
+  * [[serveur|Partie Serveur]]
+  * [[client|Partie Client]]
