@@ -122,9 +122,7 @@ $(document)
 															$(".popupImageDetails > button")
 																	.bind('click', function() {
 																				saveHisto(nodeId);
-																				zoom = 1;
-																				graphCenter.x = $("#zoneGraph").get(0).width/2;
-																				graphCenter.y = $("#zoneGraph").get(0).height/2;
+																				centrerGraph();
 																				request(nodeId,$("#nbNeighboursInput").val());
 																				$("#searchInput")
 																						.val(nodeId);
@@ -254,4 +252,10 @@ function resized(){
 	$("#fd").css("left", $("#zoneGraph").get(0).width-35).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23 +"px");
 	$("#fh").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop);
 	$("#fb").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop + $("#zoneGraph").get(0).height -35+"px");
+}
+
+function centrerGraph(){					
+	zoom = 1;
+	graphCenter.x = $("#zoneGraph").get(0).width/2;
+	graphCenter.y = $("#zoneGraph").get(0).height/2;
 }
