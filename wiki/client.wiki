@@ -10,23 +10,35 @@ Pour naviguer dans les images a partir de la page d'accueil il vous suffit de sa
 
 == Page de graphe ==
 
-=== graphe et barre de recherche ===
+[http://img11.hostingpics.net/pics/131444nav.jpg]
 
-=== historique ===
+=== Graphe et barre de recherche ===
+
+=== Historique ===
 
 = Paramétrage =
 
 == Choix du nombre de voisins ==
 
-== Choix de la présentation ==
+== Choix de la représentation ==
+
+[http://img11.hostingpics.net/pics/674225dist.jpg]
 
 == Choix du type d'affichage ==
+
+[http://img11.hostingpics.net/pics/134296affichage.jpg]
+
+== Choix des filtres ==
+
+[http://img11.hostingpics.net/pics/854494filtre.jpg]
 
 = Modification pour la lisibilité =
 
 == Zoom sur le graphe ==
 
 == Déplacement du graphe ==
+
+[http://img11.hostingpics.net/pics/461263fleche.jpg]
 
 = Autres fonctionnalités =
 
