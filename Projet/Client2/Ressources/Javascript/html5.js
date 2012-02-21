@@ -258,4 +258,5 @@ function centrerGraph(){
 	zoom = 1;
 	graphCenter.x = $("#zoneGraph").get(0).width/2;
 	graphCenter.y = $("#zoneGraph").get(0).height/2;
+	draw();
 }

@@ -192,4 +192,5 @@ function centrerGraph(){
 	zoom =1;			// réinitialisation du zoom
 	translateX = 0;		// réinitialisation du x de la translation
 	translateY = 0;		// réinitialisation du x de la translation
+	draw();
 }
