@@ -2,6 +2,7 @@
 
 = Navigation dans les images =
 
+
 == Page d'accueil ==
 
 [http://img11.hostingpics.net/pics/709449accueil2.jpg]
@@ -14,7 +15,11 @@ Pour naviguer dans les images a partir de la page d'accueil il vous suffit de sa
 
 === Graphe et barre de recherche ===
 
+Pour effectuer une nouvelle recherche, deux options s'offrent a vous. Vous pouvez faire comme pour la page d'accueil. C'est a dire, saisir l'identifiant dans la barre de recherche puis valider avec la toucher "Entrée" ou le bouton "OK". Sinon vous pouvez directement choisir une image a centrée à l'intérieur du graphe. Pour ce faire, cliquez sur l'image, une fenêtre va s'ouvrir. Appuyez alors sur le bouton "centrer l'image".   
+
 === Historique ===
+
+Pour revenir à une recherche que vous avez effectuée durant votre session de travail/démonstration. Vous pouvez vous servir de l'historique qui se situe en haut à gauche de la fenêtre. Dans cet historique vous trouverez toutes vos recherches sous la forme d'une miniature de l'image suivie par son identifiant. Lorsque vous trouvez l'image voulue, cliquez dessus et cela centrera l'image.   
 
 = Paramétrage =
 
@@ -33,6 +38,8 @@ Pour naviguer dans les images a partir de la page d'accueil il vous suffit de sa
 [http://img11.hostingpics.net/pics/854494filtre.jpg]
 
 = Modification pour la lisibilité =
+
+== Agrandissement d'une image ==
 
 == Zoom sur le graphe ==
 
