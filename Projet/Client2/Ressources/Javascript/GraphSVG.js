@@ -8,7 +8,7 @@ var popupShown = false;	// boolean pour savoir si la popup est présente ou pas.
 $(document).ready(	// Execution au chargement du document
 function() {
 	HTML = false;
-
+	
 	$("#fg").click(function() {	// ajout de l'évènement au clique de la flèche gauche
 		translateGraph(-75,0);
 	});
@@ -68,7 +68,6 @@ function() {
 		okExpress();
 		resetTransferData();
 		$('#searchInput').val(transferData.split("|")[4]);
-		
 	}
 });
 
@@ -155,11 +154,9 @@ function resized(){
 	$("#zoneGraph").css('height', $("#main").innerHeight()-$("#zoneGraph").get(0).offsetTop-$("#footer").innerHeight()-10+"px");
 	graphDimension = {"width":$("#zoneGraph").width(), "height": $("#zoneGraph").height()};
 	graphCenter = {"x":$("#zoneGraph").width() / 2, "y": $("#zoneGraph").height() / 2};
-	$("#fg").css("left", 0).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23+"px");
-	$("#fd").css("left", $("#zoneGraph").width()-35).css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23 +"px");
-	$("#fh").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop);
-	$("#fb").css("left", graphCenter.x-24).css("top", $("#zoneGraph").get(0).offsetTop + $("#zoneGraph").height() -35+"px");
+	setArrows();
 }
+
 
 // créer une popup de l'image cliquée et l'afficher à côté de la souris
 function onClickImage(nodeId){
@@ -179,7 +176,7 @@ function onClickImage(nodeId){
 							$(".popupImageDetails").remove();				// suppression de la popup
 						})
 				.button();
-		positionnePopup();	// positionnement de la popuplorsqu'elle apparaît
+		positionnePopup();	// positionnement de la popup lorsqu'elle apparaît
 	});
 	popupShown = true;
 }

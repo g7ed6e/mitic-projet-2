@@ -208,13 +208,14 @@ function okExpress(){
 			},1,function() {});
 			$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #zoneGraph, .fleche, #zoomDiv').show().animate({
 				opacity : 100
-			},1,function() {});
+			},1,function() {setArrows();});
 	
 			search();
 		});
 		$("#btnOk").unbind("click", ok).click(search);
 		$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
 	}
+	
 }
 
 /**

@@ -228,3 +228,18 @@ function choixCouleur(score){
 	}
 	return 'rgba('+rouge+','+vert+',0,1)';
 }
+
+// fonction pour positionner les flèches de déplacement
+function setArrows(){
+	$("#fg").css("left", 0)
+		.css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23+"px");
+		
+	$("#fd").css("left", $("#zoneGraph").width()-35)
+		.css("top", $("#zoneGraph").get(0).offsetTop + graphCenter.y-23 +"px");
+		
+	$("#fh").css("left", ($("#main").innerWidth() - $("#zoomDiv").innerWidth())/2 )
+		.css("top", $("#zoneGraph").get(0).offsetTop);
+		
+	$("#fb").css("left", ($("#main").innerWidth() - $("#zoomDiv").innerWidth())/2 )
+		.css("top", $("#main").innerHeight()-$("#main").get(0).offsetTop-$("#footer").innerHeight()-40+"px");
+}
