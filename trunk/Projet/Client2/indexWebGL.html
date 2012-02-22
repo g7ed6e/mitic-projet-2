@@ -39,27 +39,6 @@
 
 				var c = new THREE.Color(0x000000);
 
-				/*var tmp = 1-score;
-				
-				if (score <= 0.4){//dans les tons vert
-					c.r = Math.round(tmp*255);
-					c.g = 255;
-				}
-				if ((score > 0.4)&&(score <= 0.7)){//dans les tons jaune
-					c.r = 255;
-					c.g = Math.round((1-tmp)*230);
-				}
-				if ((score > 0.7)&&(score <= 0.9)){//dans les tons orange
-					c.r = 255;
-					c.g = Math.round((1-tmp)*140);
-				}
-				if ((score > 0.9)){//dans les tons rouge
-					c.r = Math.round(tmp*255);
-					c.g = Math.round((1-tmp)*140);
-				}*/
-
-
-				
 				if (score > 0.99){
 					score = 0.99;
 				}
@@ -67,8 +46,8 @@
 				var tmp = 1-score;
 				
 				if (tmp <= 0.4){//dans les tons rouge
-					if (tmp <0.1){//pour eviter de passer dans le noir
-						tmp = 0.1;
+					if (tmp <0.2){//pour eviter de passer dans le noir
+						tmp = 0.2;
 					}
 					c.r = Math.round(tmp*255);
 					c.g = 255;
