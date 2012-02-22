@@ -37,11 +37,13 @@
 		
 			function getLineMaterial(score){
 				var c = new THREE.Color(0x000000);
-				var scoreStep = (maxScore - minScore) / 4;
-				if(score > (3 * scoreStep)) c.setHex(0x00FF00);
-				else if (score > (2 * scoreStep)) c.setHex(0xFFFF00);
-				else if (score > scoreStep) c.setHex(0xFFA500);
-				else c.setHex(0xFF0000);
+				if(score > 0.5){
+					c.v = 255;
+					c.r = (score - 0.5) * 2 * 255;
+				}else{
+					c.r = 255;
+					c.v = 255 - ((score - 0.5) * 2 * 255);
+				}
 // 				if(score > 0.75) c.setHex(0x00FF00);
 // 				else if (score > 0.5) c.setHex(0xFFFF00);
 // 				else if (score > 0.25) c.setHex(0xFFA500);
