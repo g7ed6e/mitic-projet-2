@@ -36,21 +36,64 @@
 			}
 		
 			function getLineMaterial(score){
+
 				var c = new THREE.Color(0x000000);
-				if(score > 0.5){
-					c.v = 255;
-					c.r = (score - 0.5) * 2 * 255;
-				}else{
-					c.r = 255;
-					c.v = 255 - ((score - 0.5) * 2 * 255);
+
+				/*var tmp = 1-score;
+				
+				if (score <= 0.4){//dans les tons vert
+					c.r = Math.round(tmp*255);
+					c.g = 255;
 				}
-// 				if(score > 0.75) c.setHex(0x00FF00);
-// 				else if (score > 0.5) c.setHex(0xFFFF00);
-// 				else if (score > 0.25) c.setHex(0xFFA500);
-// 				else c.setHex(0xFF0000);
+				if ((score > 0.4)&&(score <= 0.7)){//dans les tons jaune
+					c.r = 255;
+					c.g = Math.round((1-tmp)*230);
+				}
+				if ((score > 0.7)&&(score <= 0.9)){//dans les tons orange
+					c.r = 255;
+					c.g = Math.round((1-tmp)*140);
+				}
+				if ((score > 0.9)){//dans les tons rouge
+					c.r = Math.round(tmp*255);
+					c.g = Math.round((1-tmp)*140);
+				}*/
+
+
+				
+				if (score > 0.99){
+					score = 0.99;
+				}
+
+				var tmp = 1-score;
+				
+				if (tmp <= 0.4){//dans les tons rouge
+					if (tmp <0.1){//pour eviter de passer dans le noir
+						tmp = 0.1;
+					}
+					c.r = Math.round(tmp*255);
+					c.g = 255;
+				}
+				else if ((tmp > 0.4)&&(tmp <= 0.7)){//dans les tons orange
+					c.r = 255;
+					c.g = Math.round((1-tmp)*230);
+				}
+				else if ((tmp > 0.7)&&(tmp <= 0.9)){//dans les tons jaune
+					c.r = 255;
+					c.g = Math.round((1-tmp)*140);
+				}
+				else if ((tmp > 0.9)){//dans les tons vert
+					if (tmp>0.95){//pour eviter de passer dans le rouge
+						tmp = 0.95;
+					}
+					c.r = Math.round(tmp*255);
+					c.g = Math.round((1-tmp)*140);
+				}
+				
+				c.b = 0;//dans tout les cas le bleu est a 0
+				
 				return new THREE.LineBasicMaterial({
 				    color: c.getHex(),
-				    opacity: 0.4,
+				    opacity: 1/*0.6*/,
 				    blending: THREE.AdditiveBlending,
 				    transparent: true,
 				    linewidth: 1
