@@ -32,7 +32,6 @@ function addHistoCookie( nodeId )
 {
   //Get cookie
   var currentHisto = getHistoCookie();
-  var tmp = currentHisto.split("|");
   var lastHistoValue = currentHisto.split("|")[currentHisto.split("|").length-1];
   //Set cookie
   if(lastHistoValue != nodeId){
