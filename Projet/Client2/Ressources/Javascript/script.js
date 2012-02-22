@@ -13,6 +13,8 @@ var debut;
 var dragDeplacementDelta;
 var compteur = 0;
 var histo = new Array();
+var zoomable = true;
+var nbLoaded = 0;
 
 
 $(document).ready(function(){
@@ -110,14 +112,20 @@ $(document).ready(function(){
 	 * Création des btn de zoom
 	 * gestion du zoom au click
 	 */
-	$("#zoomP").click(function(){		
-		zoom *= 2;
-		draw();
+	$("#zoomP").click(function(){
+		if(zoomable){
+			zoom *= 1.5;
+			zoomable = false;
+			draw();
+		}
 	}).button();
 	$("#zoomM").click(function(){
-		if(zoom != 1){
-			zoom *= 0.5;
-			draw();
+		if(zoomable){
+			if(zoom >= 1){
+				zoom *= 0.5;
+				zoomable = false;
+				draw();
+			}
 		}
 	}).button();
 	
@@ -363,4 +371,14 @@ function isCorrectSearch(){
 		&& searchVal != searchInputDefaultText
 		&& searchVal >= 1
 		&& searchVal <= nbImage+1;;
+}
+
+// pour savoir si toute les images d'une recherche ont été chargées ou pas.
+function checkLoading(){
+	nbLoaded++;
+	var valMax = parseInt($( "#slider" ).slider( "option", "value"))+1;
+	if(nbLoaded >= valMax ){
+		zoomable = true;
+		nbLoaded = 0;
+	}
 }
