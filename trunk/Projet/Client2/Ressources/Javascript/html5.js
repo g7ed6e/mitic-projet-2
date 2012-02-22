@@ -27,7 +27,7 @@ $(document)
 					});
 					
 					/**
-					 * Permet de détectecter un drag dans la zone de dessin et 
+					 * Permet de détecter un drag dans la zone de dessin et 
 					 * envoi un evt de type dragGraph
 					 */
 	
