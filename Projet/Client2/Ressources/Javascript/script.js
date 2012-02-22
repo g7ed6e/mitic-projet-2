@@ -220,7 +220,7 @@ function okExpress(){
 			
 			resized();
 			loadFromCookie();
-			search();
+			searchFromSwitch();
 		});
 		$("#btnOk").unbind("click", ok).click(search);
 		$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
@@ -234,6 +234,16 @@ function okExpress(){
 function search(){
 	if(isCorrectSearch()){
 		saveHisto($('#searchInput').val());
+		request($('#searchInput').val(), $("#nbNeighboursInput").val());
+	}
+}
+
+/**
+ * Lancement d'une recherche pour réafficher le resultat lors d'un switch entre html5 et SVG
+ * On ne sauvegarde pas l'historique dans ce cas la
+ */
+function searchFromSwitch(){
+	if(isCorrectSearch()){
 		request($('#searchInput').val(), $("#nbNeighboursInput").val());
 	}
 }
