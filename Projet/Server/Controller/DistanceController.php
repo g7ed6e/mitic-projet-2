@@ -9,9 +9,9 @@ class DistanceController{
 		$this->model = new DistanceModel();
 	}
 
-	public function getDistances($id, $n, $nPlusUn,$w,$h){
+	public function getDistances($id, $n, $w,$h){
 		require_once 'View/JsonView.php';
-		$voisins = $this->model->getDistances($id,$n,$nPlusUn, $w, $h);
+		$voisins = $this->model->getDistancesV2($id, $n , $w, $h);
 		$view = new JsonView($voisins);
 		$view->Render();
 	}
