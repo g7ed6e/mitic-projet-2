@@ -32,8 +32,14 @@ function addHistoCookie( nodeId )
 {
   //Get cookie
   var currentHisto = getHistoCookie();
+  var tmp = currentHisto.split("|");
+  var lastHistoValue = currentHisto.split("|")[currentHisto.split("|").length-1];
   //Set cookie
-  saveCookie('histo', currentHisto+"|"+nodeId, 60);
+  if(lastHistoValue != nodeId){
+	saveCookie('histo', currentHisto+"|"+nodeId, 60);
+	return true;
+  }
+  return false;
 
 }
 

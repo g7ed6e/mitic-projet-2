@@ -333,9 +333,10 @@ function remplirSearch(object){
  * Méthode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
  */
 function saveHisto(id){
-	var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
-	$('#smenu1').prepend("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
-	addHistoCookie(id);
+	if(addHistoCookie(id)){
+		var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
+		$('#smenu1').prepend("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
+	}
 }
 
 /**
