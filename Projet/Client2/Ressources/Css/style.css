@@ -49,8 +49,16 @@ img{
 	opacity : 0;
 	}
 #logo img{
-	height : 35px;
-	}	
+	height : 40px;
+	padding : 2px;
+	}
+#NaviSimLogo{
+	position : absolute;
+	right : 37.5%;
+	left : 37.5%;
+	margin: auto;
+	height : 44px;
+}
 #tex{
 	position : absolute;
 	top : 0px;
