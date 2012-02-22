@@ -6,9 +6,9 @@ Le client est composé deux dossiers et de 3 fichiers html qui se situent a la r
 
   * lib qui contient toutes les librairies JQuery.
   * Ressources qui contient les images du site, le css et le javascript.
-  * index.html qui possède le code html de l'affichage en HTML5.
-  * indexSVG.html qui possède le code html de l'affichage en SVG.
-  * indexWebGL.html qui possède le code html de l'affichage en WebGL.
+  * index.html qui contient le code html de l'affichage en HTML5.
+  * indexSVG.html qui contient le code html de l'affichage en SVG.
+  * indexWebGL.html qui contient le code html de l'affichage en WebGL ainsi que le javascript.
 
 Le Javascript (mis dans le dossier Javascript du dossier Ressources) a été découpé en 4 fichiers.
 
