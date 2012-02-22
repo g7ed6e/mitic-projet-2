@@ -33,14 +33,8 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 			break;
 		case 'distance':
 			$controller = new DistanceController();
-			if($_GET["action"] == 'getVoisinsN'){
-				$controller->getVoisinsN();	
-			}
-			else if ($_GET['action'] == 'getVoisinsNPlusUn')
-			{
-				$n = $_GET['nn'] > 19 ? 19 : $_GET['nn'];
-				$nPlusUn = $_GET['nnPlusUn'] > 19 ? 19 : $_GET['nnPlusUn'];
-				$controller->getVoisinsNPlusUn( $_GET['id'], $n, $nPlusUn, $_GET['w'], $_GET['h'] );
+			if($_GET['action'] == 'getDistances'){
+				$controller->getDistances($_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
 			}
 			break;
 		default:
