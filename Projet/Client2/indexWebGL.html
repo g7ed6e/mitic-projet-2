@@ -69,14 +69,11 @@
 				}
 				
 				c.b = 0;//dans tout les cas le bleu est a 0
-				
-				//c.setHex(0x0000FF);
-				
 				return new THREE.LineBasicMaterial({
 				    color: c.getHex(),
 				    opacity: 1/*0.6*/,
 				    blending: THREE.AdditiveBlending,
-				    transparent: false,
+				    transparent: true,
 				    linewidth: 2
 				} );	
 			}
@@ -252,8 +249,9 @@
 			
 			function init() {
 				$('body').append("<div id='container'></div>");
-				nextImage = getParameterByName("id");
-				controller = getParameterByName("controller");
+				nextImage = getParameterByName("id") == "" ? 678 : getParameterByName("id");
+				nbVoisins = getParameterByName("n") == "" ? 20 : getParameterByName("n");
+				controller = getParameterByName("controller") == "" ? "score" : getParameterByName("controller");
 				projector = new THREE.Projector();
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
 				camera.position.z = 600;
@@ -281,7 +279,8 @@
 				
 				renderer = new THREE.CanvasRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.setClearColor(new THREE.Color(0x888888), 100);
+				//renderer.setClearColor(new THREE.Color(0x888888), 100);
+				
 				stats = new Stats();
 				stats.domElement.style.position = 'absolute';
 				stats.domElement.style.top = '0px';
@@ -346,11 +345,11 @@
 			}
 			
 			function requestGraph(id_ref, nbVoisins) {
-				id(controller == 'score'){
+				if(controller == 'score'){
 					$.ajax({
 					  	url: '../Server/index.php',
 						  dataType: 'json',
-						  cache: false,
+						  cache: true,
 						  data:  {"controller" : "score", "id" : id_ref, "nn" : nbVoisins, "action" : "getScoreV3", "w": window.innerWidth, "h": window.innerHeight, "s": "1", "coords3D" : "1" },
 						  success: function(data) {
 							liens = data.liens;
@@ -367,7 +366,7 @@
 						data : {
 							"controller" : "distance",
 							"id" : id_ref,
-							"nn" : 1491,
+							"nn" : nbVoisins,
 							"action" : "getDistances",
 							"w": window.innerWidth, "h": window.innerHeight,
 						},
@@ -443,38 +442,38 @@
 				$(document).bind('mousemove', function ( event ) {
 					event.preventDefault();
 
-// 						var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
-// 						projector.unprojectVector( vector, camera );
-// 						var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
-// 						var intersects = ray.intersectObjects(imagesObjects);
-// 						hoveredImage = [];
+						var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+						projector.unprojectVector( vector, camera );
+						var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+						var intersects = ray.intersectObjects(imagesObjects);
+						hoveredImage = [];
 						
-// 						if ( intersects.length > 0 ) {
-// 							var o = intersects[i].object;
-// 							hoveredImage.push(keyValues[parseInt(o.id) - 1].substring(4));
-// 						}
+						if ( intersects.length > 0 ) {
+							var o = intersects[0].object;
+							hoveredImage.push(keyValues[parseInt(o.id) - 1].substring(4));
+						}
 						
-// 						for(var i in positions){
-// 							var found = false;
-// 							for (var j in hoveredImage){
-// 								if(positions[i][0] == hoveredImage[j])
-// 								{
-// 									var imgNode = images.getChildByName("img_" + positions[i][0]);
-// 									imgNode.scale.x = 2;
-// 									imgNode.scale.y = 2;
-// 									imgNode.scale.z = 2;
-// 									found = true;
-// 									break; 
-// 								}
-// 							} 
-// 							if (found) continue;
-// 							else {
-// 								var imgNode = images.getChildByName("img_" + positions[i][0]);
-// 								imgNode.scale.x = 1;
-// 								imgNode.scale.y = 1;
-// 								imgNode.scale.z = 1;
-// 							}
-// 						}
+						for(var i in positions){
+							var found = false;
+							for (var j in hoveredImage){
+								if(positions[i][0] == hoveredImage[j])
+								{
+									var imgNode = images.getChildByName("img_" + positions[i][0]);
+									imgNode.scale.x = 2;
+									imgNode.scale.y = 2;
+									imgNode.scale.z = 2;
+									found = true;
+									break; 
+								}
+							} 
+							if (found) continue;
+							else {
+								var imgNode = images.getChildByName("img_" + positions[i][0]);
+								imgNode.scale.x = 1;
+								imgNode.scale.y = 1;
+								imgNode.scale.z = 1;
+							}
+						}
 						
 				}).click(function(event){
 						event.preventDefault();
