@@ -7,6 +7,7 @@ var popupShown = false;	// boolean pour savoir si la popup est présente ou pas.
 
 $(document).ready(	// Execution au chargement du document
 function() {
+	HTML = false;
 
 	$("#fg").click(function() {	// ajout de l'évènement au clique de la flèche gauche
 		translateGraph(-75,0);
@@ -53,6 +54,22 @@ function() {
 			var surface = svg.rect(0, 0, '100%', '100%', {id: 'surface', fill: 'white'});
 		} 
 	});
+	
+	
+	var transferData = getTransferData();
+	if(transferData != ""){
+		resized();
+		$( "#slider" ).slider( "option", "value", transferData.split("|")[0] );
+		$("#nbNeighboursInput").val(transferData.split("|")[0]);
+		zoom = transferData.split("|")[1];
+		translateX = parseInt(transferData.split("|")[2]) - graphCenter.x;
+		translateY = parseInt(transferData.split("|")[3]) - graphCenter.y;
+		$("#searchInput").val(transferData.split("|")[4]);
+		okExpress();
+		resetTransferData();
+		$('#searchInput').val(transferData.split("|")[4]);
+		
+	}
 });
 
 // Fonction pour effectuer une translation de tous les objets SVG créés

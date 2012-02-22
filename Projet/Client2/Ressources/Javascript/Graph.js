@@ -3,7 +3,7 @@ var mignatureSize = 50;
 var graphCenter;
 var algoNPlusUn = false;
 var zoom = 1;
-var HTML = true;
+var HTML;
 var webGL = false;
 var renduSVG = false;
 
