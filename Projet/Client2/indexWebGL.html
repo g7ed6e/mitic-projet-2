@@ -71,7 +71,7 @@
 				c.b = 0;//dans tout les cas le bleu est a 0
 				return new THREE.LineBasicMaterial({
 				    color: c.getHex(),
-				    opacity: 1/*0.6*/,
+				    opacity: controller == "distance" ? 0.3 : 1/*0.6*/,
 				    blending: THREE.AdditiveBlending,
 				    transparent: true,
 				    linewidth: 2
@@ -105,6 +105,13 @@
 			
 			function explodeGraph() {
 				if(!timerEnabled) {
+					for(var i in positions){
+						var imgNode = images.getChildByName("img_" + positions[i][0]);
+						if(imgNode == undefined)break;
+						imgNode.scale.x = 1;
+						imgNode.scale.y = 1;
+						imgNode.scale.z = 1;
+					}
 					timerEnabled = true;
 					drawImages();
 					drawLiens();
@@ -136,7 +143,7 @@
 					step = 0;
 				}
 				else{
-					timer = setTimeout('explode()', 100);
+					timer = setTimeout('explode()', 50);
 				}
 			}
 			
@@ -191,7 +198,7 @@
 					clearGraph();
 					requestGraph(nextImage, 20);
 				}else{
-					timer = setTimeout('move()', 100);
+					timer = setTimeout('move()', 50);
 				}
 			}
 			
@@ -228,7 +235,7 @@
 					moveToNextImage();
 				}
 				else{
-					timer = setTimeout('implode()', 100);
+					timer = setTimeout('implode()', 50);
 				}
 			}
 			
@@ -236,6 +243,10 @@
 				if(!timerEnabled) {
 					timerEnabled = true;
 					for(var i in positions){
+						var imgNode = images.getChildByName("img_" + positions[i][0]);
+						imgNode.scale.x = 1;
+						imgNode.scale.y = 1;
+						imgNode.scale.z = 1;
 						if(positions[i][0] == nextImage){
 							nextImagePosition.x = positions[i][1];
 							nextImagePosition.y = positions[i][2];
@@ -292,7 +303,7 @@
 				var webGLlogo = new Image();
 				webGLlogo.src = "Ressources/Images/webgl-logo.png";
 				$("#container").append(renderer.domElement).append(stats.domElement).append("<div id='logos'></div>");
-				$("#logos").append("<span class='red'>Powered By</span><br/>").append(webGLlogo).append(html5logo).append(jQuerylogo).append("<br /><br /><span class='red'>Use Z, S, Q, D to move inside 3d scene</span>");
+				$("#logos").append("<br /><span class='red'>Powered By</span><br/>").append(webGLlogo).append(html5logo).append(jQuerylogo).append("<br /><br /><span class='red'>Use Z, S, Q, D to move inside 3d scene</span>");
 				
 			}
 			
@@ -441,7 +452,7 @@
 				
 				$(document).bind('mousemove', function ( event ) {
 					event.preventDefault();
-
+						if(timerEnabled)return;
 						var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
 						projector.unprojectVector( vector, camera );
 						var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
@@ -469,6 +480,7 @@
 							if (found) continue;
 							else {
 								var imgNode = images.getChildByName("img_" + positions[i][0]);
+								if(imgNode == undefined)return;
 								imgNode.scale.x = 1;
 								imgNode.scale.y = 1;
 								imgNode.scale.z = 1;
@@ -495,9 +507,9 @@
 							event.preventDefault();
 							break;
 						case 37://Left Arrow
-							var deltaAngle = (PI2/imagesObjects.length);
-							root.rotation.z += deltaAngle; 
-							updateImagesLookAt();
+// 							var deltaAngle = (PI2/imagesObjects.length);
+// 							root.rotation.z += deltaAngle; 
+// 							updateImagesLookAt();
 							event.preventDefault();
 //							images.rotation.z += .1;
 							//images.position.z += 0.1:
@@ -509,9 +521,9 @@
 							//images.position.z += 100:
 							break;
 						case 39://Right Arrow
-							var deltaAngle = (PI2/imagesObjects.length);
-							root.rotation.z -= deltaAngle;
-							updateImagesLookAt();
+// 							var deltaAngle = (PI2/imagesObjects.length);
+// 							root.rotation.z -= deltaAngle;
+// 							updateImagesLookAt();
 							event.preventDefault();
 							//camera.position.x -= 10;
 							break;
