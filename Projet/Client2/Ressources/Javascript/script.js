@@ -80,14 +80,14 @@ $(document).ready(function(){
 	$("#bottomLabelSlider").html(min);
 	
 	/**
-	 * Création du btn ok
+	 * Crï¿½ation du btn ok
 	 * association de la fonction ok au click
 	 */
 	$("#btnOk").button();
 	$("#btnOk").click(ok);
 	
 	/**
-	 * Création du btn webGL
+	 * Crï¿½ation du btn webGL
 	 * association de la fonction wgl au click
 	 */	
 	$("#btnWGL").button();
@@ -109,7 +109,7 @@ $(document).ready(function(){
 	});
 	
 	/**
-	 * Création des btn de zoom
+	 * Crï¿½ation des btn de zoom
 	 * gestion du zoom au click
 	 */
 	$("#zoomP").click(function(){
@@ -130,7 +130,7 @@ $(document).ready(function(){
 	}).button();
 	
 	/**
-	 * Création des btn historique et filtre
+	 * Crï¿½ation des btn historique et filtre
 	 * gestion des traitements au click
 	 */
 	
@@ -191,7 +191,7 @@ function ok(){
 	}
 }
 
-// pour charger directement à partir d'un cookie, pas besoin d'animation !
+// pour charger directement ï¿½ partir d'un cookie, pas besoin d'animation !
 function okExpress(){
 	if(isCorrectSearch()){	
 		$('.index').animate({
@@ -292,12 +292,12 @@ function evenement(object){
 function remplirSlider(){
 	//on parcour le slider
 	for (var i = 1;i <= 20 ;i++) {
-		//on genere un entier aléatoire en 1 et 1491
+		//on genere un entier alï¿½atoire en 1 et 1491
 		var numRand = Math.floor(Math.random()*nbImage) + 1;
 		//on recupere la case du slider
 		var img = document.getElementById("img"+i);
 		//on remplace l'image de cette case par celle dont
-		//l'ID sur le serveur coorespond au nombre aléatoire
+		//l'ID sur le serveur coorespond au nombre alï¿½atoire
 		img.src="../Server/index.php?controller=image&action=getImg&id="+numRand+"&w=100&l=100";
 		//on remplace aussi l'attribut alt de l'image par son id
 		img.alt=numRand;
@@ -320,16 +320,16 @@ function remplirSearch(object){
 }
 
 /**
- * M?thode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
+ * MÃ©thode permettant de sauver un id pour l'histo + ferme la fenetre d'histo.
  */
 function saveHisto(id){
 	var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
-	$('#smenu1').append("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
+	$('#smenu1').prepend("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
 	addHistoCookie(id);
 }
 
 /**
-*	Méthode permettant de charger l'historique à partir d'un cookie
+*	Mï¿½thode permettant de charger l'historique ï¿½ partir d'un cookie
 **/
 function loadHistoFromCookie(){
 	var histoFromCookie = getHistoCookie();
@@ -337,7 +337,7 @@ function loadHistoFromCookie(){
 	for(var i in histoFromCookie.split("|")){
 		if(histoFromCookie.split("|")[i] != ""){
 			var img="../Server/index.php?controller=image&action=getImg&id="+histoFromCookie.split("|")[i]+"&t=50";
-			$('#smenu1').append("<li><a href='#' onclick='changeImg("+histoFromCookie.split("|")[i]+");'><img src="+img+"><span class='marge'>"+histoFromCookie.split("|")[i]+"</span></a></li>");
+			$('#smenu1').prepend("<li><a href='#' onclick='changeImg("+histoFromCookie.split("|")[i]+");'><img src="+img+"><span class='marge'>"+histoFromCookie.split("|")[i]+"</span></a></li>");
 		}
 	}	
 }
@@ -373,7 +373,7 @@ function isCorrectSearch(){
 		&& searchVal <= nbImage+1;;
 }
 
-// pour savoir si toute les images d'une recherche ont été chargées ou pas.
+// pour savoir si toute les images d'une recherche ont ï¿½tï¿½ chargï¿½es ou pas.
 function checkLoading(){
 	nbLoaded++;
 	var valMax = parseInt($( "#slider" ).slider( "option", "value"))+1;
