@@ -14,7 +14,7 @@ Grille de l'état d'esprit :
 || Nom || 13/02 || 14/02 || 15/02 || 16/02 || 17/02 || 20/02 || 21/02 ||
 || Baptiste || Vert || Vert || Orange || Vert || Vert || Vert || Vert ||
 || Benjamin || Vert || Vert || Orange || Vert || Vert || Vert || Vert ||
-|| Guillaume || Orange || Vert || Vert || Vert || Vert || Vert || Orange ||
+|| Guillaume || Orange || Vert || Vert || Vert || Vert || Vert || Vert ||
 || Thomas || Vert || Vert || Orange || Vert || Vert || Vert || Orange ||
 || Farmin || Vert || Vert || Vert || Orange || Vert || Vert || Vert ||
 || Killian || Vert || Vert || Vert || Vert || Vert || Vert || Orange ||
