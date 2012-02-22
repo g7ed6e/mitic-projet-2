@@ -166,11 +166,10 @@ function request(id, nbNeighbours) {
 			dataType : 'json',
 			cache : true,
 			data : {
-				"controller" : "voisinsNPlusUn",
+				"controller" : "distance",
 				"id" : id,
 				"nn" : nbNeighbours,
-				"nnPlusUn" : nbNeighbours,
-				"action" : "getVoisinsNPlusUn",
+				"action" : "getDistances",
 				"w" : graphDimension.width,
 				"h" : graphDimension.height
 			},
