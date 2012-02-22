@@ -16,6 +16,10 @@ var histo = new Array();
 
 
 $(document).ready(function(){
+
+	if($("#searchInput").val() == "" )$("#searchInput").val(searchInputDefaultText);
+	loadHistoFromCookie();
+	
 	/**
 	 * En cas de resized de la fentre on redimensionne la zone 
 	 * d'affichage et redessine le graph
@@ -100,7 +104,7 @@ $(document).ready(function(){
 		{
 			$(this).attr('value', searchInputDefaultText).css('font-style', 'italic').css('color', '#aaa');
 		}
-	}).attr('value', searchInputDefaultText);
+	});
 	
 	/**
 	 * Création des btn de zoom
@@ -179,6 +183,40 @@ function ok(){
 	}
 }
 
+// pour charger directement à partir d'un cookie, pas besoin d'animation !
+function okExpress(){
+	if(isCorrectSearch()){	
+		$('.index').animate({
+			opacity: 0
+		},1, function(){
+			$('#header').animate({
+				top: '0'
+			},1,function() {
+				$('#main, #nbNeighbours, #zoomSlider').animate({
+					opacity : 100
+				},1,function() {});
+	
+			});
+			$('#chooser').animate({
+				opacity : 0
+			},1,function() {});
+			$('#chooser').animate({
+				width : 0
+			},1,function() {});
+			$('#chooser').animate({
+				height : 0
+			},1,function() {});
+			$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #zoneGraph, .fleche, #zoomDiv').show().animate({
+				opacity : 100
+			},1,function() {});
+	
+			search();
+		});
+		$("#btnOk").unbind("click", ok).click(search);
+		$("#searchInput").unbind("keypress", okKeypressedEnter).keypress(searchKeypressedEnter);
+	}
+}
+
 /**
  * Lancement d'une recherche a partir du contenu de la barre de recherche
  */
@@ -203,10 +241,20 @@ function zoomChange(value){
  */
 function evenement(object){
 	if (object.id == 'htm'){
-		HTML = true;
+		if(HTML != true){
+			var nodeId = getHistoCookie().split("|")[getHistoCookie().split("|").length-1];
+			setTransferData($("#nbNeighboursInput").val(), zoom, translateX , translateY, nodeId);
+			HTML = true;
+			window.open("./index.html","_self");
+		}
 	}
 	if (object.id == 'svg'){
-		HTML = false;
+		if(HTML == true){
+			var nodeId = getHistoCookie().split("|")[getHistoCookie().split("|").length-1];
+			setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId);
+			HTML = false;
+			window.open("./indexSVG.html","_self");
+		}
 	}
 	if (object.id == 'niv1'){
 		algoNPlusUn = false;
@@ -266,6 +314,21 @@ function remplirSearch(object){
 function saveHisto(id){
 	var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
 	$('#smenu1').append("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
+	addHistoCookie(id);
+}
+
+/**
+*	Méthode permettant de charger l'historique à partir d'un cookie
+**/
+function loadHistoFromCookie(){
+	var histoFromCookie = getHistoCookie();
+	
+	for(var i in histoFromCookie.split("|")){
+		if(histoFromCookie.split("|")[i] != ""){
+			var img="../Server/index.php?controller=image&action=getImg&id="+histoFromCookie.split("|")[i]+"&t=50";
+			$('#smenu1').append("<li><a href='#' onclick='changeImg("+histoFromCookie.split("|")[i]+");'><img src="+img+"><span class='marge'>"+histoFromCookie.split("|")[i]+"</span></a></li>");
+		}
+	}	
 }
 
 /**

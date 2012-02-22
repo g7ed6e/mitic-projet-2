@@ -5,6 +5,8 @@ $(document)
 		.ready(
 				function() {
 				
+					HTML = true;
+					
 					$("#fg").click(function() {
 						graphCenter.x -= 75;
 						draw();
@@ -143,6 +145,20 @@ $(document)
 						// save canvas image as data url (png format by default)
 						$("#graphSaver").attr("href", canvas.toDataURL());
 					});
+					var transferData = getTransferData();
+					if(transferData != ""){
+						resized();
+						$( "#slider" ).slider( "option", "value", transferData.split("|")[0] );
+						$("#nbNeighboursInput").val(transferData.split("|")[0]);
+						zoom = transferData.split("|")[1];
+						graphCenter.x += parseInt(transferData.split("|")[2]);
+						graphCenter.y += parseInt(transferData.split("|")[3]);
+						$("#searchInput").val(transferData.split("|")[4]);
+						okExpress();
+						resetTransferData();
+						$('#searchInput').val(transferData.split("|")[4]);
+					}
+					
 					
 				});
 
