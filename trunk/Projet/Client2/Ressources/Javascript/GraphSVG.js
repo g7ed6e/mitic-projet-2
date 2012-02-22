@@ -106,8 +106,6 @@ function drawNode(node){
 	
 		node.width = img.width;
 		node.height = img.height;
-		console.log(node.center);
-		console.log(zoom);
 			
 		var imgX = Math.round( (node.center.x * zoom) - (node.width/2) + graphCenter.x );
 		var imgY = Math.round( (node.center.y * zoom) - (node.height/2) + graphCenter.y );
@@ -119,8 +117,9 @@ function drawNode(node){
 			onClickImage(node.id, img);	// ajout de l'évènement sur l'image pour l'apparition de la popup
 		});
 		$(item).attr("transform", "translate("+translateX+","+translateY+")"); // translater l'élément si translation il y a
+		checkLoading();
 	});
-}
+}	
 
 // dessiner une arrête ( = ligne ) en svg
 function drawEdge(edge){

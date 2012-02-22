@@ -188,6 +188,7 @@ function drawNode(node) {
 							img.height); // afficher un rectangle plein
 					ctx.drawImage(img, node.position.x, node.position.y,
 							img.width, img.height);
+					checkLoading();
 				});
 	}
 
