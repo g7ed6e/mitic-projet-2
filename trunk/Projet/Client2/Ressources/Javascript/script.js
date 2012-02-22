@@ -1,4 +1,4 @@
-var min = 2;
+var min = 3;
 var max = 40;
 var nbImage = 1490;
 var midValue = Math.round((max-min)/2);
