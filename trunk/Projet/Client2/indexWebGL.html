@@ -292,7 +292,7 @@
 				var webGLlogo = new Image();
 				webGLlogo.src = "Ressources/Images/webgl-logo.png";
 				$("#container").append(renderer.domElement).append(stats.domElement).append("<div id='logos'></div>");
-				$("#logos").append("<span id='poweredby'>powered by</span><br/>").append(webGLlogo).append(html5logo).append(jQuerylogo);
+				$("#logos").append("<span class='red'>Powered By</span><br/>").append(webGLlogo).append(html5logo).append(jQuerylogo).append("<br /><br /><span class='red'>Use Z, S, Q, D to move inside 3d scene</span>");
 				
 			}
 			
@@ -459,9 +459,9 @@
 								if(positions[i][0] == hoveredImage[j])
 								{
 									var imgNode = images.getChildByName("img_" + positions[i][0]);
-									imgNode.scale.x = 2;
-									imgNode.scale.y = 2;
-									imgNode.scale.z = 2;
+									imgNode.scale.x = 3;
+									imgNode.scale.y = 3;
+									imgNode.scale.z = 3;
 									found = true;
 									break; 
 								}
@@ -592,6 +592,7 @@
 				margin: 0px;
 				overflow: hidden;
 				font-size: 12px;
+				font-family : verdana;
 			}
 			a {
 				color:#0078ff;
@@ -601,9 +602,8 @@
 				top: 0px;
 				right: 20px;
 			}
-			#poweredby {
+			.red {
 				color: red;
-				font-style: italic;
 				text-align: center;
 				width: 100%;
 			}
