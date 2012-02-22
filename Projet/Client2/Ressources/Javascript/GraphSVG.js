@@ -55,19 +55,9 @@ function() {
 		} 
 	});
 	
-	
-	var transferData = getTransferData();
-	if(transferData != ""){
-		resized();
-		$( "#slider" ).slider( "option", "value", transferData.split("|")[0] );
-		$("#nbNeighboursInput").val(transferData.split("|")[0]);
-		zoom = transferData.split("|")[1];
-		translateX = parseInt(transferData.split("|")[2]) - graphCenter.x;
-		translateY = parseInt(transferData.split("|")[3]) - graphCenter.y;
-		$("#searchInput").val(transferData.split("|")[4]);
+	if(getTransferData() != ""){
+		$('#searchInput').val(getTransferData().split("|")[4]);
 		okExpress();
-		resetTransferData();
-		$('#searchInput').val(transferData.split("|")[4]);
 	}
 });
 
@@ -207,4 +197,19 @@ function centrerGraph(){
 	translateX = 0;		// réinitialisation du x de la translation
 	translateY = 0;		// réinitialisation du x de la translation
 	draw();
+}
+
+function loadFromCookie(){
+	var transferData = getTransferData();
+	if(transferData != ""){
+		resized();
+		$( "#slider" ).slider( "option", "value", transferData.split("|")[0] );
+		$("#nbNeighboursInput").val(transferData.split("|")[0]);
+		zoom = transferData.split("|")[1];
+		translateX = parseInt(transferData.split("|")[2]) - graphCenter.x;
+		translateY = parseInt(transferData.split("|")[3]) - graphCenter.y;
+		
+		resetTransferData();
+		$('#searchInput').val(transferData.split("|")[4]);
+	}
 }
