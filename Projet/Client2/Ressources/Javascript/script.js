@@ -174,8 +174,8 @@ function ok(){
 				opacity : 100
 			},1000,function() {});
 	
-			search();
 			resized();
+			search();
 	
 		});
 		$("#btnOk").unbind("click", ok).click(search);
