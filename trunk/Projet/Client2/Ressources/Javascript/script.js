@@ -209,7 +209,9 @@ function okExpress(){
 			$('#radio, #bloc, #logo, #menu_gauche, #menu_droite, #zoneGraph, .fleche, #zoomDiv').show().animate({
 				opacity : 100
 			},1,function() {setArrows();});
-	
+			
+			resized();
+			loadFromCookie();
 			search();
 		});
 		$("#btnOk").unbind("click", ok).click(search);

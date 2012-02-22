@@ -145,22 +145,11 @@ $(document)
 						// save canvas image as data url (png format by default)
 						$("#graphSaver").attr("href", canvas.toDataURL());
 					});
-					var transferData = getTransferData();
-					if(transferData != ""){
-						resized();
-						$( "#slider" ).slider( "option", "value", transferData.split("|")[0] );
-						$("#nbNeighboursInput").val(transferData.split("|")[0]);
-						zoom = transferData.split("|")[1];
-						graphCenter.x += parseInt(transferData.split("|")[2]);
-						graphCenter.y += parseInt(transferData.split("|")[3]);
-						$("#searchInput").val(transferData.split("|")[4]);
-						okExpress();
-						resetTransferData();
-						$('#searchInput').val(transferData.split("|")[4]);
-						setArrows();
-					}
 					
-					
+				if(getTransferData() != ""){
+					$('#searchInput').val(getTransferData().split("|")[4]);
+					okExpress();
+				}
 				});
 
 
@@ -200,7 +189,6 @@ function drawNode(node) {
 					ctx.drawImage(img, node.position.x, node.position.y,
 							img.width, img.height);
 				});
-
 	}
 
 }
@@ -273,4 +261,21 @@ function centrerGraph(){
 	graphCenter.x = $("#zoneGraph").get(0).width/2;
 	graphCenter.y = $("#zoneGraph").get(0).height/2;
 	draw();
+}
+
+function loadFromCookie(){
+	var transferData = getTransferData();
+	if(transferData != ""){
+		resized();
+		$( "#slider" ).slider( "option", "value", transferData.split("|")[0] );
+		$("#nbNeighboursInput").val(transferData.split("|")[0]);
+		zoom = transferData.split("|")[1];
+		graphCenter.x += parseInt(transferData.split("|")[2]);
+		graphCenter.y += parseInt(transferData.split("|")[3]);
+		$("#searchInput").val(transferData.split("|")[4]);
+		
+		resetTransferData();
+		$('#searchInput').val(transferData.split("|")[4]);
+		setArrows();
+	}
 }
