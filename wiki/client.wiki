@@ -2,6 +2,8 @@
 
 = Guide d'utilisation =
 
+Notre projet est une application web. Vous devez donc possédez un navigateur récent pour vous en servir. Il est aussi compatible pour les tablettes
+
 <wiki:toc max_depth="3" />
 
 [http://code.google.com/p/mitic-projet-2/wiki/accueil Retour à l'accueil]
