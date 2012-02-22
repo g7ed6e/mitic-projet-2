@@ -44,6 +44,13 @@ class ScoreModel {
 		arsort($scores);
 		// extraction des $n supérieurs
 		$scores = array_slice($scores, 0, $n, true);
+		
+// 		// on remet de l'al�atoire afin de ne pas afficher une spirale
+// 		uksort($scores, function($a, $b)
+// 		{
+// 			return .01 * rand(0, 100) >= .5;
+// 		});
+		
 		// construction d'un tableau contenant les plus proches voisins		
 		$nVoisins = array();
 		//$voisinsIds = ;
