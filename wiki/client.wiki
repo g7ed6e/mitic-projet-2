@@ -105,6 +105,14 @@ Pour déplacer le graphe sur l'écran vous avez deux possibilités. La première
 
 [client#Guide_d'utilisation Retour au sommaire]
 
+=== Centrer le graphe ===  
+
+[http://img11.hostingpics.net/pics/444261centrer.png]
+
+Si vous avez trop zoomé ou fait sortir votre graphe de l'écran, vous avez la possibilité de le remettre au centre de l'écran a sa taille d'origine en cliquant sur le bouton "Centrer" situé sous les boutons "+" et "-" utilisés pour le zoom.
+
+[client#Guide_d'utilisation Retour au sommaire]
+
 ----
 
 == Autres fonctionnalités ==  
