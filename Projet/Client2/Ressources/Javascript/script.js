@@ -1,6 +1,7 @@
 var min = 3;
 var max = 100;
 var nbImage = 20;
+var nbMaxImage = 1491;
 var midValue = Math.round((max-min)/4);
 var hoveredImageId = -1;
 var debugMousePos = false;
@@ -283,24 +284,24 @@ function evenement(object){
 	}
 	if (object.id == 'niv1'){
 		algoNPlusUn = false;
-		max = 40;
-		$("#topLabelSlider").html(max);
-		$( "#slider" ).slider( "option", "max", max );
-		if (($( "#slider" ).slider( "option", "value"))> max){
-			$( "#slider" ).slider( "option", "value", max );
-			$("#nbNeighboursInput").val(max);
+		var maxImg = max;
+		$("#topLabelSlider").html(maxImg);
+		$( "#slider" ).slider( "option", "max", maxImg );
+		if (($( "#slider" ).slider( "option", "value"))> maxImg){
+			$( "#slider" ).slider( "option", "value", maxImg );
+			$("#nbNeighboursInput").val(maxImg);
 		}
 		search();
 			
 	}
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
-		max = nbImage;
-		$("#topLabelSlider").html(max);
-		$( "#slider" ).slider( "option", "max", max );
-		if (($( "#slider" ).slider( "option", "value"))> max){
-			$( "#slider" ).slider( "option", "value", max );
-			$("#nbNeighboursInput").val(max);
+		var maxImg = nbImage;
+		$("#topLabelSlider").html(maxImg);
+		$( "#slider" ).slider( "option", "max", maxImg );
+		if (($( "#slider" ).slider( "option", "value"))> maxImg){
+			$( "#slider" ).slider( "option", "value", maxImg );
+			$("#nbNeighboursInput").val(maxImg);
 		}
 		//$("#topLabelSlider").html(max);
 		//$( "#slider" ).slider( "option", "max", max );
@@ -315,7 +316,7 @@ function remplirSlider(){
 	//on parcour le slider
 	for (var i = 1;i <= 20 ;i++) {
 		//on genere un entier al�atoire en 1 et 1491
-		var numRand = Math.floor(Math.random()*nbImage) + 1;
+		var numRand = Math.floor(Math.random()*nbMaxImage);
 		//on recupere la case du slider
 		var img = document.getElementById("img"+i);
 		//on remplace l'image de cette case par celle dont
@@ -393,7 +394,7 @@ function isCorrectSearch(){
 		&& searchVal != ""
 		&& searchVal != searchInputDefaultText
 		&& searchVal >= 1
-		&& searchVal <= nbImage+1;;
+		&& searchVal <= nbMaxImage;
 }
 
 // pour savoir si toute les images d'une recherche ont �t� charg�es ou pas.
