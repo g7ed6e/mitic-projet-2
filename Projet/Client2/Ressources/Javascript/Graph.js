@@ -128,7 +128,7 @@ function Edge(source, target, score) {
 }
 
 function request(id, nbNeighbours) {
-
+	$("#divLoading,#loading").show();
 	if (!algoNPlusUn) {
 		$.ajax({
 			url : '../Server/index.php',
@@ -157,7 +157,9 @@ function request(id, nbNeighbours) {
 							.getNode(liens[i][1]), liens[i][2]);
 
 				draw();
-
+				$("#divLoading,#loading").hide();
+			},error:function(){
+				$("#divLoading,#loading").hide();
 			}
 		});
 	} else {
@@ -187,7 +189,9 @@ function request(id, nbNeighbours) {
 							.getNode(liens[i][1]), liens[i][2]);
 
 				draw();
-
+				$("#divLoading,#loading").hide();
+			},error:function(){
+				$("#divLoading,#loading").hide();
 			}
 		});
 	}
