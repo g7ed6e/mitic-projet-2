@@ -196,7 +196,7 @@
 					timerEnabled = false;
 					step = 0;
 					clearGraph();
-					requestGraph(nextImage, 20);
+					requestGraph(nextImage, nbVoisins);
 				}else{
 					timer = setTimeout('move()', 50);
 				}
@@ -262,6 +262,7 @@
 				$('body').append("<div id='container'></div>");
 				nextImage = getParameterByName("id") == "" ? 678 : getParameterByName("id");
 				nbVoisins = getParameterByName("n") == "" ? 20 : getParameterByName("n");
+				alert(nbVoisins);
 				controller = getParameterByName("controller") == "" ? "score" : getParameterByName("controller");
 				projector = new THREE.Projector();
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
@@ -286,7 +287,7 @@
 				lignes = new THREE.Object3D();
 				root.add(lignes);
 				
-				requestGraph(nextImage, 20);
+				requestGraph(nextImage, nbVoisins);
 				
 				renderer = new THREE.CanvasRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
