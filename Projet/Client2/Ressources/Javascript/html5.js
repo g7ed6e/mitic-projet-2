@@ -287,6 +287,7 @@ function loadFromCookie(){
 		
 		resetTransferData();
 		$('#searchInput').val(transferData.split("|")[4]);
+		algoNPlusUn = transferData.split("|")[5];
 		setArrows();
 	}
 }

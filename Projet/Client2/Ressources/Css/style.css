@@ -239,6 +239,27 @@ img{
 	list-style-type: none;
 	float: left;
 }
+#footerSVG
+{
+	position: absolute;
+	bottom: 4px;
+	height: 20px;
+	left:1px;
+	right:1px;
+}
+#footerSVG ul
+{
+	position : relative;
+	width : 190px;
+	margin : auto; 
+	}
+#footerSVG li
+{
+	left : 20%;
+	font-size: 12px;
+	list-style-type: none;
+	float: left;
+}
 .popupImageDetails
 {
 	position: absolute;

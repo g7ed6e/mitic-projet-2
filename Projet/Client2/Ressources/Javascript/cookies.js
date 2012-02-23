@@ -51,8 +51,8 @@ function getHistoCookie( )
   return currentHisto
 }
 
-function setTransferData(nbNeighbours, zoom, x, y, nodeId){
-	 saveCookie('transferData', nbNeighbours+="|"+zoom+"|"+x+"|"+y+"|"+nodeId, 60);
+function setTransferData(nbNeighbours, zoom, x, y, nodeId, algoNPlusUn){
+	 saveCookie('transferData', nbNeighbours+="|"+zoom+"|"+x+"|"+y+"|"+nodeId+"|"+algoNPlusUn, 60);
 }
 
 function getTransferData(){
