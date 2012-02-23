@@ -280,7 +280,7 @@ class DistanceModel {
 		//
 		$tousLesPoints = array();
 		// recherche des n plus proches voisins
-		$this->getPlusProches(967, 1, $matrix);
+		//$this->getPlusProches(967, 1, $matrix);
 		
 		$voisins_rang_n = $this->getPlusProches($id, $n, $matrix);
 	
