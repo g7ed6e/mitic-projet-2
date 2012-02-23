@@ -1,7 +1,7 @@
 <?php
 class DistanceModel {
 
-	private function getPlusProches($id, $n, &$mat)
+	private function getPlusProches($id, $n, &$mat, &$distances)
 	{
 
 		/*
@@ -22,7 +22,7 @@ class DistanceModel {
 // 		echo("1 -> 967 = " .$this->accesMemoireMatrix(1, 967, $mat));
 // 		echo("967 -> 1 = " .$this->accesMemoireMatrix(967, 1, $mat));
 		
-		$distances = array(); //[950] = 12, [765] = 24
+		//$distances = array(); //[950] = 12, [765] = 24
 
 		//echo("967 -> 525 = " .$this->accesMemoireMatrix(967, 525, $mat));		
 		
@@ -43,7 +43,7 @@ class DistanceModel {
 		
 		//var_dump($distances); //([966]= )
 		
-		return $distances;
+		return;// $distances;
 	}
 
 	private function appliqueRatioTailleEcran(&$positions, $w, $h)
@@ -282,8 +282,10 @@ class DistanceModel {
 		// recherche des n plus proches voisins
 		//$this->getPlusProches(967, 1, $matrix);
 		
-		$voisins_rang_n = $this->getPlusProches($id, $n, $matrix);
-	
+		//$voisins_rang_n = $this->getPlusProches($id, $n, $matrix);
+		$this->getPlusProches($id, $n, $matrix, $voisins_rang_n);
+		
+		
 		//var_dump($voisins_rang_n);
 	//	echo("voisins rang n = ");
 //		var_dump($voisins_rang_n);
@@ -297,10 +299,13 @@ class DistanceModel {
 		{
 			array_push($tousLesPoints, $voisinId);
 		//	echo("voisinId=" .$voisinId . "");
-			$voisins_rang_n_plus_un =  $this->getPlusProches($voisinId, $n, $matrix);
+			$voisins_rang_n_plus_un = array();
+			//$voisins_rang_n_plus_un =  
+			$this->getPlusProches($voisinId, $n, $matrix, $voisins_rang_n_plus_un);
 			foreach($voisins_rang_n_plus_un as $voisin_rang_n_plus_deux => $distanceToVoisinRangNPlusUn){
 				array_push($tousLesPoints, $voisin_rang_n_plus_deux );
 			}
+			unset($voisins_rang_n_plus_un);
 		}
 	
 		$tousLesPoints = array_unique(array_values($tousLesPoints));
