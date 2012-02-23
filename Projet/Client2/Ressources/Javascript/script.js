@@ -286,6 +286,7 @@ function evenement(object){
 			$( "#slider" ).slider( "option", "value", max );
 			$("#nbNeighboursInput").val(max);
 		}
+		search();
 			
 	}
 	if (object.id == 'niv2'){
@@ -293,6 +294,7 @@ function evenement(object){
 		max = nbImage;
 		$("#topLabelSlider").html(max);
 		$( "#slider" ).slider( "option", "max", max );
+		search();
 	}
 }
 
