@@ -172,7 +172,15 @@ function onClickImage(nodeId){
 
 // fonction pour positionner la popup en fonction de la position de la souris
 function positionnePopup(){
-	$(".popupImageDetails").css('top', mousePos.y + 20).css("left", mousePos.x + 20);
+	var posX = mousePos.x + 20;
+	var posY = mousePos.y + 20;
+	var tmp = $(window).width();
+	if($(".popupImageDetails").width() + posX > $(window).width() ) 
+		posX = $(window).width() - $(".popupImageDetails").width() - 20;
+	if($(".popupImageDetails").height() + posY > $(window).height() ) 
+		posY = $(window).height() - $(".popupImageDetails").height() - 20;
+		
+	$(".popupImageDetails").css('top', posY).css("left", posX);
 	popupShown = true;
 }
 
