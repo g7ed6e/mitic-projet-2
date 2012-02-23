@@ -241,10 +241,10 @@ class DistanceModel {
 		$positions = array();
 		$liens = array();
 	
-		if(apc_exists("matrix")) {
-			$matrix = apc_fetch("matrix");
-		}
-		else {
+// 		if(apc_exists("matrix")) {
+// 			$matrix = apc_fetch("matrix");
+// 		}
+// 		else {
 			$matrix = array();
 			
 			// parsage fichier
@@ -274,8 +274,8 @@ class DistanceModel {
 // 			}
 			unset($lines);
 			
-			apc_store("matrix", $matrix);
-		}
+// 			apc_store("matrix", $matrix);
+// 		}
 	
 
 		//
