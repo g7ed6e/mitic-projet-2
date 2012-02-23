@@ -219,6 +219,9 @@ function loadFromCookie(){
 		
 		resetTransferData();
 		$('#searchInput').val(transferData.split("|")[4]);
-		algoNPlusUn = transferData.split("|")[5];
+		var algoTmp = transferData.split("|")[5];
+		if (algoTmp == "true"){algoNPlusUn = true;}
+		else {algoNPlusUn = false;}
+		//algoNPlusUn = transferData.split("|")[5];
 	}
 }

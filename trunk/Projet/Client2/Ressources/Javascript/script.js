@@ -276,7 +276,7 @@ function evenement(object){
 	if (object.id == 'htm'){
 		if(HTML != true){
 			var nodeId = getHistoCookie().split("|")[getHistoCookie().split("|").length-1];
-			setTransferData($("#nbNeighboursInput").val(), zoom, translateX , translateY, nodeId);
+			setTransferData($("#nbNeighboursInput").val(), zoom, translateX , translateY, nodeId, algoNPlusUn);
 			HTML = true;
 			window.open("./index.html","_self");
 		}
@@ -284,7 +284,7 @@ function evenement(object){
 	if (object.id == 'svg'){
 		if(HTML == true){
 			var nodeId = getHistoCookie().split("|")[getHistoCookie().split("|").length-1];
-			setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId);
+			setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn);
 			HTML = false;
 			window.open("./indexSVG.html","_self");
 		}
