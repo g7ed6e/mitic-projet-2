@@ -7,7 +7,7 @@
 
 == Introduction ==
 
-Ce wiki a pour but de présenter notre projet de fin d'année, navisim, de M2 MITIC à l'ISTIC de Rennes. Sur cette page, vous trouverez les liens du manuel d'utilisateur et des documents descriptifs du projet. 
+Ce wiki a pour but de présenter notre projet de fin d'année, navisim, de M2 MITIC à l'[http://www.istic.univ-rennes1.fr/ ISTIC] de Rennes. Sur cette page, vous trouverez les liens du manuel d'utilisateur et des documents descriptifs du projet. 
 
 == Details ==
 
