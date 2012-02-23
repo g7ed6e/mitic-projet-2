@@ -272,7 +272,8 @@ class DistanceModel {
 // 				}
 // 				$iii--;
 // 			}
-	
+			unset($lines);
+			
 			apc_store("matrix", $matrix);
 		}
 	
@@ -307,6 +308,8 @@ class DistanceModel {
 			}
 			unset($voisins_rang_n_plus_un);
 		}
+		
+		unset($voisins_rang_n);
 	
 		$tousLesPoints = array_unique(array_values($tousLesPoints));
 		// on place le premier point au centre (en 0, 0)
