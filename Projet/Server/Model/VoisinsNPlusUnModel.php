@@ -1,9 +1,17 @@
 <?php
+/*
+ * 
+ * 	Implémentation correspondant au premier contrat d'interface,
+ *  A l'epoque, nous pensions que les valeurs du fichier etaient des distances alorq que c'etait en réalité des scores. 	
+ * 
+ *  Affichage d'un graph interconnecté
+ * 
+ * */
 class VoisinsNPlusUnModel {
 
 	private function getAllDistances(){
 		$res = array();
-		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50bis.txt");
+		$file = file_get_contents(ROOT_DATA_REPOSITORY.SEP."50.txt");
 		$distances = explode("\n", $file);
 
 		foreach ($distances as $distance){
