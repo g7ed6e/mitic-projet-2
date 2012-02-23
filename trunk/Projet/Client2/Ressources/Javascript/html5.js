@@ -263,6 +263,7 @@ function resized(){
 	$("#zoneGraph").get(0).height = $("#main").innerHeight()-$("#zoneGraph").get(0).offsetTop-$("#footer").innerHeight()-10;
 	graphDimension = {"width":$("#zoneGraph").get(0).width, "height": $("#zoneGraph").get(0).height};
 	graphCenter = {"x":$("#zoneGraph").get(0).width / 2, "y": $("#zoneGraph").get(0).height / 2};
+	$("#loading").css("left", graphCenter.x-50+"px").css("top", graphCenter.y-11+$("#zoneGraph").get(0).offsetTop+"px");
 	setArrows();
 }
 
