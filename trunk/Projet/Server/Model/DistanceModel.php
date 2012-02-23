@@ -273,7 +273,7 @@ class DistanceModel {
 // 				$iii--;
 // 			}
 			unset($lines);
-			
+			unset($file_out);
 // 			apc_store("matrix", $matrix);
 // 		}
 	
