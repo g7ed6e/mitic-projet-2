@@ -1,4 +1,8 @@
 <?php
+/*
+ * 
+ * 
+ */
 class ScoreModel {
 
 	public function getAllDistances(){
