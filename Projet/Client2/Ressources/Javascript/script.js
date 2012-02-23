@@ -1,7 +1,7 @@
 var min = 3;
 var max = 100;
 var nbImage = 20;
-var midValue = Math.round((max-min)/2);
+var midValue = Math.round((max-min)/4);
 var hoveredImageId = -1;
 var debugMousePos = false;
 var searchInputDefaultText = "Veuillez saisir un identifiant d'image";
@@ -114,7 +114,9 @@ $(document).ready(function(){
 	 */
 	$("#zoomP").click(function(){
 		if(zoomable){
-			zoom *= 1.5;
+			var ZoomCoeff = 1;
+			if(graph!=null && graph.nodes.length > 40 ) ZoomCoeff = graph.nodes.length/40;
+			zoom *= 1.5*ZoomCoeff;
 			zoomable = false;
 			draw();
 		}
@@ -122,7 +124,9 @@ $(document).ready(function(){
 	$("#zoomM").click(function(){
 		if(zoomable){
 			if(zoom >= 1){
-				zoom *= 0.5;
+				var ZoomCoeff = 1;
+				if(graph!=null && graph.nodes.length > 40 ) ZoomCoeff = graph.nodes.length/40;
+				zoom *= 1/(1.5*ZoomCoeff);
 				zoomable = false;
 				draw();
 			}

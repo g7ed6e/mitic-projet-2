@@ -197,7 +197,7 @@ function request(id, nbNeighbours) {
 function draw() {
 
 	clearGraph();
-
+	
 	//alert(graph.nodes.length);
 	
 	if (graph.nodes.length < 30){
@@ -210,6 +210,9 @@ function draw() {
 	for ( var i in graph.edges)
 		drawEdge(graph.edges[i]);
 
+	if(graph.nodes.length < 30 ) mignatureSize = 50;
+	else mignatureSize = 50*(30/graph.nodes.length);
+	
 	for ( var i in graph.nodes)
 		drawNode(graph.nodes[i]);
 
