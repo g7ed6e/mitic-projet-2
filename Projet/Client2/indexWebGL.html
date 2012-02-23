@@ -102,6 +102,7 @@
 			var hoveredImage = [];var hoveredImageTimers = [];
 			var minScore = 1, maxScore = 0;
 			var contoller = 'score';
+			var action = "";
 			
 			function explodeGraph() {
 				if(!timerEnabled) {
@@ -262,8 +263,11 @@
 				$('body').append("<div id='container'></div>");
 				nextImage = getParameterByName("id") == "" ? 678 : getParameterByName("id");
 				nbVoisins = getParameterByName("n") == "" ? 20 : getParameterByName("n");
-				alert(nbVoisins);
 				controller = getParameterByName("controller") == "" ? "score" : getParameterByName("controller");
+				if(controller == "distance"){
+					action = getParameterByName("action") == "" ? "getDistances" : getParameterByName("action");	
+				}
+				
 				projector = new THREE.Projector();
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
 				camera.position.z = 600;
@@ -379,7 +383,7 @@
 							"controller" : "distance",
 							"id" : id_ref,
 							"nn" : nbVoisins,
-							"action" : "getDistances",
+							"action" : action,
 							"w": window.innerWidth, "h": window.innerHeight,
 						},
 						success : function(data) {

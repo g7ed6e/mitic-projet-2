@@ -34,7 +34,13 @@ if(!empty($_GET['controller']) && !empty($_GET['action'])){
 		case 'distance':
 			$controller = new DistanceController();
 			if($_GET['action'] == 'getDistances'){
-				$controller->getDistances($_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
+				$controller->getDistancesV2($_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
+			}
+			else if ($_GET['action'] == 'getDistances2dDemo'){
+				$controller->getDistances2dDemo($_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
+			}
+			else if ($_GET['action'] == 'getDistances3dDemo'){
+				$controller->getDistances3dDemo($_GET['id'], $_GET['nn'], $_GET['w'], $_GET['h']);
 			}
 			break;
 		default:
