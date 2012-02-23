@@ -166,7 +166,7 @@ class DistanceModel {
 		else{
 			$m = min($i,$j) - 1;
 			$n = (max($i, $j) - min($i, $j)) -1 ;//sizeof($matrix[0]) + 1 - max($i-1,$j-1);
-			return sqrt($matrix[$m][$n]);
+			return isset($matrix[$m][$n]) ? sqrt($matrix[$m][$n]) : 0;
 			//return sqrt($matrix[min($i-1,$j-1)][max($i-1,$j-1)]);
 		}
 	}
@@ -270,7 +270,6 @@ class DistanceModel {
 
 		return array('positions' => $positions, 'liens' => $liens);
 	}
-
 
 	public function getDistances2dDemo($id, $n, $w, $h){
 
