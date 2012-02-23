@@ -114,6 +114,13 @@ $(document).ready(function(){
 	 * gestion du zoom au click
 	 */
 	$("#zoomP").click(function(){
+		zoomPlus();
+	}).button();
+	$("#zoomM").click(function(){
+		zoomMoins();
+	}).button();
+	
+	function zoomPlus(){
 		if(zoomable){
 			var ZoomCoeff = 1;
 			if(graph!=null && graph.nodes.length > 40 ) ZoomCoeff = graph.nodes.length/40;
@@ -121,8 +128,8 @@ $(document).ready(function(){
 			zoomable = false;
 			draw();
 		}
-	}).button();
-	$("#zoomM").click(function(){
+	}
+	function zoomMoins(){
 		if(zoomable){
 			if(zoom >= 1){
 				var ZoomCoeff = 1;
@@ -132,7 +139,7 @@ $(document).ready(function(){
 				draw();
 			}
 		}
-	}).button();
+	}
 	
 	/**
 	 * Cr�ation des btn historique et filtre
