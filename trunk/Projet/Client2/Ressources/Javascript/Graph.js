@@ -172,8 +172,8 @@ function request(id, nbNeighbours) {
 				"id" : id,
 				"nn" : nbNeighbours,
 				"action" : "getDistances",
-				"w" : graphDimension.width,
-				"h" : graphDimension.height
+				"w" : graphDimension.width - 50,
+				"h" : graphDimension.height - 50
 			},
 			success : function(data) {
 				graph.clearNodes();
