@@ -1,6 +1,6 @@
 var min = 3;
-var max = 40;
-var nbImage = 1490;
+var max = 100;
+var nbImage = 20;
 var midValue = Math.round((max-min)/2);
 var hoveredImageId = -1;
 var debugMousePos = false;
@@ -294,6 +294,12 @@ function evenement(object){
 		max = nbImage;
 		$("#topLabelSlider").html(max);
 		$( "#slider" ).slider( "option", "max", max );
+		if (($( "#slider" ).slider( "option", "value"))> max){
+			$( "#slider" ).slider( "option", "value", max );
+			$("#nbNeighboursInput").val(max);
+		}
+		//$("#topLabelSlider").html(max);
+		//$( "#slider" ).slider( "option", "max", max );
 		search();
 	}
 }
@@ -369,7 +375,7 @@ function changeImg(id){
  */
 function wgl(){
 	var idWebGL=$("#searchInput").val();
-	var urlWGL="../Client2/indexWebGL.html?id="+idWebGL;
+	var urlWGL="../Client2/indexWebGL.html?id="+idWebGL+"&controller="+ (algoNPlusUn? "distance" : "score")+"&n="+$("#nbNeighboursInput").val() ;
 	window.open(urlWGL);
 }
 
