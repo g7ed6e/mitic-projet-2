@@ -19,9 +19,9 @@ var nbLoaded = 0;
 
 
 $(document).ready(function(){
-
 	if($("#searchInput").val() == "" )$("#searchInput").val(searchInputDefaultText);
 	loadHistoFromCookie();
+	valMaxSli();
 	
 	/**
 	 * En cas de resized de la fentre on redimensionne la zone 
@@ -273,31 +273,45 @@ function zoomChange(value){
  * @param object
  */
 function evenement(object){
+	
 	if (object.id == 'htm'){
 		if(HTML != true){
+			if (algoNPlusUn){
+				var maxSli = 20;
+			}
+			else {
+				var maxSli = 100;
+			}
 			var nodeId = getHistoCookie().split("|")[getHistoCookie().split("|").length-1];
-			setTransferData($("#nbNeighboursInput").val(), zoom, translateX , translateY, nodeId, algoNPlusUn);
+			setTransferData($("#nbNeighboursInput").val(), zoom, translateX , translateY, nodeId, algoNPlusUn, maxSli);
 			HTML = true;
 			window.open("./index.html","_self");
 		}
 	}
 	if (object.id == 'svg'){
 		if(HTML == true){
+			if (algoNPlusUn){
+				var maxSli = 20;
+			}
+			else {
+				var maxSli = 100;
+			}
 			var nodeId = getHistoCookie().split("|")[getHistoCookie().split("|").length-1];
-			setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn);
+			setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxSli);
 			HTML = false;
 			window.open("./indexSVG.html","_self");
 		}
 	}
 	if (object.id == 'niv1'){
 		algoNPlusUn = false;
-		var maxImg = max;
+		var maxImg = 100;
 		$("#topLabelSlider").html(maxImg);
 		$( "#slider" ).slider( "option", "max", maxImg );
 		if (($( "#slider" ).slider( "option", "value"))> maxImg){
 			$( "#slider" ).slider( "option", "value", maxImg );
 			$("#nbNeighboursInput").val(maxImg);
 		}
+		setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
 		search();
 			
 	}
@@ -310,6 +324,7 @@ function evenement(object){
 			$( "#slider" ).slider( "option", "value", maxImg );
 			$("#nbNeighboursInput").val(maxImg);
 		}
+		setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
 		//$("#topLabelSlider").html(max);
 		//$( "#slider" ).slider( "option", "max", max );
 		search();
@@ -411,5 +426,13 @@ function checkLoading(){
 	if(nbLoaded >= valMax ){
 		zoomable = true;
 		nbLoaded = 0;
+	}
+}
+
+function valMaxSli(){
+	var transferData = getTransferData();
+	if(transferData != ""){
+		resized();
+		max = parseInt(transferData.split("|")[6]);
 	}
 }
