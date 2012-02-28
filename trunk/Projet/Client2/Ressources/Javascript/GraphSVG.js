@@ -222,6 +222,5 @@ function loadFromCookie(){
 		var algoTmp = transferData.split("|")[5];
 		if (algoTmp == "true"){algoNPlusUn = true;}
 		else {algoNPlusUn = false;}
-		//algoNPlusUn = transferData.split("|")[5];
 	}
 }
