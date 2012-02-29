@@ -413,7 +413,7 @@ function loadHistoFromCookie(){
  * @param id
  */
 function changeImg(id){
-	request(id, midValue);
+	request(id, $("#nbNeighboursInput").val(nbV));
 	$("#b1").next("ul").toggle();
 }
 
