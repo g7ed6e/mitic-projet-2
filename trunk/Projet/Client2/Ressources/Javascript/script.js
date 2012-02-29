@@ -311,7 +311,7 @@ function evenement(object){
 			$( "#slider" ).slider( "option", "value", maxImg );
 			$("#nbNeighboursInput").val(maxImg);
 		}
-		setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
+		//setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
 		search();
 			
 	}
@@ -324,7 +324,7 @@ function evenement(object){
 			$( "#slider" ).slider( "option", "value", maxImg );
 			$("#nbNeighboursInput").val(maxImg);
 		}
-		setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
+		//setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
 		//$("#topLabelSlider").html(max);
 		//$( "#slider" ).slider( "option", "max", max );
 		search();
