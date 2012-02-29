@@ -149,6 +149,13 @@ $(document).ready(function(){
 	$(".menu").button().click(function(){
 		$(this).next("ul").toggle();
 	});
+	
+	$(".histo").live("click",function(){
+		var ident = this.id.substring(5);
+		changeImg(ident);
+		$("#searchInput").val(ident);
+		
+	});
 
 });
 
@@ -306,24 +313,32 @@ function evenement(object){
 		algoNPlusUn = false;
 		var maxImg = 100;
 		$("#topLabelSlider").html(maxImg);
-		$( "#slider" ).slider( "option", "max", maxImg );
-		if (($( "#slider" ).slider( "option", "value"))> maxImg){
-			$( "#slider" ).slider( "option", "value", maxImg );
-			$("#nbNeighboursInput").val(maxImg);
-		}
+		$( "#slider" ).slider( "option", "max", 100 );
+
+		$( "#slider" ).slider("value", 	$("#nbNeighboursInput").val() );
+	//	$("#nbNeighboursInput").val(maxImg);
+		
+//		if (($( "#slider" ).slider( "option", "value"))> maxImg){
+//			$( "#slider" ).slider( "option", "value", maxImg );
+//			$("#nbNeighboursInput").val(maxImg);
+//		}
 		//setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
 		search();
 			
 	}
 	if (object.id == 'niv2'){
 		algoNPlusUn = true;
-		var maxImg = nbImage;
+		var maxImg = 20;
+		var nbV = $( "#slider" ).slider("value") > maxImg ? maxImg : $("#nbNeighboursInput").val();
 		$("#topLabelSlider").html(maxImg);
 		$( "#slider" ).slider( "option", "max", maxImg );
-		if (($( "#slider" ).slider( "option", "value"))> maxImg){
-			$( "#slider" ).slider( "option", "value", maxImg );
+		$( "#slider" ).slider( "value", nbV );
+
+		$("#nbNeighboursInput").val(nbV);
+
+		/*if (($( "#slider" ).slider( "option", "value"))> maxImg){
 			$("#nbNeighboursInput").val(maxImg);
-		}
+		}*/
 		//setTransferData($("#nbNeighboursInput").val(), zoom, graphCenter.x , graphCenter.y, nodeId, algoNPlusUn, maxImg);
 		//$("#topLabelSlider").html(max);
 		//$( "#slider" ).slider( "option", "max", max );
@@ -370,7 +385,8 @@ function remplirSearch(object){
 function saveHisto(id){
 	if(addHistoCookie(id)){
 		var img="../Server/index.php?controller=image&action=getImg&id="+id+"&t=50";
-		$('#smenu1').prepend("<li><a href='#' onclick='changeImg("+id+");'><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
+		$('#smenu1').prepend("<li><a href='#' id=\"histo"+id+"\" class=\"histo\"><img src="+img+"><span class='marge'>"+id+"</span></a></li>");
+
 	}
 }
 
@@ -382,8 +398,12 @@ function loadHistoFromCookie(){
 	
 	for(var i in histoFromCookie.split("|")){
 		if(histoFromCookie.split("|")[i] != ""){
-			var img="../Server/index.php?controller=image&action=getImg&id="+histoFromCookie.split("|")[i]+"&t=50";
-			$('#smenu1').prepend("<li><a href='#' onclick='changeImg("+histoFromCookie.split("|")[i]+");'><img src="+img+"><span class='marge'>"+histoFromCookie.split("|")[i]+"</span></a></li>");
+			var ident = histoFromCookie.split("|")[i];
+			var img="../Server/index.php?controller=image&action=getImg&id="+ident+"&t=50";
+			$('#smenu1').prepend("<li><a href='#' id=\"histo"+ident+"\" class=\"histo\"><img src="+img+"><span class='marge'>"+ident+"</span></a></li>");
+
+			
+
 		}
 	}	
 }
